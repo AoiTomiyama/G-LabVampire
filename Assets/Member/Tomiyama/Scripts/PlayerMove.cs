@@ -6,15 +6,22 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField, Header("移動速度")]
     private float _moveSpeed;
+    [SerializeField, Header("使用する武器")]
+    private GameObject[] _weapons;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
-    int _h = 0;
-    int _v = 0;
+    private int _h = 0;
+    private int _v = 0;
+    public static bool _flipX;
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        foreach (var weapon in _weapons)
+        {
+            Instantiate(weapon, transform.position, Quaternion.identity, transform);
+        }
     }
     void Update()
     {
@@ -32,7 +39,7 @@ public class PlayerMove : MonoBehaviour
          * 無入力の場合、0を入れる。
          */
 
-        _sr.flipX = (_h != 0) ? _h == 1 : _sr.flipX;
+        _sr.flipX = _flipX = (_h != 0) ? _h == 1 : _sr.flipX;
         _rb.velocity = _moveSpeed * new Vector2(_h, _v);
     }
 }

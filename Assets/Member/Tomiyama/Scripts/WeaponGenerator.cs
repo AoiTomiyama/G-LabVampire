@@ -1,3 +1,4 @@
+using System.CodeDom.Compiler;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class WeaponGenerator : MonoBehaviour
     private float _attackInterval;
     [SerializeField, Header("射程距離（半径）")]
     private float _reach;
+    [SerializeField, Header("発射個数")]
+    private int _count;
     [SerializeField, Header("生成する武器")]
     private GameObject _weapon;
     [SerializeField, Header("攻撃タイプ")]
@@ -25,27 +28,42 @@ public class WeaponGenerator : MonoBehaviour
         }
         else
         {
+            Generate();
+            _timer = 0;
+        }
+    }
+
+    private void Generate()
+    {
+        var playerPos = transform.position;
+        for (int i = 0; i < _count; i++)
+        {
             if (_attackType == AttackType.NearestEnemy)
             {
-                var targetPos = FindObjectsOfType<EnemyBehaviour>().Where(enemy => Vector2.Distance(transform.position, enemy.transform.position) <= _reach)
-                    .OrderBy(enemy => Vector2.Distance(transform.position, enemy.transform.position))
-                    .First().transform.position;
-                var go = Instantiate(_weapon, transform.position, Quaternion.identity);
-                go.transform.up = (targetPos - transform.position).normalized;
+                var list = FindObjectsOfType<EnemyBehaviour>().Where(enemy => Vector2.Distance(playerPos, enemy.transform.position) <= _reach);
+                if (list.Count() > 0)
+                {
+                    var targetPos = list.OrderBy(enemy => Vector2.Distance(playerPos, enemy.transform.position))
+                        .First().transform.position;
+                    var go = Instantiate(_weapon, playerPos, Quaternion.identity);
+                    go.transform.up = (targetPos - playerPos).normalized;
+                }
             }
             else if (_attackType == AttackType.RandomEnemy)
             {
-                var list = FindObjectsOfType<EnemyBehaviour>().Where(enemy => Vector2.Distance(transform.position, enemy.transform.position) <= _reach).ToList();
-                var targetPos = list[Random.Range(0, list.Count)].transform.position;
-                var go = Instantiate(_weapon, transform.position, Quaternion.identity);
-                go.transform.up = (targetPos - transform.position).normalized;
+                var list = FindObjectsOfType<EnemyBehaviour>().Where(enemy => Vector2.Distance(playerPos, enemy.transform.position) <= _reach).ToList();
+                if (list.Count > 0)
+                {
+                    var targetPos = list[Random.Range(0, list.Count)].transform.position;
+                    var go = Instantiate(_weapon, playerPos, Quaternion.identity);
+                    go.transform.up = (targetPos - playerPos).normalized;
+                }
             }
             else if (_attackType == AttackType.PlayerDirection)
             {
-                var go = Instantiate(_weapon, transform.position, Quaternion.identity);
-                go.transform.up = transform.right;
+                var go = Instantiate(_weapon, playerPos, Quaternion.identity);
+                go.transform.up = PlayerMove._flipX ? Vector2.right : Vector2.left;
             }
-            _timer = 0;
         }
     }
 }

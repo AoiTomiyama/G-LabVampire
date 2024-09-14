@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,10 @@ public class WeaponBase : MonoBehaviour
     private float _attackSpeed;
     [SerializeField, Header("UŒ‚”ÍˆÍi”¼Œaj")]
     private float _attackRange;
+    [SerializeField, Header("ŠÑ’Ê—Í"),Range(1, 10)]
+    private int _piercing;
+
+    private List<EnemyBehaviour> _damagedList = new();
     /// <summary>
     /// UŒ‚—Í‚ğ’è”•ª‘‰Á‚·‚éB
     /// </summary>
@@ -33,9 +38,15 @@ public class WeaponBase : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
+        if (collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour) && _piercing > 0)
         {
-            enemyBehaviour.RemoveHealth(_attackPower + Random.Range(-_damageRange, _damageRange));
+            if (!_damagedList.Contains(enemyBehaviour))
+            {
+                enemyBehaviour.RemoveHealth(_attackPower + Random.Range(-_damageRange, _damageRange));
+                _damagedList.Add(enemyBehaviour);
+                _piercing--;
+            }
+            if (_piercing <= 0) Destroy(gameObject);
         }
     }
 }

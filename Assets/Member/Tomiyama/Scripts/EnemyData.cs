@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Create EnemyData")]
 public class EnemyData : ScriptableObject
 {
+    [SerializeField, Header("“G‚Ì–¼‘O")]
+    private string _name;
     [SerializeField, Header("“G‚Ì‘Ì—Í")]
     private int _maxHealth;
     [SerializeField, Header("“G‚ÌUŒ‚—Í")]
