@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2232026358342781035}
+  - component: {fileID: 5317931313969370925}
   - component: {fileID: 4261453543075292429}
   - component: {fileID: 431570934863030398}
-  - component: {fileID: 3290706948171449725}
   - component: {fileID: 4450038967421246979}
   - component: {fileID: 7754778557248021153}
   m_Layer: 0
@@ -36,6 +36,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5317931313969370925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2411116887355431825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83fc9b4f098def4fa43cc67199ac0d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: 98c72d8ed74ab9c44b3f1f14f71d8500, type: 2}
 --- !u!212 &4261453543075292429
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -103,7 +116,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -115,20 +128,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3290706948171449725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2411116887355431825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f543c9b28ef334cbf19dea40ddb228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 7955526689066313490, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-  _moveSpeed: 2
 --- !u!58 &4450038967421246979
 CircleCollider2D:
   m_ObjectHideFlags: 0
