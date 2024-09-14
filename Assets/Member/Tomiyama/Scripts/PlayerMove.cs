@@ -1,17 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField, Header("ˆÚ“®‘¬“x")]
     private float _moveSpeed;
-    private Rigidbody2D _rb;
 
+    private Rigidbody2D _rb;
+    private SpriteRenderer _sr;
     int _h = 0;
     int _v = 0;
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
@@ -29,6 +32,7 @@ public class PlayerMove : MonoBehaviour
          * –³“ü—Í‚Ìê‡A0‚ğ“ü‚ê‚éB
          */
 
+        _sr.flipX = (_h != 0) ? _h == 1 : _sr.flipX;
         _rb.velocity = _moveSpeed * new Vector2(_h, _v);
     }
 }
