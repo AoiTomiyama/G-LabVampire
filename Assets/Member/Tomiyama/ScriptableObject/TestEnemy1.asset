@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: TestEnemy
   _maxHealth: 20
-  _damage: 0
+  _damage: 5
   _armor: 0
   _moveSpeed: 3
-  _attackSpeed: 0
+  _attackSpeed: 0.5
   _range: 0
   _expProbability: 88
-  _expSize: 1
+  _expSize: 3

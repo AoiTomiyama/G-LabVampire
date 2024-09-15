@@ -9,17 +9,18 @@ public class EnemyBehaviour : MonoBehaviour
     private Rigidbody2D _rb;
     private int _health;
     private float _timer;
-    private bool _isAttacking;
+    private PlayerBehaviour _player;
 
     private void Start()
     {
         _health = _enemyData.MaxHealth;
+        _timer = _enemyData.AttackSpeed;
         _rb = GetComponent<Rigidbody2D>();
         _target = GameObject.FindWithTag("Player").transform;
     }
     private void Update()
     {
-        if (_isAttacking)
+        if (_player != null)
         {
             if (_timer < _enemyData.AttackSpeed)
             {
@@ -27,7 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else
             {
-                _isAttacking = false;
+                _player.RemoveHealth(_enemyData.Damage);
                 _timer = 0;
             }
         }
@@ -47,7 +48,7 @@ public class EnemyBehaviour : MonoBehaviour
             int r = Random.Range(0, 101);
             if (r < _enemyData.ExpProbability && _enemyData.ExpSize != 0)
             {
-                Instantiate(ExpGenerator.Instance.ExpPrefabs[_enemyData.ExpSize], transform.position, Quaternion.identity);
+                Instantiate(ExpGenerator.Instance.ExpPrefabs[(int)_enemyData.ExpSize], transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
         }
@@ -58,10 +59,18 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerBehaviour>(out var playerBehaviour) && !_isAttacking)
+        if (collision.gameObject.TryGetComponent<PlayerBehaviour>(out var playerBehaviour))
         {
-            playerBehaviour.RemoveHealth(_enemyData.Damage);
-            _isAttacking = true;
+            Debug.Log("Player Enter");
+            _player = playerBehaviour;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player Exit");
+            _player = null;
         }
     }
 }
