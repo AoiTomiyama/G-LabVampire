@@ -62,7 +62,7 @@ public class WeaponGenerator : MonoBehaviour
             else if (_attackType == AttackType.PlayerDirection)
             {
                 var go = Instantiate(_weapon, playerPos, Quaternion.identity);
-                go.transform.up = PlayerMove._flipX ? Vector2.right : Vector2.left;
+                go.transform.up = PlayerBehaviour._flipX ? Vector2.right : Vector2.left;
             }
         }
     }

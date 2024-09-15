@@ -8,6 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
     private Transform _target;
     private Rigidbody2D _rb;
     private int _health;
+    private float _timer;
+    private bool _is
 
     private void Start()
     {
@@ -15,7 +17,17 @@ public class EnemyBehaviour : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _target = GameObject.FindWithTag("Player").transform;
     }
+    private void Update()
+    {
+        if (_timer < _enemyData.AttackSpeed)
+        {
+            _timer += Time.deltaTime;
+        }
+        else
+        {
 
+        }
+    }
     private void FixedUpdate()
     {
         if (_target != null)
@@ -23,16 +35,32 @@ public class EnemyBehaviour : MonoBehaviour
             _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed;
         }
     }
-
-    public void RemoveHealth(int attackPower)
+    public void Heal(int value)
     {
-        if (_health + _enemyData.Armor - attackPower <= 0)
+        _health += value;
+    }
+
+    public void RemoveHealth(int damage)
+    {
+        if (_health + _enemyData.Armor - damage <= 0)
         {
+            int r = Random.Range(0, 101);
+            if (r < _enemyData.ExpProbability && _enemyData.ExpSize != 0)
+            {
+                Instantiate(ExpGenerator.Instance.ExpPrefabs[_enemyData.ExpSize], transform.position, Quaternion.identity);
+            }
             Destroy(gameObject);
         }
         else
         {
-            _health -= attackPower - _enemyData.Armor;
+            _health -= damage - _enemyData.Armor;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerBehaviour>(out var playerBehaviour))
+        {
+            playerBehaviour.RemoveHealth(_enemyData.Damage);
         }
     }
 }
