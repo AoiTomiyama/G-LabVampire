@@ -147,11 +147,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
     private void GainExperience(int value)
     {
-        if (_currentLevel - 1 >= _requireExpToNextLevel.Count)
-        {
-            Debug.LogWarning("最大レベルに到達しました。");
-        }
-        else
+        if (_currentLevel - 1 < _requireExpToNextLevel.Count)
         {
             _currentExp += value;
             if (_currentExp > _requireExpToNextLevel[_currentLevel - 1])
@@ -159,14 +155,25 @@ public class PlayerBehaviour : MonoBehaviour
                 _currentExp -= _requireExpToNextLevel[_currentLevel - 1];
                 _currentLevel++;
 
-                _moveSpeed += _levelUpStatusUps[_currentLevel].Speed;
-                _playerAttack += _levelUpStatusUps[_currentLevel].Attack;
-                _playerDefence += _levelUpStatusUps[_currentLevel].Defense;
-                _maxHealth += _levelUpStatusUps[_currentLevel].MaxHP;
+                if (_currentLevel < _levelUpStatusUps.Count)
+                {
+                    _moveSpeed += _levelUpStatusUps[_currentLevel].Speed;
+                    _playerAttack += _levelUpStatusUps[_currentLevel].Attack;
+                    _playerDefence += _levelUpStatusUps[_currentLevel].Defense;
+                    _maxHealth += _levelUpStatusUps[_currentLevel].MaxHP;
+                }
+                else
+                {
+                    Debug.LogWarning("レベルアップ時のステータス上昇量が割り当てられていません");
+                }
 
                 OnLevelUp.Invoke();
                 Debug.Log("レベルアップ！");
             }
+        }
+        else
+        {
+            Debug.LogWarning("最大レベルに到達しました。");
         }
     }
     public void Heal(int value)
