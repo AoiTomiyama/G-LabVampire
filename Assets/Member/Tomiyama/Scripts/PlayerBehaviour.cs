@@ -24,6 +24,8 @@ public class PlayerBehaviour : MonoBehaviour
     private List<GameObject> _items;
     [SerializeField, Header("次のレベルに進むのに必要なEXP")]
     private List<int> _requireExpToNextLevel;
+    [SerializeField, Header("レベルアップ時に増加させるステータス値")]
+    private List<LevelUpStatusUp> _levelUpStatusUps;
     [Space]
 
     [SerializeField, Header("アイテム回収範囲（半径）")]
@@ -130,19 +132,42 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (tag)
                 {
                     case "SmallExp":
-                        _currentExp += _expSmall;
+                        GainExperience(_expSmall);
                         break;
                     case "MediumExp":
-                        _currentExp += _expMedium;
+                        GainExperience(_expMedium);
                         break;
                     case "LargeExp":
-                        _currentExp += _expLarge;
+                        GainExperience(_expLarge);
                         break;
                 }
                 hit.collider.gameObject.SetActive(false);
             }
         }
+    }
+    private void GainExperience(int value)
+    {
+        if (_currentLevel - 1 >= _requireExpToNextLevel.Count)
+        {
+            Debug.LogWarning("最大レベルに到達しました。");
+        }
+        else
+        {
+            _currentExp += value;
+            if (_currentExp > _requireExpToNextLevel[_currentLevel - 1])
+            {
+                _currentExp -= _requireExpToNextLevel[_currentLevel - 1];
+                _currentLevel++;
 
+                _moveSpeed += _levelUpStatusUps[_currentLevel].Speed;
+                _playerAttack += _levelUpStatusUps[_currentLevel].Attack;
+                _playerDefence += _levelUpStatusUps[_currentLevel].Defense;
+                _maxHealth += _levelUpStatusUps[_currentLevel].MaxHP;
+
+                OnLevelUp.Invoke();
+                Debug.Log("レベルアップ！");
+            }
+        }
     }
     public void Heal(int value)
     {
@@ -161,5 +186,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _currentHP -= damage - _playerDefence;
         }
+    }
+    [Serializable]
+    private struct LevelUpStatusUp
+    {
+        public int MaxHP;
+        public int Attack;
+        public int Defense;
+        public int Speed;
     }
 }

@@ -319,6 +319,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9209346454725950698, guid: 60d674174a22900478dfb4e634c65e0a, type: 3}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _requireExpToNextLevel.Array.size
       value: 2
       objectReference: {fileID: 0}
