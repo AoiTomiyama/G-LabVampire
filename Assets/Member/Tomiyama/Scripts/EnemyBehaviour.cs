@@ -9,7 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Rigidbody2D _rb;
     private int _health;
     private float _timer;
-    private bool _is
+    private bool _isAttacking;
 
     private void Start()
     {
@@ -19,13 +19,17 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if (_timer < _enemyData.AttackSpeed)
+        if (_isAttacking)
         {
-            _timer += Time.deltaTime;
-        }
-        else
-        {
-
+            if (_timer < _enemyData.AttackSpeed)
+            {
+                _timer += Time.deltaTime;
+            }
+            else
+            {
+                _isAttacking = false;
+                _timer = 0;
+            }
         }
     }
     private void FixedUpdate()
@@ -34,10 +38,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed;
         }
-    }
-    public void Heal(int value)
-    {
-        _health += value;
     }
 
     public void RemoveHealth(int damage)
@@ -58,9 +58,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerBehaviour>(out var playerBehaviour))
+        if (collision.gameObject.TryGetComponent<PlayerBehaviour>(out var playerBehaviour) && !_isAttacking)
         {
             playerBehaviour.RemoveHealth(_enemyData.Damage);
+            _isAttacking = true;
         }
     }
 }

@@ -19,5 +19,5 @@ MonoBehaviour:
   _moveSpeed: 3
   _attackSpeed: 0
   _range: 0
-  _expProbability: 0
-  _expSize: 0
+  _expProbability: 88
+  _expSize: 1
