@@ -1,18 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Pool;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyGenerator : MonoBehaviour
 {
+    [Header("ObjectPool Settings")]
+    [SerializeField] private GameObject[] _enemyPrefabs;
+    [SerializeField] private Transform _poolPlace;
+    [SerializeField] private int _startCapacity = 50;
+    [SerializeField] private int _maxCapacity = 100;
+
     [SerializeField, Header("îgèÛçUåÇÇÃèÓïÒ")]
-    private EnemyWave[] _enemyWaves;
+    private EnemyWave[] _enemyWaves; 
+
+    private Dictionary<int, ObjectPool<EnemyBehaviour>> _enemyPools;
 
     private BoxCollider2D _boxCollider2d;
-    private float _timer;
     void Start()
     {
+        _poolPlace = _poolPlace != null ? _poolPlace : transform;
+
+        _enemyPools = new Dictionary<int, ObjectPool<EnemyBehaviour>>();
+        for (int i = 0; i < _enemyPrefabs.Length; i++)
+        {
+            var prefab = _enemyPrefabs[i];
+            var key = prefab.GetInstanceID();
+            _enemyPools.Add(key, new ObjectPool<EnemyBehaviour>(() =>
+            {
+                EnemyBehaviour newEnemy = Instantiate(prefab, _poolPlace).GetComponent<EnemyBehaviour>();
+                newEnemy.EnemyPool = _enemyPools[key];
+                newEnemy.transform.SetAsFirstSibling();
+                newEnemy.gameObject.SetActive(false);
+                return newEnemy;
+            },
+            enemy => enemy.gameObject.SetActive(true),
+            enemy => enemy.gameObject.SetActive(false),
+            enemy => Destroy(enemy.gameObject),
+            false, _startCapacity, _maxCapacity));
+
+            for (int j = 0; j < _enemyPools.Count; j++)
+            {
+                var list = new List<EnemyBehaviour>();
+                for (int k = 0; k < _startCapacity; k++)
+                {
+                    list.Add(_enemyPools[key].Get());
+                }
+                list.ForEach(p => _enemyPools[key].Release(p));
+            }
+            Debug.Log("Object Pool Setup Complete");
+        }
         _boxCollider2d = GetComponent<BoxCollider2D>();
         if (_enemyWaves.Length > 0)
         {
@@ -48,10 +87,11 @@ public class EnemyGenerator : MonoBehaviour
                     pos += new Vector2(-_boxCollider2d.size.x / 2, randomY);
                     break;
             }
-            Instantiate(enemies[Random.Range(0, enemies.Length)], pos, Quaternion.identity);
+            int key = enemies[Random.Range(0, enemies.Length)].GetInstanceID();
+            var enemy = _enemyPools[key].Get();
+            enemy.transform.position = pos;
         }
     }
-
     [System.Serializable]
     private class EnemyWave
     {
