@@ -3,31 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+/// <summary>
+/// 自機の情報を管轄するクラス。
+/// </summary>
 public class PlayerBehaviour : MonoBehaviour
 {
+    [Header("----------- ステータス関連 ------------")]
     [SerializeField, Header("移動速度")]
     private float _moveSpeed;
     [SerializeField, Header("プレイヤーの体力")]
     private int _maxHealth = 100;
     [SerializeField, Header("プレイヤーの防御力（基本的には0）")]
-    private int _playerDefence = default;
+    private int _playerDefense = default;
     [SerializeField, Header("プレイヤーの攻撃力（基本的には0）")]
     private int _playerAttack = default;
     [SerializeField, Header("プレイヤーの攻撃速度（基本的には0）")]
     private float _playerAttackSpeed = default;
     [SerializeField, Header("プレイヤーの攻撃範囲（基本的には0）")]
     private float _playerAttackRange = default;
+    [SerializeField, Header("一秒間に回復するHPの量")]
+    private int _playerRegenerationHP;
+    [SerializeField, Header("復活回数")]
+    private int _playerResurrectionCount;
     [SerializeField, Header("使用する武器")]
     private List<GameObject> _weapons;
-    [SerializeField, Header("所持中のアイテム")]
-    private List<GameObject> _items;
-    [SerializeField, Header("次のレベルに進むのに必要なEXP")]
-    private List<int> _requireExpToNextLevel;
-    [SerializeField, Header("レベルアップ時に増加させるステータス値")]
+    [SerializeField, Header("レベルアップに必要なEXPと増加させるステータス値")]
     private List<LevelUpStatusUp> _levelUpStatusUps;
     [Space]
 
+    [Header("----------- 経験値の回収関連 ------------")]
     [SerializeField, Header("アイテム回収範囲（半径）")]
     private float _itemGetRange = 5f;
     [SerializeField, Header("アイテムを引き寄せる力")]
@@ -38,7 +42,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private int _expLarge;
     [SerializeField] private int _expMedium;
     [SerializeField] private int _expSmall;
+    [Space]
 
+    [Header("----------- 特定の条件時に実行する処理 ------------")]
     [Header("ゲームオーバー時の処理")]
     public UnityEvent OnGameOver;
     [Header("レベルアップ時の処理")]
@@ -67,7 +73,11 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>プレイヤー自身の持つ攻撃範囲</summary>
     public float PlayerAttackRange { get => _playerAttackRange; set => _playerAttackRange = value; }
     /// <summary>プレイヤー自身の持つ防御力</summary>
-    public int PlayerDefence { get => _playerDefence; set => _playerDefence = value; }
+    public int PlayerDefense { get => _playerDefense; set => _playerDefense = value; }
+    /// <summary>プレイヤー時針の持つ自己再生量</summary>
+    public int PlayerRegenerationHP { get => _playerRegenerationHP; set => _playerRegenerationHP = value; }
+    /// <summary>プレイヤーの復活回数</summary>
+    public int PlayerResurrectionCount { get => _playerResurrectionCount; set => _playerResurrectionCount = value; }
 
     /// <summary>現在の体力。読み取り専用。</summary>
     public int CurrentHP => _currentHP;
@@ -76,11 +86,13 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>現在のレベル。読み取り専用。</summary>
     public int CurrentLevel => _currentLevel;
 
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
         _currentHP = _maxHealth;
+        StartCoroutine(Regeneration());
         foreach (var weapon in _weapons)
         {
             Instantiate(weapon, transform.position, Quaternion.identity, transform);
@@ -90,6 +102,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Move();
         CollectExp();
+    }
+    /// <summary>
+    /// プレイヤーの体力自動再生。
+    /// </summary>
+    private IEnumerator Regeneration()
+    {
+        yield return new WaitForSeconds(1);
+        Heal(_playerRegenerationHP);
     }
     /// <summary>
     /// プレイヤーの移動処理。
@@ -145,27 +165,24 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 経験値を増加させる。
+    /// </summary>
+    /// <param name="value">増加させる量</param>
     private void GainExperience(int value)
     {
-        if (_currentLevel - 1 < _requireExpToNextLevel.Count)
+        if (_currentLevel - 1 < _levelUpStatusUps.Count)
         {
             _currentExp += value;
-            if (_currentExp > _requireExpToNextLevel[_currentLevel - 1])
+            if (_currentExp > _levelUpStatusUps[_currentLevel - 1].RequireExp)
             {
-                _currentExp -= _requireExpToNextLevel[_currentLevel - 1];
-                _currentLevel++;
+                _currentExp -= _levelUpStatusUps[_currentLevel - 1].RequireExp;
+                _moveSpeed += _levelUpStatusUps[_currentLevel - 1].Speed;
+                _playerAttack += _levelUpStatusUps[_currentLevel - 1].Attack;
+                _playerDefense += _levelUpStatusUps[_currentLevel - 1].Defense;
+                _maxHealth += _levelUpStatusUps[_currentLevel - 1].MaxHP;
 
-                if (_currentLevel < _levelUpStatusUps.Count)
-                {
-                    _moveSpeed += _levelUpStatusUps[_currentLevel].Speed;
-                    _playerAttack += _levelUpStatusUps[_currentLevel].Attack;
-                    _playerDefence += _levelUpStatusUps[_currentLevel].Defense;
-                    _maxHealth += _levelUpStatusUps[_currentLevel].MaxHP;
-                }
-                else
-                {
-                    Debug.LogWarning("レベルアップ時のステータス上昇量が割り当てられていません");
-                }
+                _currentLevel++;
 
                 OnLevelUp.Invoke();
                 Debug.Log("レベルアップ！");
@@ -176,27 +193,52 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogWarning("最大レベルに到達しました。");
         }
     }
+    /// <summary>
+    /// プレイヤーの体力を回復させる。
+    /// </summary>
+    /// <param name="value">回復量</param>
     public void Heal(int value)
     {
         _currentHP = Mathf.Min(value + _currentHP, _maxHealth);
     }
+    /// <summary>
+    /// プレイヤーにダメージを与える。
+    /// </summary>
+    /// <param name="damage">ダメージ量</param>
     public void RemoveHealth(int damage)
     {
         Debug.Log($"Player Take Damage: {damage}");
-        if (_currentHP + _playerDefence - damage <= 0)
+        if (_currentHP + _playerDefense - damage <= 0)
         {
-            Debug.Log("Game Over");
-            OnGameOver.Invoke();
-            Destroy(gameObject);
+            if (_playerResurrectionCount > 0)
+            {
+                Debug.Log("Player Revived");
+                _currentHP = _maxHealth / 2;
+                _playerResurrectionCount--;
+            }
+            else
+            {
+                Death();
+            }
         }
         else
         {
-            _currentHP -= damage - _playerDefence;
+            _currentHP -= damage - _playerDefense;
         }
+    }
+    /// <summary>
+    /// プレイヤー死亡時の処理。
+    /// </summary>
+    private void Death()
+    {
+        Debug.Log("Game Over");
+        OnGameOver.Invoke();
+        Destroy(gameObject);
     }
     [Serializable]
     private struct LevelUpStatusUp
     {
+        public int RequireExp;
         public int MaxHP;
         public int Attack;
         public int Defense;
