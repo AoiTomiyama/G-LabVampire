@@ -63,7 +63,8 @@ public class PlayerBehaviour : MonoBehaviour
     private int _currentExp = 0;
     /// <summary>現在のレベル</summary>
     private int _currentLevel = 1;
-
+    /// <summary>敵の撃破カウント</summary>
+    private static int _playerKillCount;
     public static bool _flipX;
 
     /// <summary>プレイヤー自身の持つ攻撃力</summary>
@@ -78,6 +79,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int PlayerRegenerationHP { get => _playerRegenerationHP; set => _playerRegenerationHP = value; }
     /// <summary>プレイヤーの復活回数</summary>
     public int PlayerResurrectionCount { get => _playerResurrectionCount; set => _playerResurrectionCount = value; }
+    /// <summary>プレイヤーが倒した敵の数</summary>
+    public static int PlayerKillCount { get => _playerKillCount; set => _playerKillCount = value; }
 
     /// <summary>現在の体力。読み取り専用。</summary>
     public int CurrentHP => _currentHP;
@@ -86,12 +89,12 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>現在のレベル。読み取り専用。</summary>
     public int CurrentLevel => _currentLevel;
 
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
         _currentHP = _maxHealth;
+        _playerKillCount = 0;
         StartCoroutine(Regeneration());
         foreach (var weapon in _weapons)
         {
