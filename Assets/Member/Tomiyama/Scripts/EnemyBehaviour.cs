@@ -78,6 +78,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Instantiate(ExpGenerator.Instance.ExpPrefabs[(int)_enemyData.ExpSize], transform.position, Quaternion.identity);
         }
+        //キル数を加算。
+        PlayerBehaviour.PlayerKillCount++;
 
         //オブジェクトをプールに返却
         _enemyPool.Release(this);
