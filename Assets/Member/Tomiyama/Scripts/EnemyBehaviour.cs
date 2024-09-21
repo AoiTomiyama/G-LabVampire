@@ -82,6 +82,10 @@ public class EnemyBehaviour : MonoBehaviour
         PlayerBehaviour.PlayerKillCount++;
 
         //オブジェクトをプールに返却
+        ReturnToPool();
+    }
+    public void ReturnToPool()
+    {
         _enemyPool.Release(this);
     }
     private void OnTriggerEnter2D(Collider2D collision)
