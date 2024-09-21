@@ -82,7 +82,7 @@ public class EnemyGenerator : MonoBehaviour
             }
         }
     }
-    private IEnumerator GenerateDuration(GameObject[] enemies, int startSec, int endSec, int rate)
+    private IEnumerator GenerateDuration(EnemyProbability[] enemies, int startSec, int endSec, int rate)
     {
         float timer = startSec;
         yield return new WaitForSeconds(startSec);
@@ -93,7 +93,7 @@ public class EnemyGenerator : MonoBehaviour
             timer += Time.deltaTime;
         }
     }
-    private IEnumerator GenerateOneShot(GameObject[] enemies, int count, int waitSecond)
+    private IEnumerator GenerateOneShot(EnemyProbability[] enemies, int count, int waitSecond)
     {
         yield return new WaitForSeconds(waitSecond);
         for (int i = 0; i < count; i++)
@@ -101,7 +101,7 @@ public class EnemyGenerator : MonoBehaviour
             Generate(enemies);
         }
     }
-    private void Generate(GameObject[] enemies)
+    private void Generate(EnemyProbability[] enemies)
     {
         int dir = Random.Range(0, 4);
         float randomX = Random.Range(-_boxCollider2d.size.x / 2, _boxCollider2d.size.x / 2);
@@ -122,9 +122,25 @@ public class EnemyGenerator : MonoBehaviour
                 pos += new Vector2(-_boxCollider2d.size.x / 2, randomY);
                 break;
         }
-        int key = enemies[Random.Range(0, enemies.Length)].GetInstanceID();
-        var enemy = _enemyPools[key].Get();
-        enemy.transform.position = pos;
+        int totalProbability = enemies.Sum(e => e._probability);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            if (Random.Range(1, totalProbability) <= enemies[i]._probability || i == enemies.Length - 1)
+            {
+                int key = enemies[i]._enemy.GetInstanceID();
+                var enemy = _enemyPools[key].Get();
+                enemy.transform.position = pos;
+                break;
+            }
+        }
+    }
+    [Serializable]
+    private class EnemyProbability
+    {
+        [Header("敵のPrefabを入れる")]
+        public GameObject _enemy;
+        [Header("生成確率（テーブル内で数値が大きいほど出やすい。）"), Range(0, 100)]
+        public int _probability;
     }
 
     [Serializable]
@@ -137,7 +153,7 @@ public class EnemyGenerator : MonoBehaviour
         [Header("生成個数"), Range(1, 100)]
         public int _count;
         [Header("生成する敵の種類")]
-        public GameObject[] _enemies;
+        public EnemyProbability[] _enemies;
     }
     [Serializable]
     private class EnemyKeepGenerate
@@ -153,6 +169,6 @@ public class EnemyGenerator : MonoBehaviour
         [Header("生成レート（一秒間に生成する量）"), Range(1, 50)]
         public int _rate;
         [Header("生成する敵の種類")]
-        public GameObject[] _enemies;
+        public EnemyProbability[] _enemies;
     }
 }
