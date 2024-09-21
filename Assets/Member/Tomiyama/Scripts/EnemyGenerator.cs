@@ -126,7 +126,8 @@ public class EnemyGenerator : MonoBehaviour
         var enemy = _enemyPools[key].Get();
         enemy.transform.position = pos;
     }
-    [System.Serializable]
+
+    [Serializable]
     private class EnemyWave
     {
         [Header("開始から生成までの秒数"), Range(0, 9)]
@@ -138,7 +139,7 @@ public class EnemyGenerator : MonoBehaviour
         [Header("生成する敵の種類")]
         public GameObject[] _enemies;
     }
-    [System.Serializable]
+    [Serializable]
     private class EnemyKeepGenerate
     {
         [Header("生成開始時間"), Range(0, 9)]
