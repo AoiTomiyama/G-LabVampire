@@ -90,7 +90,7 @@ public class EnemyGenerator : MonoBehaviour
         {
             Generate(enemies);
             yield return new WaitForSeconds(1f / rate);
-            timer += Time.deltaTime;
+            timer += 1f / rate;
         }
     }
     private IEnumerator GenerateOneShot(EnemyProbability[] enemies, int count, int waitSecond)
