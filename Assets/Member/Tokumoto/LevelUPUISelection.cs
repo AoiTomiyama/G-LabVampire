@@ -39,9 +39,14 @@ public class LevelUPUISelection : MonoBehaviour
             GameObject randomObj = _weaponButtons[UnityEngine.Random.Range(0, _weaponButtons.Count)];
             _useWeaponList.Add(randomObj);
             int choiceNum = _weaponButtons.IndexOf(randomObj);
+            Instantiate(randomObj, _levelUpPanel.transform);
             _weaponButtons.RemoveAt(choiceNum);
-            Instantiate(randomObj, _buttonPositions[i]);
         }
 
+    }
+
+    public void CloseLvUPUI()
+    {
+        _levelUpPanel.SetActive(false);
     }
 }
