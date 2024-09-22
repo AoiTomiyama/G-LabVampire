@@ -23,7 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
     public ObjectPool<EnemyBehaviour> EnemyPool { set => _enemyPool = value; }
 
 
-    private void Start()
+    private void OnEnable()
     {
         _health = _enemyData.MaxHealth;
         _timer = _enemyData.AttackSpeed;
