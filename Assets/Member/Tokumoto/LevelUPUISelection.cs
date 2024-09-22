@@ -19,8 +19,6 @@ public class LevelUPUISelection : MonoBehaviour
     {
         _isLevelUp = false;
         _levelUpPanel.SetActive(false);
-
-        LevelUpUI();
     }
     private void Update()
     {
