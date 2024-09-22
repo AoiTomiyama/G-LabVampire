@@ -7,6 +7,7 @@ TagManager:
   - SmallExp
   - MediumExp
   - LargeExp
+  - Enemy
   layers:
   - Default
   - TransparentFX
