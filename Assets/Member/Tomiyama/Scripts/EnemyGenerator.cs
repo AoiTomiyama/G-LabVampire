@@ -37,7 +37,6 @@ public class EnemyGenerator : MonoBehaviour
                 EnemyBehaviour newEnemy = Instantiate(prefab, _poolPlace).GetComponent<EnemyBehaviour>();
                 newEnemy.EnemyPool = _enemyPools[key];
                 newEnemy.transform.SetAsFirstSibling();
-                newEnemy.gameObject.SetActive(false);
                 return newEnemy;
             },
             enemy => enemy.gameObject.SetActive(true),

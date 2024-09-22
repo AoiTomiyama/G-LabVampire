@@ -238,6 +238,15 @@ public class PlayerBehaviour : MonoBehaviour
         OnGameOver.Invoke();
         Destroy(gameObject);
     }
+    /// <summary>
+    /// 武器をプレイヤーのインベントリに追加して生成。
+    /// </summary>
+    /// <param name="weapon">追加する武器</param>
+    public void AddWeapon(GameObject weapon)
+    {
+        Instantiate(weapon, transform.position, Quaternion.identity, transform);
+        _weapons.Add(weapon);
+    }
     [Serializable]
     private struct LevelUpStatusUp
     {
