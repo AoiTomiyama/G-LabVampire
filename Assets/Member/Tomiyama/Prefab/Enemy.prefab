@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 98c72d8ed74ab9c44b3f1f14f71d8500, type: 2}
+  _damageText: {fileID: 2179675562680713850, guid: ddb2927bd6947f9489b7477fa3e04b58, type: 3}
 --- !u!212 &4261453543075292429
 SpriteRenderer:
   m_ObjectHideFlags: 0

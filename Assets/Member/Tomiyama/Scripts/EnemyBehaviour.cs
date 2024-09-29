@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
 /// <summary>
 /// 敵の処理を管轄するクラス。
 /// </summary>
@@ -7,6 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField, Header("敵の種類")]
     private EnemyData _enemyData;
+    [SerializeField, Header("ダメージ表示させるオブジェクト")]
+    private GameObject _damageText;
 
     private Rigidbody2D _rb;
     /// <summary>追跡対象。基本プレイヤー。</summary>
@@ -59,6 +63,16 @@ public class EnemyBehaviour : MonoBehaviour
     /// <param name="damage">ダメージ量</param>
     public void RemoveHealth(int damage)
     {
+        if (_damageText != null)
+        {
+            var go = Instantiate(_damageText, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, FindAnyObjectByType<Canvas>().transform);
+            go.GetComponent<Text>().text = damage.ToString();
+        }
+        else
+        {
+            Debug.LogWarning($"プレファブがアサインされていません！ エラー箇所: {nameof(EnemyBehaviour)}.{nameof(_damageText)}");
+        }
+
         if (_health + _enemyData.Armor - damage <= 0)
         {
             Death();
