@@ -15,6 +15,9 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Animation _anim;
     [SerializeField] float _range;
     [SerializeField] int _count;
+    [Header("AddStats")]
+    [SerializeField] float _addAttack;
+    [SerializeField] float _addAttackSpeed;
 
     float time;
     [Header("プレファブ")]
@@ -51,6 +54,13 @@ public class WeaponManager : MonoBehaviour
             go.transform.up = (targetEnemy.transform.position - playerPos).normalized;
             time = 0;
         }
+    }
+
+    public void LevelUp()
+    {
+        _weaponLevel += 1;
+        _attack += _addAttack;
+        _attackSpeed += _addAttackSpeed;
     }
 
     enum WeaponID { Thunder, Sikigami, JapaneseSword, Naginata, Barrier, Fuda}
