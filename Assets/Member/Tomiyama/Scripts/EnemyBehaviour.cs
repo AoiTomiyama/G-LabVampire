@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
@@ -12,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField, Header("ダメージ表示させるオブジェクト")]
     private GameObject _damageText;
 
+
     private Rigidbody2D _rb;
     /// <summary>追跡対象。基本プレイヤー。</summary>
     private Transform _target;
@@ -21,6 +21,8 @@ public class EnemyBehaviour : MonoBehaviour
     private float _timer;
     /// <summary>対象が接触中かを判定させる。</summary>
     private PlayerBehaviour _player;
+    /// <summary>ダメージ生成先のTransform</summary>
+    public Transform DamageShowPos { set; private get; }
 
     /// <summary>オブジェクトプール</summary>
     private ObjectPool<EnemyBehaviour> _enemyPool;
@@ -65,7 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (_damageText != null)
         {
-            var go = Instantiate(_damageText, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, FindAnyObjectByType<Canvas>().transform);
+            var go = Instantiate(_damageText, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, DamageShowPos);
             go.GetComponent<Text>().text = damage.ToString();
         }
         else
