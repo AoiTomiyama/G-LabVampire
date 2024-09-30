@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 /// <summary>
 /// 自機の情報を管轄するクラス。
 /// </summary>
@@ -27,6 +28,10 @@ public class PlayerBehaviour : MonoBehaviour
     private int _playerResurrectionCount;
     [SerializeField, Header("使用する武器")]
     private List<GameObject> _weapons;
+    [SerializeField, Header("体力ゲージ")]
+    private Image _healthBar;
+    [SerializeField, Header("経験値ゲージ")]
+    private Image _expBar;
     [SerializeField, Header("レベルアップに必要なEXPと増加させるステータス値")]
     private List<LevelUpStatusUp> _levelUpStatusUps;
     [Space]
@@ -179,16 +184,19 @@ public class PlayerBehaviour : MonoBehaviour
             _currentExp += value;
             if (_currentExp > _levelUpStatusUps[_currentLevel - 1].RequireExp)
             {
-                _currentExp -= _levelUpStatusUps[_currentLevel - 1].RequireExp;
+                _currentExp = 0;
                 _moveSpeed += _levelUpStatusUps[_currentLevel - 1].Speed;
                 _playerAttack += _levelUpStatusUps[_currentLevel - 1].Attack;
                 _playerDefense += _levelUpStatusUps[_currentLevel - 1].Defense;
                 _maxHealth += _levelUpStatusUps[_currentLevel - 1].MaxHP;
 
                 _currentLevel++;
-
                 OnLevelUp.Invoke();
                 Debug.Log("レベルアップ！");
+            }
+            if (_currentLevel - 1 < _levelUpStatusUps.Count)
+            {
+                _expBar.fillAmount = 1f * _currentExp / _levelUpStatusUps[_currentLevel - 1].RequireExp;
             }
         }
         else
@@ -203,6 +211,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void Heal(int value)
     {
         _currentHP = Mathf.Min(value + _currentHP, _maxHealth);
+        _healthBar.fillAmount = 1.0f * _currentHP / _maxHealth;
     }
     /// <summary>
     /// プレイヤーにダメージを与える。
@@ -227,6 +236,7 @@ public class PlayerBehaviour : MonoBehaviour
         else
         {
             _currentHP -= damage - _playerDefense;
+            _healthBar.fillAmount = 1.0f * _currentHP / _maxHealth;
         }
     }
     /// <summary>
