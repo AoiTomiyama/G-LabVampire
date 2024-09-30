@@ -9,15 +9,24 @@ public class LevelUPUISelection : MonoBehaviour
 {
     bool _isLevelUp;
     [SerializeField] GameObject _levelUpPanel;
-    [SerializeField] List<GameObject> _weaponButtons;
+    [SerializeField] public List<GameObject> _weaponButtons;
     public List<GameObject> _useWeaponList = new List<GameObject>();
     [SerializeField] List<Transform> _buttonPositions;
     List<Button> _useButton;
+    GameObject _player;
+    WeaponManager _weaponManager;
+    public int _hudaLv = 0;
+    public int _kaminariLv = 0;
+    public int _kekkaiLv = 0;
+    public int _naginataLv = 0;
+    public int _nihontouLv = 0;
+    public int _sikigamiLv = 0;
 
     private void Start()
     {
-        _isLevelUp = true;
         _levelUpPanel.SetActive(false);
+        _player = GameObject.Find("Player");
+        _isLevelUp = true;
     }
     private void Update()
     {
@@ -25,6 +34,11 @@ public class LevelUPUISelection : MonoBehaviour
         {
             _isLevelUp = false;
             LevelUpUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z) && _isLevelUp == false)
+        {
+            _isLevelUp = true;
         }
 
     }
@@ -38,7 +52,10 @@ public class LevelUPUISelection : MonoBehaviour
             GameObject randomObj = _weaponButtons[UnityEngine.Random.Range(0, _weaponButtons.Count)];
             _useWeaponList.Add(randomObj);
             int choiceNum = _weaponButtons.IndexOf(randomObj);
-            Instantiate(randomObj, _levelUpPanel.transform);
+            GameObject obj = Instantiate(randomObj, _levelUpPanel.transform);
+            Button button = obj.GetComponent<Button>();
+            button.onClick.AddListener(CloseUI);
+
             _weaponButtons.RemoveAt(choiceNum);
         }
     }
@@ -46,5 +63,14 @@ public class LevelUPUISelection : MonoBehaviour
     public void CloseUI()
     {
         _levelUpPanel.SetActive(false);
+        _weaponButtons.AddRange(_useWeaponList);
+        _useWeaponList.Clear();
+
+        int children = _levelUpPanel.transform.childCount;
+        for (int i = 0; i < children; i++)
+        {
+            GameObject child = _levelUpPanel.transform.GetChild(i).gameObject;
+            GameObject.Destroy(child);
+        }
     }
 }
