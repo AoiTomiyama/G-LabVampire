@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class TimeManager : MonoBehaviour
     private bool isTimeRunning = false;
 
     public Text timeText;
-
+    public UnityEvent TimeUP;
 
     void Update()
     {
@@ -21,6 +22,7 @@ public class TimeManager : MonoBehaviour
 
             if (currentTime >= timeLimit)
             {
+                TimeUP.Invoke();
                 StopTime();
             }
         }
@@ -44,6 +46,7 @@ public class TimeManager : MonoBehaviour
     {
         return currentTime;
     }
+
 
     // 時間をリセットして再スタート
     public void ResetTime()
