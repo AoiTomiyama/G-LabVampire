@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6574606521265687735}
   - component: {fileID: 6983681117250732882}
   m_Layer: 5
-  m_Name: GetKekkaiButton
+  m_Name: GetNaginataButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6574606521265687735}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7503518209111241962, guid: ddfc83a2f448add4cb72a22758744f3f, type: 3}
+        m_TargetAssemblyTypeName: LevelUPUISelection, Assembly-CSharp
+        m_MethodName: CloseUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3229135932610966684
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +212,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7D50\u754C\n"
+  m_Text: "\u8599\u5200"
 --- !u!1 &6395368034155125786
 GameObject:
   m_ObjectHideFlags: 0

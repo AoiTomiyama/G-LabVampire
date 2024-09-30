@@ -14,18 +14,19 @@ public class LevelUPUISelection : MonoBehaviour
     [SerializeField] List<Transform> _buttonPositions;
     List<Button> _useButton;
 
-
     private void Start()
     {
-        _isLevelUp = false;
+        _isLevelUp = true;
         _levelUpPanel.SetActive(false);
     }
     private void Update()
     {
         if (_isLevelUp)
         {
+            _isLevelUp = false;
             LevelUpUI();
         }
+
     }
     public void LevelUpUI()
     {
@@ -33,17 +34,16 @@ public class LevelUPUISelection : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            //weaopnButtonsから1とつランダムで選ぶ
+            //weaopnButtonsから1つランダムで選ぶ
             GameObject randomObj = _weaponButtons[UnityEngine.Random.Range(0, _weaponButtons.Count)];
             _useWeaponList.Add(randomObj);
             int choiceNum = _weaponButtons.IndexOf(randomObj);
             Instantiate(randomObj, _levelUpPanel.transform);
             _weaponButtons.RemoveAt(choiceNum);
         }
-
     }
 
-    public void CloseLvUPUI()
+    public void CloseUI()
     {
         _levelUpPanel.SetActive(false);
     }
