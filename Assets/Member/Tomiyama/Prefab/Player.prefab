@@ -182,17 +182,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69124d0f58914db47b95feba659e55d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefabs: []
+  _enemyPrefabs:
+  - {fileID: 2411116887355431825, guid: 28fa1cfd2405e33409d5d1498dcf45d1, type: 3}
   _poolPlace: {fileID: 0}
-  _startCapacity: 50
-  _maxCapacity: 100
-  _enemyKeepGenerates: []
+  _startCapacity: 250
+  _maxCapacity: 500
+  _enemyKeepGenerates:
+  - _startMinutes: 0
+    _startSeconds: 0
+    _endMinutes: 0
+    _endSeconds: 10
+    _rate: 10
+    _enemies:
+    - _enemy: {fileID: 2411116887355431825, guid: 28fa1cfd2405e33409d5d1498dcf45d1, type: 3}
+      _probability: 0
   _enemyWaves:
   - _minutes: 0
     _seconds: 3
     _count: 20
     _enemies:
-    - _enemy: {fileID: 0}
+    - _enemy: {fileID: 2411116887355431825, guid: 28fa1cfd2405e33409d5d1498dcf45d1, type: 3}
+      _probability: 0
+  - _minutes: 0
+    _seconds: 20
+    _count: 100
+    _enemies:
+    - _enemy: {fileID: 2411116887355431825, guid: 28fa1cfd2405e33409d5d1498dcf45d1, type: 3}
       _probability: 0
 --- !u!1 &3497634014469644560
 GameObject:
@@ -480,16 +495,34 @@ MonoBehaviour:
   _playerAttackRange: 0
   _playerRegenerationHP: 0
   _playerResurrectionCount: 0
-  _weapons: []
-  _levelUpStatusUps: []
+  _weapons:
+  - {fileID: 9209346454725950698, guid: 60d674174a22900478dfb4e634c65e0a, type: 3}
+  _healthBar: {fileID: 0}
+  _expBar: {fileID: 0}
+  _levelUpStatusUps:
+  - RequireExp: 100
+    MaxHP: 20
+    Attack: 0
+    Defense: 0
+    Speed: 3
+  - RequireExp: 500
+    MaxHP: 20
+    Attack: 0
+    Defense: 0
+    Speed: 3
+  - RequireExp: 300
+    MaxHP: 20
+    Attack: 0
+    Defense: 0
+    Speed: 3
   _itemGetRange: 5
-  _pullPower: 0
+  _pullPower: 0.1
   _layer:
     serializedVersion: 2
-    m_Bits: 0
-  _expLarge: 0
-  _expMedium: 0
-  _expSmall: 0
+    m_Bits: 128
+  _expLarge: 10
+  _expMedium: 5
+  _expSmall: 3
   OnGameOver:
     m_PersistentCalls:
       m_Calls:

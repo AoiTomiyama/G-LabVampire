@@ -14,6 +14,7 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField] private Transform _poolPlace;
     [SerializeField] private int _startCapacity = 50;
     [SerializeField] private int _maxCapacity = 100;
+    [SerializeField] private Transform _damageGeneratePos;
 
     [SerializeField, Header("åpë±ê∂ê¨ÇÃèÓïÒ")]
     private EnemyKeepGenerate[] _enemyKeepGenerates;
@@ -35,6 +36,7 @@ public class EnemyGenerator : MonoBehaviour
             _enemyPools.Add(key, new ObjectPool<EnemyBehaviour>(() =>
             {
                 EnemyBehaviour newEnemy = Instantiate(prefab, _poolPlace).GetComponent<EnemyBehaviour>();
+                newEnemy.DamageShowPos = _damageGeneratePos;
                 newEnemy.EnemyPool = _enemyPools[key];
                 newEnemy.transform.SetAsFirstSibling();
                 return newEnemy;
