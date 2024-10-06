@@ -6,48 +6,48 @@ using UnityEngine.UI;
 public class MapScroll : MonoBehaviour
 {
     // プレイヤーのTransform
-    public Transform Player;
+    public Transform _Player;
     // 背景として使うImage (RawImage)
-    public RawImage BackGroundImage;
+    public RawImage _BackGroundImage;
     // カメラのTransform
-    public Transform CameraTransform;
+    public Transform _CameraTransform;
     // カメラのオフセット
-    public Vector3 CameraOffset = new Vector3(0, 0, -10);
+    public Vector3 _CameraOffset = new Vector3(0, 0, -10);
 
-    // スクロール速度（パララックス効果）
+    // 座標をスクロールするためのスケール
+    [SerializeField] private Vector2 _scrollScale = new Vector2(0.1f, 0.1f);
+    // スクロール速度
     [SerializeField] private float _scrollspeed = 0.5f;
 
     private Vector2 _startPos;
     private Vector2 _backgroundSize;
     private Vector3 _beforePlayerPosition;
 
-
     public float Num { get; private set; } = 1.0f;
 
     void Start()
     {
         // 背景画像のサイズを取得
-        _startPos = BackGroundImage.uvRect.position;
-        _backgroundSize = BackGroundImage.rectTransform.rect.size;
-        _beforePlayerPosition = Player.position;
+        _startPos = _BackGroundImage.uvRect.position;
+        _backgroundSize = _BackGroundImage.rectTransform.rect.size;
+        _beforePlayerPosition = _Player.position;
     }
 
     void Update()
     {
         // 1フレーム前と現在のプレイヤー座標の差を求める
-        Vector2 diffPosition = Player.position - _beforePlayerPosition;
+        Vector2 diffPosition = _Player.position - _beforePlayerPosition;
 
         // プレイヤーの移動に応じて背景をスクロールさせる
-        //Vector2 offset = new Vector2(Player.position.x * scrollspeed, Player.position.y * scrollspeed);
-        Vector2 offset = diffPosition * _scrollspeed;
+        Vector2 offset = diffPosition * _scrollScale;
 
         // 背景のUV座標を変更してスクロールさせる
-        BackGroundImage.uvRect = new Rect(BackGroundImage.uvRect.position + offset, BackGroundImage.uvRect.size);
+        _BackGroundImage.uvRect = new Rect(_BackGroundImage.uvRect.position + offset, _BackGroundImage.uvRect.size);
 
         // カメラがプレイヤーを追従する
-        CameraTransform.position = Player.position + CameraOffset;
+        _CameraTransform.position = _Player.position + _CameraOffset;
 
         // 現在のプレイヤー座標を保存する
-        _beforePlayerPosition = Player.position;
+        _beforePlayerPosition = _Player.position;
     }
 }
