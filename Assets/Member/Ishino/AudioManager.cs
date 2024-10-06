@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,7 +8,11 @@ public class AudioManager : MonoBehaviour
 {
 
     public AudioClip[] bgmClips; // シーンごとに再生するBGMを格納する配列
-    public AudioClip[] seClips; //seを格納する配列
+
+    [SerializeField, Header("SEの素材")]
+    private SeStruct[] seClips;//seを格納する配列
+    private Dictionary<SE, AudioClip> _seClipDictionary;//seの辞書
+
     public AudioSource seSource;//seを流すAudioSouse
     public AudioSource audioSource;//BGMを流すAudioSouse
 
@@ -30,6 +37,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列を指定しやすいように辞書型に変換
         SceneManager.sceneLoaded += OnSceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
     }
 
@@ -53,11 +61,15 @@ public class AudioManager : MonoBehaviour
     /// SEを再生する
     /// </summary>
     /// <param name="seID"></param>
-    public void PlaySE(int seID)
+    public void PlaySE(SE seType)
     {
-        if (seID < seClips.Length && seClips[seID] != null)
+        if (_seClipDictionary.ContainsKey(seType))
         {
-            seSource.PlayOneShot(seClips[seID]);
+            audioSource.PlayOneShot(_seClipDictionary[seType]);
+        }
+        else
+        {
+            Debug.LogError("未割り当てのSEが呼び出されました");
         }
     }
 
@@ -73,5 +85,22 @@ public class AudioManager : MonoBehaviour
             audioSource.clip = newClip;
             audioSource.Play();
         }
+    }
+    public enum SE
+    {
+        None,
+        EnemyDamage,
+        PlayerDamage,
+        IconPush,
+        Katana,
+        Naginata,
+        Shikigami,
+        Thunder
+    }
+    [Serializable]
+    private struct SeStruct
+    {
+        public SE seType;
+        public AudioClip clip;
     }
 }

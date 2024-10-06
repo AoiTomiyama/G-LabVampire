@@ -16,7 +16,7 @@ public class TimeManager : MonoBehaviour
     {
         if (isTimeRunning)
         {
-            currentTime += Time.deltaTime; 
+            currentTime += Time.deltaTime;
 
             UpdateTimeText();
 
@@ -37,7 +37,6 @@ public class TimeManager : MonoBehaviour
     // ŽžŠÔ‚ð’âŽ~‚·‚é
     public void StopTime()
     {
-        Debug.Log("ŽžŠÔ‚ðŽ~‚ß‚é");
         isTimeRunning = false;
     }
 
