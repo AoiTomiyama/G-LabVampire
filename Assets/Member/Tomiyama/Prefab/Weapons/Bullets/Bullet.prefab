@@ -135,6 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackPower: 5
   _damageRange: 1
-  _piercing: 10
-  _weaponType: 0
+  _piercing: 2
+  _weaponType: 1
   _bulletSpeed: 0.5
