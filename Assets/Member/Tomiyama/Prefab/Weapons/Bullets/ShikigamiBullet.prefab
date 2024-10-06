@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2621304996904775773}
   - component: {fileID: 6286172859300870010}
   - component: {fileID: 6076776996945749660}
-  - component: {fileID: 6681528739141528182}
+  - component: {fileID: -5849354787294843954}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: ShikigamiBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.21133333}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &6681528739141528182
+--- !u!114 &-5849354787294843954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

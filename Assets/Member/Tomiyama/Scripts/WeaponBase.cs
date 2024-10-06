@@ -12,29 +12,22 @@ public class WeaponBase : MonoBehaviour
     private int _attackPower;
     [SerializeField, Header("ƒ_ƒ[ƒW‚ÌU‚ê•")]
     private int _damageRange;
-    [SerializeField, Header("UŒ‚•p“x")]
-    private float _attackSpeed;
-    [SerializeField, Header("UŒ‚”ÍˆÍi”¼Œaj")]
-    private float _attackRange;
     [SerializeField, Header("ŠÑ’Ê—Í"),Range(1, 10)]
     private int _piercing;
+    [SerializeField, Header("•Šíƒ^ƒCƒv")]
+    private WeaponType _weaponType;
+    [SerializeField, Header("’e‘¬")]
+    private float _bulletSpeed;
 
     private List<EnemyBehaviour> _damagedList = new();
-    /// <summary>
-    /// UŒ‚—Í‚ğ’è”•ª‘‰Á‚·‚éB
-    /// </summary>
-    /// <param name="attackPower">‘‰Á‚³‚¹‚é—Ê</param>
-    public void Upgrade(int attackPower)
+    private void FixedUpdate()
     {
-        _attackPower += attackPower;
-    }
-    /// <summary>
-    /// UŒ‚—Í‚ğŠ„‡‚Å‘‰Á‚·‚éB
-    /// </summary>
-    /// <param name="attackMultiplier">‘‰Á‚³‚¹‚éŠ„‡</param>
-    public void Upgrade(float attackMultiplier = 1f)
-    {
-        _attackPower = Mathf.FloorToInt(_attackPower * attackMultiplier);
+        switch (_weaponType)
+        {
+            case WeaponType.Shikigami:
+                transform.position += transform.up * _bulletSpeed;
+                break;
+        }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
