@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1662329454908394185}
   - component: {fileID: 9035662532799867481}
   m_Layer: 0
-  m_Name: TestWeaponCore
+  m_Name: NaginataCore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,5 +47,5 @@ MonoBehaviour:
   _attackInterval: 0.7
   _reach: 30
   _count: 1
-  _weapon: {fileID: 278691971743201708, guid: 6c8ee8ed565ca064d8888aece1f64894, type: 3}
+  _weapon: {fileID: 278691971743201708, guid: d21ff55c3493d0442ac23e952ab1d9d5, type: 3}
   _attackType: 0

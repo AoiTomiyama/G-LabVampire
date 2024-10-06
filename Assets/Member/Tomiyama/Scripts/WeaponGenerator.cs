@@ -1,4 +1,3 @@
-using System.CodeDom.Compiler;
 using System.Linq;
 using UnityEngine;
 
@@ -10,14 +9,14 @@ public class WeaponGenerator : MonoBehaviour
 {
     [SerializeField, Header("攻撃頻度")]
     private float _attackInterval;
-    [SerializeField, Header("射程距離（半径）")]
-    private float _reach;
     [SerializeField, Header("発射個数")]
     private int _count;
     [SerializeField, Header("生成する武器")]
     private GameObject _weapon;
     [SerializeField, Header("攻撃タイプ")]
     private AttackType _attackType;
+    [SerializeField, Header("武器タイプ")]
+    private WeaponType _weaponType;
 
     private float _timer;
     private void Update()
@@ -40,7 +39,7 @@ public class WeaponGenerator : MonoBehaviour
         {
             if (_attackType == AttackType.NearestEnemy)
             {
-                var list = FindObjectsOfType<EnemyBehaviour>().Where(enemy => Vector2.Distance(playerPos, enemy.transform.position) <= _reach);
+                var list = FindObjectsOfType<EnemyBehaviour>();
                 if (list.Count() > 0)
                 {
                     var targetPos = list.OrderBy(enemy => Vector2.Distance(playerPos, enemy.transform.position))
@@ -51,10 +50,10 @@ public class WeaponGenerator : MonoBehaviour
             }
             else if (_attackType == AttackType.RandomEnemy)
             {
-                var list = FindObjectsOfType<EnemyBehaviour>().Where(enemy => Vector2.Distance(playerPos, enemy.transform.position) <= _reach).ToList();
-                if (list.Count > 0)
+                var list = FindObjectsOfType<EnemyBehaviour>();
+                if (list.Count() > 0)
                 {
-                    var targetPos = list[Random.Range(0, list.Count)].transform.position;
+                    var targetPos = list[Random.Range(0, list.Count())].transform.position;
                     var go = Instantiate(_weapon, playerPos, Quaternion.identity);
                     go.transform.up = (targetPos - playerPos).normalized;
                 }
@@ -67,10 +66,19 @@ public class WeaponGenerator : MonoBehaviour
         }
     }
 }
-public enum AttackType
+enum AttackType
 {
     NearestEnemy,
     RandomEnemy,
     PlayerDirection,
     Passive,
+}
+public enum WeaponType
+{
+    Thunder,
+    Shikigami,
+    Fuda,
+    Shield,
+    Naginata,
+    Katana,
 }
