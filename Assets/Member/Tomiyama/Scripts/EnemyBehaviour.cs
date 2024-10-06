@@ -11,8 +11,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField, Header("ダメージ表示させるオブジェクト")]
     private GameObject _damageText;
 
-
+    private SpriteRenderer _sr;
     private Rigidbody2D _rb;
+
     /// <summary>追跡対象。基本プレイヤー。</summary>
     private Transform _target;
     /// <summary>現在の残り体力。</summary>
@@ -33,6 +34,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         _health = _enemyData.MaxHealth;
         _timer = _enemyData.AttackSpeed;
+        _sr = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _target = GameObject.FindWithTag("Player").transform;
     }
@@ -55,7 +57,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (_target != null)
         {
-            _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed;
+            _sr.flipX = (transform.position - _target.transform.position).x < 0;
+            _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed * Time.fixedDeltaTime;
         }
     }
 
