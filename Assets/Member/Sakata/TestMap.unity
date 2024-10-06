@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 366700775}
   - component: {fileID: 366700774}
   m_Layer: 0
-  m_Name: MapGenerater
+  m_Name: MapScroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,11 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f490a4a555b0c34bb647381f270ff1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPrefab: {fileID: 7390948419081806840, guid: 31c26124b09eac942aeafa81680fd491, type: 3}
   player: {fileID: 2122075777}
-  mainCamera: {fileID: 2067914748}
-  tileSize: 10
-  Distance: 0.9
+  backgroundImage: {fileID: 0}
+  parallaxEffectMultiplier: 0.5
+  cameraTransform: {fileID: 0}
+  cameraOffset: {x: 0, y: 0, z: -10}
 --- !u!4 &366700775
 Transform:
   m_ObjectHideFlags: 0
