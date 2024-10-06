@@ -59,6 +59,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _sr.flipX = (transform.position - _target.transform.position).x < 0;
             _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed * Time.fixedDeltaTime;
+            if (transform.position.y < _target.position.y)
+            {
+                _sr.sortingOrder = 1;
+            }
+            else
+            {
+                _sr.sortingOrder = -1;
+            }
         }
     }
 
@@ -78,13 +86,13 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.LogWarning($"プレファブがアサインされていません！ エラー箇所: {nameof(EnemyBehaviour)}.{nameof(_damageText)}");
         }
 
-        if (_health + _enemyData.Armor - damage <= 0)
+        if (_health - damage <= 0)
         {
             Death();
         }
         else
         {
-            _health -= damage - _enemyData.Armor;
+            _health -= damage;
         }
     }
     /// <summary>

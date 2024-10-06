@@ -8,24 +8,26 @@ using UnityEngine.UI;
 /// </summary>
 public class WeaponBase : MonoBehaviour
 {
-    [SerializeField, Header("攻撃力")]
-    private int _attackPower;
-    [SerializeField, Header("ダメージの振れ幅")]
-    private int _damageRange;
-    [SerializeField, Header("貫通力"),Range(1, 10)]
+    [SerializeField, Header("貫通力"), Range(1, 20)]
     private int _piercing;
-    [SerializeField, Header("武器タイプ")]
-    private WeaponType _weaponType;
-    [SerializeField, Header("弾速")]
-    private float _bulletSpeed;
+    /// <summary>プレイヤーのステータスを取得。</summary>
+    private PlayerBehaviour _playerBehaviour;
+    /// <summary>武器ジェネレータのパラメータを取得。</summary>
+    private WeaponGenerator _weaponGenerator;
+    public WeaponGenerator WeaponGenerator { set =>  _weaponGenerator = value; }
+
+    private void Start()
+    {
+        _playerBehaviour = FindObjectOfType<PlayerBehaviour>();
+    }
 
     private List<EnemyBehaviour> _damagedList = new();
     private void FixedUpdate()
     {
-        switch (_weaponType)
+        switch (_weaponGenerator.WeaponType)
         {
             case WeaponType.Shikigami:
-                transform.position += transform.up * _bulletSpeed;
+                transform.position += transform.up * _weaponGenerator.BulletSpeed;
                 break;
         }
     }
@@ -35,7 +37,7 @@ public class WeaponBase : MonoBehaviour
         {
             if (!_damagedList.Contains(enemyBehaviour))
             {
-                enemyBehaviour.RemoveHealth(_attackPower + Random.Range(-_damageRange, _damageRange));
+                enemyBehaviour.RemoveHealth(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange));
                 _damagedList.Add(enemyBehaviour);
                 _piercing--;
             }
