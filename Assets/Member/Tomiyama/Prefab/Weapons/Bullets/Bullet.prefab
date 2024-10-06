@@ -133,8 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8f738f07ebd7d478cba2ab2c6729d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackPower: 5
-  _damageRange: 1
-  _piercing: 10
-  _weaponType: 0
-  _bulletSpeed: 0.5
+  _piercing: 5

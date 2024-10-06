@@ -189,6 +189,10 @@ public class PlayerBehaviour : MonoBehaviour
                 _playerAttack += _levelUpStatusUps[_currentLevel - 1].Attack;
                 _playerDefense += _levelUpStatusUps[_currentLevel - 1].Defense;
                 _maxHealth += _levelUpStatusUps[_currentLevel - 1].MaxHP;
+                if (_levelUpStatusUps[_currentLevel - 1].MaxHP > 0)
+                {
+                    _currentHP = _maxHealth;
+                }
 
                 _currentLevel++;
                 OnLevelUp.Invoke();
