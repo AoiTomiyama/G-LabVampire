@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67123f8133c5da4fa7b443166385a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: 98c72d8ed74ab9c44b3f1f14f71d8500, type: 2}
+  _enemyData: {fileID: 11400000, guid: 2ed2b8b3daa2ecd429951d6b84eb3043, type: 2}
   _damageText: {fileID: 2179675562680713850, guid: ddb2927bd6947f9489b7477fa3e04b58, type: 3}
 --- !u!212 &4261453543075292429
 SpriteRenderer:
