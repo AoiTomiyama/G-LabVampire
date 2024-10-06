@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c74b46bab08c04da924a8b031de11c, type: 3}
-  m_Name: TestEnemy1
+  m_Name: Yurei
   m_EditorClassIdentifier: 
-  _name: TestEnemy
-  _maxHealth: 20
-  _damage: 5
+  _name: Yurei
+  _maxHealth: 3
+  _damage: 2
   _armor: 0
-  _moveSpeed: 3
+  _moveSpeed: 150
   _attackSpeed: 0.5
   _range: 0
-  _expProbability: 88
-  _expSize: 3
+  _expProbability: 70
+  _expSize: 1

@@ -16,14 +16,14 @@ public class AudioManager : MonoBehaviour
     public AudioSource seSource;//seを流すAudioSouse
     public AudioSource audioSource;//BGMを流すAudioSouse
 
-    public static AudioManager instance;//シングルトンで管理。シングルトンは一つだけしか存在しないオブジェクトのこと
+    public static AudioManager Instance;//シングルトンで管理。シングルトンは一つだけしか存在しないオブジェクトのこと
 
     void Awake()
     {
         // インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);  // このオブジェクトを壊さない
         }
         else
@@ -37,7 +37,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列を指定しやすいように辞書型に変換
+        _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列tを指定しやすいように辞書型に変換
         SceneManager.sceneLoaded += OnSceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
     }
 

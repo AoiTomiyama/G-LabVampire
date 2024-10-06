@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c74b46bab08c04da924a8b031de11c, type: 3}
-  m_Name: TestEnemy7
+  m_Name: Chochin
   m_EditorClassIdentifier: 
-  _name: TestEnemy
-  _maxHealth: 20
+  _name: Chochin
+  _maxHealth: 5
   _damage: 5
   _armor: 0
-  _moveSpeed: 3
+  _moveSpeed: 80
   _attackSpeed: 0.5
   _range: 0
-  _expProbability: 88
-  _expSize: 3
+  _expProbability: 80
+  _expSize: 1
