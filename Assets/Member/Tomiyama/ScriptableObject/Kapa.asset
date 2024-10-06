@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c74b46bab08c04da924a8b031de11c, type: 3}
-  m_Name: TestEnemy6
+  m_Name: Kapa
   m_EditorClassIdentifier: 
-  _name: TestEnemy
-  _maxHealth: 20
+  _name: Kapa
+  _maxHealth: 12
   _damage: 5
   _armor: 0
   _moveSpeed: 3
