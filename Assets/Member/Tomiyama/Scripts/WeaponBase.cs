@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,20 +9,20 @@ using UnityEngine.UI;
 /// </summary>
 public class WeaponBase : MonoBehaviour
 {
-    [SerializeField, Header("貫通力"), Range(1, 20)]
-    private int _piercing;
+    [SerializeField, Header("敵を貫通するかどうか")]
+    private bool _isPierceEnemy;
     /// <summary>プレイヤーのステータスを取得。</summary>
     private PlayerBehaviour _playerBehaviour;
     /// <summary>武器ジェネレータのパラメータを取得。</summary>
     private WeaponGenerator _weaponGenerator;
     public WeaponGenerator WeaponGenerator { set =>  _weaponGenerator = value; }
+    private Dictionary<EnemyBehaviour, float> _damagedDic = new();
 
     private void Start()
     {
         _playerBehaviour = FindObjectOfType<PlayerBehaviour>();
     }
 
-    private List<EnemyBehaviour> _damagedList = new();
     private void FixedUpdate()
     {
         switch (_weaponGenerator.WeaponType)
@@ -29,19 +30,47 @@ public class WeaponBase : MonoBehaviour
             case WeaponType.Shikigami:
                 transform.position += transform.up * _weaponGenerator.BulletSpeed;
                 break;
+            case WeaponType.Shield:
+                foreach (var key in _damagedDic.Keys.ToList())
+                {
+                    if (_damagedDic[key] >= _weaponGenerator.AttackInterval)
+                    {
+                        key.RemoveHealth(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange));
+                        if (!key.gameObject.activeSelf)
+                        {
+                            _damagedDic.Remove(key);
+                        }
+                        else
+                        {
+                            _damagedDic[key] = 0;
+                        }
+                    }
+                    else
+                    {
+                        _damagedDic[key] += Time.deltaTime;
+                    }
+                }
+                break;
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour) && _piercing > 0)
+        if (collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
         {
-            if (!_damagedList.Contains(enemyBehaviour))
+            if (!_damagedDic.ContainsKey(enemyBehaviour))
             {
                 enemyBehaviour.RemoveHealth(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange));
-                _damagedList.Add(enemyBehaviour);
-                _piercing--;
+                _damagedDic.Add(enemyBehaviour, 0f);
+
+                if (!_isPierceEnemy) Destroy(gameObject);
             }
-            if (_piercing <= 0) Destroy(gameObject);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
+        {
+            _damagedDic.Remove(enemyBehaviour);
         }
     }
 }

@@ -108,9 +108,11 @@ public class EnemyBehaviour : MonoBehaviour
         //キル数を加算。
         PlayerBehaviour.PlayerKillCount++;
 
-        //オブジェクトをプールに返却
         ReturnToPool();
     }
+    /// <summary>
+    /// オブジェクトをプールに返却
+    /// </summary>
     public void ReturnToPool()
     {
         _enemyPool.Release(this);

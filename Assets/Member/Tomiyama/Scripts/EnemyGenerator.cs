@@ -12,9 +12,9 @@ public class EnemyGenerator : MonoBehaviour
     [Header("ObjectPool Settings")]
     [SerializeField] private GameObject[] _enemyPrefabs;
     [SerializeField] private Transform _poolPlace;
+    [SerializeField] private Transform _damageGeneratePos;
     [SerializeField] private int _startCapacity = 50;
     [SerializeField] private int _maxCapacity = 100;
-    [SerializeField] private Transform _damageGeneratePos;
 
     [SerializeField, Header("継続生成の情報")]
     private EnemyKeepGenerate[] _enemyKeepGenerates;
@@ -28,24 +28,36 @@ public class EnemyGenerator : MonoBehaviour
     {
         _poolPlace = _poolPlace != null ? _poolPlace : transform;
 
+        //複数のプールを管理する辞書を作成。
         _enemyPools = new Dictionary<int, ObjectPool<EnemyBehaviour>>();
+
         for (int i = 0; i < _enemyPrefabs.Length; i++)
         {
             var prefab = _enemyPrefabs[i];
-            var key = prefab.GetInstanceID();
+
+            //オブジェクトのインスタンスIDをキーとすることで固有のキーを作成。
+            var key = prefab.GetInstanceID(); 
+
             _enemyPools.Add(key, new ObjectPool<EnemyBehaviour>(() =>
             {
+                //プールにオブジェクトを新しく生成。
                 EnemyBehaviour newEnemy = Instantiate(prefab, _poolPlace).GetComponent<EnemyBehaviour>();
                 newEnemy.DamageShowPos = _damageGeneratePos;
                 newEnemy.EnemyPool = _enemyPools[key];
                 newEnemy.transform.SetAsFirstSibling();
+
+                //プール内に参照を保存。
                 return newEnemy;
             },
+            //プール内のオブジェクトをアクティブ化。
             enemy => enemy.gameObject.SetActive(true),
+            //プール内のオブジェクトを非アクティブ化。
             enemy => enemy.gameObject.SetActive(false),
+            //プール内のオブジェクトを破棄。
             enemy => Destroy(enemy.gameObject),
             false, _startCapacity, _maxCapacity));
 
+            //シーンの初めに大量に生成してプール内を満たす。
             for (int j = 0; j < _enemyPools.Count; j++)
             {
                 var list = new List<EnemyBehaviour>();
@@ -57,6 +69,7 @@ public class EnemyGenerator : MonoBehaviour
             }
             Debug.Log("Object Pool Setup Complete");
         }
+
         _boxCollider2d = GetComponent<BoxCollider2D>();
         if (_enemyWaves.Length > 0)
         {
@@ -72,8 +85,10 @@ public class EnemyGenerator : MonoBehaviour
             {
                 int start = generator._startMinutes * 60 + generator._startSeconds;
                 int end = generator._endMinutes * 60 + generator._endSeconds;
+
                 if (start >= end)
                 {
+                    //生成時間が負の値になる場合に警告を表示する。
                     Debug.LogWarning($"生成に失敗しました。開始時間が終了時間を超えています！Element index is {Array.IndexOf(_enemyKeepGenerates, generator)}");
                 }
                 else
@@ -83,6 +98,13 @@ public class EnemyGenerator : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 指定された時間の間、敵を継続的に生成する。
+    /// </summary>
+    /// <param name="enemies">生成する敵種</param>
+    /// <param name="startSec">開始する時間</param>
+    /// <param name="endSec">終了する時間</param>
+    /// <param name="rate">生成するレート</param>
     private IEnumerator GenerateDuration(EnemyProbability[] enemies, int startSec, int endSec, int rate)
     {
         float timer = startSec;
@@ -94,6 +116,13 @@ public class EnemyGenerator : MonoBehaviour
             timer += 1f / rate;
         }
     }
+    /// <summary>
+    /// 指定されたタイミングに、敵を瞬間的に生成する。
+    /// </summary>
+    /// <param name="enemies">生成する敵種</param>
+    /// <param name="count">敵の個数</param>
+    /// <param name="waitSecond">生成するタイミング</param>
+    /// <returns></returns>
     private IEnumerator GenerateOneShot(EnemyProbability[] enemies, int count, int waitSecond)
     {
         yield return new WaitForSeconds(waitSecond);
@@ -102,6 +131,10 @@ public class EnemyGenerator : MonoBehaviour
             Generate(enemies);
         }
     }
+    /// <summary>
+    /// 敵を生成する。
+    /// </summary>
+    /// <param name="enemies">生成する敵種</param>
     private void Generate(EnemyProbability[] enemies)
     {
         int dir = Random.Range(0, 4);
@@ -123,10 +156,12 @@ public class EnemyGenerator : MonoBehaviour
                 pos += new Vector2(-_boxCollider2d.size.x / 2, randomY);
                 break;
         }
+
         int totalProbability = enemies.Sum(e => e._probability);
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (Random.Range(1, totalProbability) <= enemies[i]._probability || i == enemies.Length - 1)
+            //配列の要素が最後か、乱数が既定の確率以下の場合、プールから生成。
+            if (i == enemies.Length - 1 || Random.Range(1, totalProbability) <= enemies[i]._probability)
             {
                 int key = enemies[i]._enemy.GetInstanceID();
                 var enemy = _enemyPools[key].Get();
