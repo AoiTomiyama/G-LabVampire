@@ -261,6 +261,7 @@ public class PlayerBehaviour : MonoBehaviour
         Instantiate(weapon, transform.position, Quaternion.identity, transform);
         _weapons.Add(weapon);
     }
+
     [Serializable]
     private struct LevelUpStatusUp
     {
