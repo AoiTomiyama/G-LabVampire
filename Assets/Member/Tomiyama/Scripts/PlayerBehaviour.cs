@@ -16,8 +16,8 @@ public class PlayerBehaviour : MonoBehaviour
     private int _maxHealth = 100;
     [SerializeField, Header("プレイヤーの防御力（基本的には0）")]
     private int _playerDefense = default;
-    [SerializeField, Header("プレイヤーの攻撃力（基本的には0）")]
-    private int _playerAttack = default;
+    [SerializeField, Header("プレイヤーの攻撃力（基本的には1）")]
+    private float _playerAttack = default;
     [SerializeField, Header("プレイヤーの攻撃速度（基本的には0）")]
     private float _playerAttackSpeed = default;
     [SerializeField, Header("プレイヤーの攻撃範囲（基本的には0）")]
@@ -73,7 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
     public static bool _flipX;
 
     /// <summary>プレイヤー自身の持つ攻撃力</summary>
-    public int PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
+    public float PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
     /// <summary>プレイヤー自身の持つ攻撃頻度</summary>
     public float PlayerAttackSpeed { get => _playerAttackSpeed; set => _playerAttackSpeed = value; }
     /// <summary>プレイヤー自身の持つ攻撃範囲</summary>
@@ -191,7 +191,7 @@ public class PlayerBehaviour : MonoBehaviour
                 _maxHealth += _levelUpStatusUps[_currentLevel - 1].MaxHP;
                 if (_levelUpStatusUps[_currentLevel - 1].MaxHP > 0)
                 {
-                    _currentHP = _maxHealth;
+                    Heal(_maxHealth);
                 }
 
                 _currentLevel++;

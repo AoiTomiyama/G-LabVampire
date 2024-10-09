@@ -21,7 +21,7 @@ public class WeaponGenerator : MonoBehaviour
     [SerializeField, Header("’e‘¬")]
     private float _bulletSpeed;
     [SerializeField, Header("’e‚Ì‘å‚«‚³")]
-    private float _bulletSize;
+    private float _bulletSize = 1;
     [SerializeField, Header("UŒ‚ƒ^ƒCƒv")]
     private AttackType _attackType;
     [SerializeField, Header("•Šíƒ^ƒCƒv")]
@@ -39,6 +39,7 @@ public class WeaponGenerator : MonoBehaviour
     public int AttackPower { get => _attackPower; }
     public int Level { get => _level; }
     public float AttackInterval { get => _attackInterval; }
+    public float BulletSize { get => _bulletSize; }
 
     private void Start()
     {

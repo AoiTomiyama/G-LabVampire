@@ -50,7 +50,7 @@ MonoBehaviour:
   _attackPower: 20
   _damageRange: 3
   _bulletSpeed: 0
-  _bulletSize: 0
+  _bulletSize: 1
   _attackType: 0
   _weaponType: 0
   _weaponLevelUpStatusArray: []

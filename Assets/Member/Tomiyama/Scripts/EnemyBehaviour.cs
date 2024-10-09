@@ -14,6 +14,8 @@ public class EnemyBehaviour : MonoBehaviour
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
 
+    /// <summary>結界ヒット時の無敵時間</summary>
+    public float InvincibleTime { get; set; }
     /// <summary>追跡対象。基本プレイヤー。</summary>
     private Transform _target;
     /// <summary>現在の残り体力。</summary>
@@ -33,6 +35,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnEnable()
     {
         _health = _enemyData.MaxHealth;
+        InvincibleTime = 0;
         _timer = _enemyData.AttackSpeed;
         _sr = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();

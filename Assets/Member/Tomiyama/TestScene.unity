@@ -524,7 +524,11 @@ PrefabInstance:
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _weapons.Array.data[1]
       value: 
-      objectReference: {fileID: 9209346454725950698, guid: 36858437e5bc5b146b286b2f503e5aa5, type: 3}
+      objectReference: {fileID: 9209346454725950698, guid: 1356ee59870f79b4eb80fb5de6c2a62c, type: 3}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _weapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 9209346454725950698, guid: 1356ee59870f79b4eb80fb5de6c2a62c, type: 3}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.size
       value: 3
@@ -732,6 +736,10 @@ PrefabInstance:
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[19].RequireExp
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497634014469644560, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _poolPlace
