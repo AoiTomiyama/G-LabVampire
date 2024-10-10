@@ -13,6 +13,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
+    public Rigidbody2D Rb { get => _rb; }
 
     /// <summary>結界ヒット時の無敵時間</summary>
     public float InvincibleTime { get; set; }
@@ -61,7 +62,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (_target != null)
         {
             _sr.flipX = (transform.position - _target.transform.position).x < 0;
-            _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed * Time.fixedDeltaTime;
+            _rb.velocity = _enemyData.MoveSpeed * Time.fixedDeltaTime * (_target.position - transform.position).normalized;
             if (transform.position.y < _target.position.y)
             {
                 _sr.sortingOrder = 1;
@@ -106,7 +107,7 @@ public class EnemyBehaviour : MonoBehaviour
         //乱数で経験値をドロップするか判定する。
         if (Random.Range(0, 101) < _enemyData.ExpProbability && _enemyData.ExpSize != 0)
         {
-            Instantiate(ExpGenerator.Instance.ExpPrefabs[(int)_enemyData.ExpSize], transform.position, Quaternion.identity);
+            Instantiate(ExpGenerator.Instance.ExpPrefabs[(int)_enemyData.ExpSize], transform.position, Quaternion.identity, ExpGenerator.Instance.transform);
         }
         //キル数を加算。
         PlayerBehaviour.PlayerKillCount++;

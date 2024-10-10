@@ -70,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
     private int _currentLevel = 1;
     /// <summary>敵の撃破カウント</summary>
     private static int _playerKillCount;
-    public static bool _flipX;
+    private bool _flipX;
 
     /// <summary>プレイヤー自身の持つ攻撃力</summary>
     public float PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
@@ -86,6 +86,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int PlayerResurrectionCount { get => _playerResurrectionCount; set => _playerResurrectionCount = value; }
     /// <summary>プレイヤーが倒した敵の数</summary>
     public static int PlayerKillCount { get => _playerKillCount; set => _playerKillCount = value; }
+    /// <summary>プレイヤーの向いている方向。読み取り専用。</summary>
+    public bool FlipX => _flipX;
 
     /// <summary>現在の体力。読み取り専用。</summary>
     public int CurrentHP => _currentHP;
@@ -93,6 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int CurrentExp => _currentExp;
     /// <summary>現在のレベル。読み取り専用。</summary>
     public int CurrentLevel => _currentLevel;
+
 
     private void Start()
     {

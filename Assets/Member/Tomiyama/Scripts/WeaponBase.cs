@@ -10,7 +10,9 @@ using UnityEngine.UI;
 public class WeaponBase : MonoBehaviour
 {
     [SerializeField, Header("敵を貫通するかどうか")]
-    private bool _isPierceEnemy;
+    private bool _isPierceEnemy = false;
+    [SerializeField, Header("ノックバックの威力")]
+    private float _knockback = 0f;
     /// <summary>プレイヤーのステータスを取得。</summary>
     private PlayerBehaviour _playerBehaviour;
     /// <summary>武器ジェネレータのパラメータを取得。</summary>
@@ -35,7 +37,14 @@ public class WeaponBase : MonoBehaviour
             case WeaponType.Shield:
                 ShieldBehaviour();
                 break;
+            case WeaponType.Fuda:
+                FudaBehaviour();
+                break;
         }
+    }
+    private void FudaBehaviour()
+    {
+        transform.localRotation = Quaternion.Inverse(_weaponGenerator.transform.rotation);
     }
 
     private void ShieldBehaviour()
@@ -50,6 +59,7 @@ public class WeaponBase : MonoBehaviour
             {
                 enemy.InvincibleTime = 0;
                 enemy.RemoveHealth(damage);
+                enemy.transform.position -= (_playerBehaviour.transform.position - enemy.transform.position).normalized * _knockback;
             }
             else
             {
@@ -71,6 +81,7 @@ public class WeaponBase : MonoBehaviour
             {
                 int damage = Mathf.RoundToInt(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange));
                 enemyBehaviour.RemoveHealth(damage);
+                enemyBehaviour.transform.position -= (_playerBehaviour.transform.position - enemyBehaviour.transform.position).normalized * _knockback;
                 _damagedList.Add(enemyBehaviour);
                 if (!_isPierceEnemy) Destroy(gameObject);
             }
@@ -88,10 +99,10 @@ public class WeaponBase : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-        if (_weaponGenerator.WeaponType == WeaponType.Shield)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, _weaponGenerator.BulletSize);
-        }
+        //if (_weaponGenerator.WeaponType == WeaponType.Shield)
+        //{
+        //    Gizmos.color = Color.green;
+        //    Gizmos.DrawWireSphere(transform.position, _weaponGenerator.BulletSize);
+        //}
     }
 }
