@@ -44,13 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7261e7e2f8d1f04a9b92080a71b11b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackInterval: 1.5
+  _attackInterval: 2
   _count: 3
   _weapon: {fileID: 278691971743201708, guid: d998d32b42dd14341b9f402bddef305d, type: 3}
   _attackPower: 20
   _damageRange: 3
   _bulletSpeed: 0
-  _bulletSize: 0
-  _attackType: 0
+  _bulletSize: 1
   _weaponType: 0
   _weaponLevelUpStatusArray: []
