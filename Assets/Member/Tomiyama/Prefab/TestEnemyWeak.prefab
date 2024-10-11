@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4450038967421246979}
   - component: {fileID: 7754778557248021153}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: TestEnemyWeak
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67123f8133c5da4fa7b443166385a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyData: {fileID: 11400000, guid: 98c72d8ed74ab9c44b3f1f14f71d8500, type: 2}
+  _enemyData: {fileID: 11400000, guid: 1f9aaabb970ae1343a40985340883e48, type: 2}
   _damageText: {fileID: 2179675562680713850, guid: ddb2927bd6947f9489b7477fa3e04b58, type: 3}
 --- !u!212 &4261453543075292429
 SpriteRenderer:
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.56289303, g: 0.68862504, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
