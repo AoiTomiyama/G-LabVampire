@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,9 +22,7 @@ public class WeaponGenerator : MonoBehaviour
     [SerializeField, Header("弾速")]
     private float _bulletSpeed;
     [SerializeField, Header("弾の大きさ")]
-    private float _bulletSize;
-    [SerializeField, Header("攻撃タイプ")]
-    private AttackType _attackType;
+    private float _bulletSize = 1;
     [SerializeField, Header("武器タイプ")]
     private WeaponType _weaponType;
     [SerializeField, Header("レベルアップ時のステータス上昇")]
@@ -39,54 +38,53 @@ public class WeaponGenerator : MonoBehaviour
     public int AttackPower { get => _attackPower; }
     public int Level { get => _level; }
     public float AttackInterval { get => _attackInterval; }
+    public float BulletSize { get => _bulletSize; }
 
     private void Start()
     {
-        if (_weaponType == WeaponType.Shield) Generate();
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda) GenerateWeapon();
     }
     private void Update()
     {
-        if (_weaponType != WeaponType.Shield)
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda) return;
+        if (_timer < _attackInterval)
         {
-            if (_timer < _attackInterval)
-            {
-                _timer += Time.deltaTime;
-            }
-            else
-            {
-                Generate();
-                _timer = 0;
-            }
+            _timer += Time.deltaTime;
+        }
+        else
+        {
+            GenerateWeapon();
+            _timer = 0;
+        }
+    }
+    private void FixedUpdate()
+    {
+        if (_weaponType == WeaponType.Fuda)
+        {
+            transform.Rotate(0, 0, _bulletSpeed);
         }
     }
 
-    private void Generate()
+    private void GenerateWeapon()
     {
-        var detectedList = FindObjectsOfType<EnemyBehaviour>().Where(go =>
-        {
-            //カメラの範囲内のオブジェクトのみを対象。
-            var vp = Camera.main.WorldToViewportPoint(go.transform.position);
-            return vp.x >= 0 && vp.x <= 1 && vp.y >= 0 && vp.y <= 1;
-        }).ToList();
-        int detectedCount = detectedList.Count;
         for (int i = 0; i < _count; i++)
         {
             switch (_weaponType)
             {
                 case WeaponType.Shikigami:
-                    if (detectedCount > 0)
-                    {
-                        GenerateShikigami(detectedList, detectedCount, i);
-                    }
+                    GenerateShikigami(i);
                     break;
                 case WeaponType.Thunder:
-                    if (detectedCount > 0)
-                    {
-                        GenerateThunder(detectedList, detectedCount);
-                    }
+                    GenerateThunder();
                     break;
                 case WeaponType.Shield:
                     GenerateShield();
+                    break;
+                case WeaponType.Fuda:
+                    GenerateFuda(i);
+                    break;
+                case WeaponType.Naginata:
+                    StartCoroutine(GenerateNaginata(i));
                     break;
             }
             //if (_attackType == AttackType.PlayerDirection)
@@ -97,26 +95,58 @@ public class WeaponGenerator : MonoBehaviour
             //}
         }
     }
+    private IEnumerator GenerateNaginata(int index)
+    {
+        yield return new WaitForSeconds(0.1f * index);
+        var go = Instantiate(_weapon, transform.position + Vector3.up * index, Quaternion.identity);
+        if (index % 2 == 0) go.transform.Rotate(0, 0, 180);
+        go.GetComponentInChildren<WeaponBase>().WeaponGenerator = this;
+    }
+    private void GenerateFuda(int index)
+    {
+        const float RANGE = 3f;
+        var angle = (360f/ _count) * index * Mathf.Deg2Rad;
+        var pos = RANGE * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) + transform.position;
+        var go = Instantiate(_weapon, pos, Quaternion.identity, transform);
+        go.GetComponent<WeaponBase>().WeaponGenerator = this;
+    }
     private void GenerateShield()
     {
         var go = Instantiate(_weapon, transform.position, Quaternion.identity, transform);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
-    private void GenerateThunder(List<EnemyBehaviour> detectedList, int detectedCount)
+    private void GenerateThunder()
     {
+        var detectedList = SearchEnemies();
+        int detectedCount = detectedList.Count;
+        if (detectedCount <= 0) return;
+
+        //ランダムな敵の位置に雷を召喚
         var targetPos = detectedList[Random.Range(0, detectedCount)].transform.position;
         var go = Instantiate(_weapon, targetPos, Quaternion.identity);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
-
-    private void GenerateShikigami(List<EnemyBehaviour> detectedList, int detectedCount, int i)
+    private void GenerateShikigami(int index)
     {
-        var playerPos = transform.position;
-        var targetPos = detectedList.OrderBy(enemy => Vector2.Distance(playerPos, enemy.transform.position))
-                                    .ElementAt(detectedCount > i ? i : 0).transform.position;
-        var go = Instantiate(_weapon, playerPos, Quaternion.identity);
+        var detectedList = SearchEnemies();
+        int detectedCount = detectedList.Count;
+        if (detectedCount <= 0) return;
+
+        //プレイヤーから敵までの距離でソートし、index番目の敵がいたらその方向を向いて式神を召喚。
+        var targetPos = detectedList.OrderBy(enemy => Vector2.Distance(transform.position, enemy.transform.position))
+                                    .ElementAt(detectedCount > index ? index : 0).transform.position;
+        var go = Instantiate(_weapon, transform.position, Quaternion.identity);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
-        go.transform.up = (targetPos - playerPos).normalized;
+        go.transform.up = (targetPos - transform.position).normalized;
+    }
+    private static List<EnemyBehaviour> SearchEnemies()
+    {
+        return FindObjectsOfType<EnemyBehaviour>().Where(go =>
+        {
+            //カメラの範囲内のオブジェクトのみを対象。
+            var vp = Camera.main.WorldToViewportPoint(go.transform.position);
+            return vp.x >= 0 && vp.x <= 1 && vp.y >= 0 && vp.y <= 1;
+        }).ToList();
     }
 
     public void LevelUp()
@@ -128,6 +158,17 @@ public class WeaponGenerator : MonoBehaviour
             _attackInterval -= _weaponLevelUpStatusArray[_level - 1].AttackSpeed;
             _bulletSize += _weaponLevelUpStatusArray[_level - 1].Scale;
             _level++;
+
+            if (_weaponType != WeaponType.Fuda) return;
+
+            foreach (var weapon in transform.GetComponentsInChildren<WeaponBase>())
+            {
+                Destroy(weapon.gameObject);
+            }
+            for (int i = 0; i < _count; i++)
+            {
+                GenerateFuda(i);
+            }
         }
     }
     [System.Serializable]
@@ -138,13 +179,6 @@ public class WeaponGenerator : MonoBehaviour
         public int AttackSpeed;
         public int Scale;
     }
-}
-enum AttackType
-{
-    NearestEnemy,
-    RandomEnemy,
-    PlayerDirection,
-    Passive,
 }
 public enum WeaponType
 {

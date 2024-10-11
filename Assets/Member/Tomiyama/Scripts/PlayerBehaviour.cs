@@ -16,8 +16,8 @@ public class PlayerBehaviour : MonoBehaviour
     private int _maxHealth = 100;
     [SerializeField, Header("プレイヤーの防御力（基本的には0）")]
     private int _playerDefense = default;
-    [SerializeField, Header("プレイヤーの攻撃力（基本的には0）")]
-    private int _playerAttack = default;
+    [SerializeField, Header("プレイヤーの攻撃力（基本的には1）")]
+    private float _playerAttack = default;
     [SerializeField, Header("プレイヤーの攻撃速度（基本的には0）")]
     private float _playerAttackSpeed = default;
     [SerializeField, Header("プレイヤーの攻撃範囲（基本的には0）")]
@@ -70,10 +70,10 @@ public class PlayerBehaviour : MonoBehaviour
     private int _currentLevel = 1;
     /// <summary>敵の撃破カウント</summary>
     private static int _playerKillCount;
-    public static bool _flipX;
+    private bool _flipX;
 
     /// <summary>プレイヤー自身の持つ攻撃力</summary>
-    public int PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
+    public float PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
     /// <summary>プレイヤー自身の持つ攻撃頻度</summary>
     public float PlayerAttackSpeed { get => _playerAttackSpeed; set => _playerAttackSpeed = value; }
     /// <summary>プレイヤー自身の持つ攻撃範囲</summary>
@@ -86,6 +86,8 @@ public class PlayerBehaviour : MonoBehaviour
     public int PlayerResurrectionCount { get => _playerResurrectionCount; set => _playerResurrectionCount = value; }
     /// <summary>プレイヤーが倒した敵の数</summary>
     public static int PlayerKillCount { get => _playerKillCount; set => _playerKillCount = value; }
+    /// <summary>プレイヤーの向いている方向。読み取り専用。</summary>
+    public bool FlipX => _flipX;
 
     /// <summary>現在の体力。読み取り専用。</summary>
     public int CurrentHP => _currentHP;
@@ -93,6 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int CurrentExp => _currentExp;
     /// <summary>現在のレベル。読み取り専用。</summary>
     public int CurrentLevel => _currentLevel;
+
 
     private void Start()
     {
@@ -191,7 +194,7 @@ public class PlayerBehaviour : MonoBehaviour
                 _maxHealth += _levelUpStatusUps[_currentLevel - 1].MaxHP;
                 if (_levelUpStatusUps[_currentLevel - 1].MaxHP > 0)
                 {
-                    _currentHP = _maxHealth;
+                    Heal(_maxHealth);
                 }
 
                 _currentLevel++;
