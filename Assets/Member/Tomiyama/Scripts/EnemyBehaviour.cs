@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 /// <summary>
@@ -10,6 +11,11 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemyData _enemyData;
     [SerializeField, Header("ダメージ表示させるオブジェクト")]
     private GameObject _damageText;
+    [SerializeField, Header("ボスエネミーかどうか（有効時、カメラ範囲外に行っても消滅しない")]
+    private bool _hasBossFlag;
+
+    [Header("敵が死亡時に実行")]
+    public UnityEvent OnEnemyDeath;
 
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
@@ -27,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
     private PlayerBehaviour _player;
     /// <summary>ダメージ生成先のTransform</summary>
     public Transform DamageShowPos { set; private get; }
+    public bool HasBossFlag => _hasBossFlag;
 
     /// <summary>オブジェクトプール</summary>
     private ObjectPool<EnemyBehaviour> _enemyPool;
@@ -111,6 +118,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         //キル数を加算。
         PlayerBehaviour.PlayerKillCount++;
+        OnEnemyDeath?.Invoke();
 
         ReturnToPool();
     }
@@ -119,7 +127,14 @@ public class EnemyBehaviour : MonoBehaviour
     /// </summary>
     public void ReturnToPool()
     {
-        _enemyPool.Release(this);
+        if (_enemyPool != null)
+        {
+            _enemyPool.Release(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

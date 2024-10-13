@@ -203,15 +203,24 @@ public class WeaponGenerator : MonoBehaviour
             _bulletSize += _weaponLevelUpStatusArray[_level - 1].Scale;
             _level++;
 
-            if (_weaponType != WeaponType.Fuda) return;
-
-            foreach (var weapon in transform.GetComponentsInChildren<WeaponBase>())
+            //常時発生型の武器はレベルアップ時にパラメーターを適用させるために再生成を行う。
+            if (_weaponType == WeaponType.Fuda || _weaponType == WeaponType.Shield)
             {
-                Destroy(weapon.gameObject);
+                foreach (var weapon in transform.GetComponentsInChildren<WeaponBase>())
+                {
+                    Destroy(weapon.gameObject);
+                }
             }
             for (int i = 0; i < _count; i++)
             {
-                GenerateFuda(i);
+                if (_weaponType == WeaponType.Fuda)
+                {
+                    GenerateFuda(i);
+                }
+                else if (_weaponType == WeaponType.Shield)
+                {
+                    GenerateShield();
+                }
             }
         }
     }

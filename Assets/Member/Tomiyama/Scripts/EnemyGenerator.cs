@@ -164,8 +164,15 @@ public class EnemyGenerator : MonoBehaviour
             if (i == enemies.Length - 1 || Random.Range(1, totalProbability) <= enemies[i]._probability)
             {
                 int key = enemies[i]._enemy.GetInstanceID();
-                var enemy = _enemyPools[key].Get();
-                enemy.transform.position = pos;
+                if (_enemyPools.ContainsKey(key))
+                {
+                    var enemy = _enemyPools[key].Get();
+                    enemy.transform.position = pos;
+                }
+                else
+                {
+                    Instantiate(enemies[i]._enemy, pos, Quaternion.identity, _poolPlace);
+                }
                 break;
             }
         }

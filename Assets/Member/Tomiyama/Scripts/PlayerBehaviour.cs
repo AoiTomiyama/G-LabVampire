@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 /// <summary>
 /// 自機の情報を管轄するクラス。
 /// </summary>
@@ -28,10 +27,6 @@ public class PlayerBehaviour : MonoBehaviour
     private int _playerResurrectionCount;
     [SerializeField, Header("使用する武器")]
     private List<GameObject> _weapons;
-    [SerializeField, Header("体力ゲージ")]
-    private Image _healthBar;
-    [SerializeField, Header("経験値ゲージ")]
-    private Image _expBar;
     [SerializeField, Header("レベルアップに必要なEXPと増加させるステータス値")]
     private List<LevelUpStatusUp> _levelUpStatusUps;
     [Space]
@@ -61,7 +56,6 @@ public class PlayerBehaviour : MonoBehaviour
     private int _h = 0;
     /// <summary>垂直方向の移動</summary>
     private int _v = 0;
-
     /// <summary>現在の体力</summary>
     private int _currentHP = default;
     /// <summary>現在の獲得経験値量</summary>
@@ -88,13 +82,8 @@ public class PlayerBehaviour : MonoBehaviour
     public static int PlayerKillCount { get => _playerKillCount; set => _playerKillCount = value; }
     /// <summary>プレイヤーの向いている方向。読み取り専用。</summary>
     public static bool FlipX => _flipX;
-
-    /// <summary>現在の体力。読み取り専用。</summary>
-    public int CurrentHP => _currentHP;
-    /// <summary>現在の獲得経験値量。読み取り専用。</summary>
-    public int CurrentExp => _currentExp;
-    /// <summary>現在のレベル。読み取り専用。</summary>
-    public int CurrentLevel => _currentLevel;
+    /// <summary>プレイヤーのパラメーターをUIに反映させる。</summary>
+    public event Action<float, UpdateParameterType> DisplayOnUI;
 
 
     private void Start()
@@ -109,10 +98,12 @@ public class PlayerBehaviour : MonoBehaviour
             Instantiate(weapon, transform.position, Quaternion.identity, transform);
         }
     }
-    void Update()
+
+    private void Update()
     {
         Move();
         CollectExp();
+        DisplayOnUI?.Invoke(_playerKillCount, UpdateParameterType.KillCount);
     }
     /// <summary>
     /// プレイヤーの体力自動再生。
@@ -203,7 +194,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
             if (_currentLevel - 1 < _levelUpStatusUps.Count)
             {
-                _expBar.fillAmount = 1f * _currentExp / _levelUpStatusUps[_currentLevel - 1].RequireExp;
+                DisplayOnUI?.Invoke(1f * _currentExp / _levelUpStatusUps[_currentLevel - 1].RequireExp, UpdateParameterType.Experience);
             }
         }
         else
@@ -218,7 +209,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void Heal(int value)
     {
         _currentHP = Mathf.Min(value + _currentHP, _maxHealth);
-        _healthBar.fillAmount = 1.0f * _currentHP / _maxHealth;
+        DisplayOnUI?.Invoke(1.0f * _currentHP / _maxHealth, UpdateParameterType.Health);
     }
     /// <summary>
     /// プレイヤーにダメージを与える。
@@ -243,7 +234,7 @@ public class PlayerBehaviour : MonoBehaviour
         else
         {
             _currentHP -= damage - _playerDefense;
-            _healthBar.fillAmount = 1.0f * _currentHP / _maxHealth;
+            DisplayOnUI?.Invoke(1.0f * _currentHP / _maxHealth, UpdateParameterType.Health);
         }
     }
     /// <summary>
@@ -262,9 +253,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddWeapon(GameObject weapon)
     {
         Instantiate(weapon, transform.position, Quaternion.identity, transform);
-        _weapons.Add(weapon);
     }
-
     [Serializable]
     private struct LevelUpStatusUp
     {
