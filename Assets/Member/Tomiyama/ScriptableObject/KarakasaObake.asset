@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: KarakasaObake
   m_EditorClassIdentifier: 
   _name: "\u304B\u3089\u304B\u3055\u304A\u5316\u3051"
-  _maxHealth: 12
-  _damage: 3
+  _maxHealth: 400
+  _damage: 2
   _moveSpeed: 110
   _attackSpeed: 0.5
   _expProbability: 70

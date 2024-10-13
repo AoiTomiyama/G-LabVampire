@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Kapa
   m_EditorClassIdentifier: 
   _name: "\u304B\u3063\u3071"
-  _maxHealth: 12
-  _damage: 5
-  _moveSpeed: 3
+  _maxHealth: 400
+  _damage: 4
+  _moveSpeed: 90
   _attackSpeed: 0.5
   _expProbability: 88
   _expSize: 3

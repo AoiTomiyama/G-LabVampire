@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GashaDoqro
   m_EditorClassIdentifier: 
   _name: "\u30AC\u30B7\u30E3\u30C9\u30AF\u30ED"
-  _maxHealth: 500
+  _maxHealth: 15000
   _damage: 30
-  _moveSpeed: 250
+  _moveSpeed: 302.2
   _attackSpeed: 0.5
   _expProbability: 100
   _expSize: 3

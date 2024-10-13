@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Tengu
   m_EditorClassIdentifier: 
   _name: "\u5929\u72D7"
-  _maxHealth: 50
+  _maxHealth: 5000
   _damage: 10
   _moveSpeed: 110
   _attackSpeed: 0.5
   _expProbability: 70
-  _expSize: 1
+  _expSize: 3

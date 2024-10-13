@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Onibi
   m_EditorClassIdentifier: 
   _name: "\u9B3C\u706B"
-  _maxHealth: 5
-  _damage: 9
-  _moveSpeed: 70
+  _maxHealth: 100
+  _damage: 5
+  _moveSpeed: 60
   _attackSpeed: 0.5
   _expProbability: 100
   _expSize: 3
