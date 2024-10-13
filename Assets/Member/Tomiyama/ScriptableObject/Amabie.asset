@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c74b46bab08c04da924a8b031de11c, type: 3}
   m_Name: Amabie
   m_EditorClassIdentifier: 
-  _name: Amabie
+  _name: "\u3042\u307E\u3073\u3048"
   _maxHealth: 20
   _damage: 5
-  _armor: 0
   _moveSpeed: 50
   _attackSpeed: 0.5
-  _range: 0
   _expProbability: 88
   _expSize: 3

@@ -64,7 +64,9 @@ public class WeaponGenerator : MonoBehaviour
             transform.Rotate(0, 0, _bulletSpeed);
         }
     }
-
+    /// <summary>
+    /// 指定された武器を生成する。
+    /// </summary>
     private void GenerateWeapon()
     {
         for (int i = 0; i < _count; i++)
@@ -86,22 +88,55 @@ public class WeaponGenerator : MonoBehaviour
                 case WeaponType.Naginata:
                     StartCoroutine(GenerateNaginata(i));
                     break;
+                case WeaponType.Katana:
+                    StartCoroutine(GenerateKatana(i));
+                    break;
             }
-            //if (_attackType == AttackType.PlayerDirection)
-            //{
-            //    var go = Instantiate(_weapon, playerPos, Quaternion.identity);
-            //    go.GetComponent<WeaponBase>().WeaponGenerator = this;
-            //    go.transform.up = PlayerBehaviour._flipX ? Vector2.right : Vector2.left;
-            //}
         }
     }
+    /// <summary>
+    /// 日本刀を生成。
+    /// </summary>
+    private IEnumerator GenerateKatana(int index)
+    {
+        bool playerFlipX = PlayerBehaviour.FlipX;
+        const float DELAY = 0.2f;
+        yield return new WaitForSeconds(DELAY * index);
+        var weapon = Instantiate(_weapon, transform.position, Quaternion.identity).GetComponent<WeaponBase>();
+        weapon.Degree =  90 + (playerFlipX ? -10 : 10) * index;
+        weapon.WeaponGenerator = this;
+    }
+    /// <summary>
+    /// 薙刀の斬撃生成。
+    /// </summary>
     private IEnumerator GenerateNaginata(int index)
     {
-        yield return new WaitForSeconds(0.1f * index);
-        var go = Instantiate(_weapon, transform.position + Vector3.up * index, Quaternion.identity);
-        if (index % 2 == 0) go.transform.Rotate(0, 0, 180);
+        bool playerFlipX = PlayerBehaviour.FlipX;
+        const float DELAY = 0.1f;
+        yield return new WaitForSeconds(DELAY * index);
+        var go = Instantiate(_weapon, transform.position, Quaternion.identity);
+
+        // 二個まで左右、三・四個で上下、それ以上で斜めのように、インデックスに応じて方向が変化させる。
+        // インデックスが奇数の場合（1, 3, 5, 7）Z軸を180度回転させる。
+        // { 0, 180, 0, 180, 0, 180, 0, 180 }
+        if (index % 2 == 1) go.transform.Rotate(Vector3.forward * 180);
+
+        // インデックスが2以上6未満の場合、Z軸を90度回転させる。
+        // { 0, 180, 90, 270, 90, 270, 0, 180 }
+        if (index >= 2 && index < 6) go.transform.Rotate(Vector3.forward * 90);
+
+
+        // インデックスが4以上の場合、Z軸を45度回転させる。
+        // { 0, 180, 90, 270, 135, 315, 45, 225 }
+        if (index >= 4) go.transform.Rotate(Vector3.forward * 45);
+
+        // プレイヤーの向きに応じてY軸で回転させることで反転させる。
+        if (!playerFlipX) go.transform.Rotate(Vector3.up * 180);
         go.GetComponentInChildren<WeaponBase>().WeaponGenerator = this;
     }
+    /// <summary>
+    /// 札を周囲に生成。
+    /// </summary>
     private void GenerateFuda(int index)
     {
         const float RANGE = 3f;
@@ -110,11 +145,17 @@ public class WeaponGenerator : MonoBehaviour
         var go = Instantiate(_weapon, pos, Quaternion.identity, transform);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
+    /// <summary>
+    /// 結界を生成。
+    /// </summary>
     private void GenerateShield()
     {
         var go = Instantiate(_weapon, transform.position, Quaternion.identity, transform);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
+    /// <summary>
+    /// 雷を生成。
+    /// </summary>
     private void GenerateThunder()
     {
         var detectedList = SearchEnemies();
@@ -126,6 +167,9 @@ public class WeaponGenerator : MonoBehaviour
         var go = Instantiate(_weapon, targetPos, Quaternion.identity);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
+    /// <summary>
+    /// 式が身を生成。
+    /// </summary>
     private void GenerateShikigami(int index)
     {
         var detectedList = SearchEnemies();
