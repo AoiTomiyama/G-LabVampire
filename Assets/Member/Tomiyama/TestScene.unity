@@ -254,6 +254,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3777175924691503734, guid: 4de632aac2adbb4408af086fb2158a94, type: 3}
   m_PrefabInstance: {fileID: 8945287535665480356}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1362416281 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2157620787432760838, guid: 4de632aac2adbb4408af086fb2158a94, type: 3}
+  m_PrefabInstance: {fileID: 8945287535665480356}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1943826734
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +524,10 @@ PrefabInstance:
       propertyPath: _playerAttack
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _killCountText
+      value: 
+      objectReference: {fileID: 1362416281}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _weapons.Array.size
       value: 1

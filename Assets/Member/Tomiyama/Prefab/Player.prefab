@@ -140,7 +140,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -498,8 +498,6 @@ MonoBehaviour:
   _playerResurrectionCount: 0
   _weapons:
   - {fileID: 9209346454725950698, guid: 60d674174a22900478dfb4e634c65e0a, type: 3}
-  _healthBar: {fileID: 0}
-  _expBar: {fileID: 0}
   _levelUpStatusUps:
   - RequireExp: 100
     MaxHP: 20
