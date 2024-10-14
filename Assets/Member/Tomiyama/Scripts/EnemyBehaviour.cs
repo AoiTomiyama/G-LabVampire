@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 敵の処理を管轄するクラス。
 /// </summary>
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour, IPausable
 {
     [SerializeField, Header("敵の種類")]
     private EnemyData _enemyData;
@@ -19,10 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
-    public Rigidbody2D Rb { get => _rb; }
 
-    /// <summary>結界ヒット時の無敵時間</summary>
-    public float InvincibleTime { get; set; }
     /// <summary>追跡対象。基本プレイヤー。</summary>
     private Transform _target;
     /// <summary>現在の残り体力。</summary>
@@ -31,8 +28,15 @@ public class EnemyBehaviour : MonoBehaviour
     private float _timer;
     /// <summary>対象が接触中かを判定させる。</summary>
     private PlayerBehaviour _player;
+    /// <summary>ポーズの状態</summary>
+    private bool _isPaused = false;
+
+
     /// <summary>ダメージ生成先のTransform</summary>
     public Transform DamageShowPos { set; private get; }
+    /// <summary>結界ヒット時の無敵時間</summary>
+    public float InvincibleTime { get; set; }
+    /// <summary>ボスエネミーかどうか</summary>
     public bool HasBossFlag => _hasBossFlag;
 
     /// <summary>オブジェクトプール</summary>
@@ -51,33 +55,44 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if (_player != null)
+        AttackAtPlayer();
+    }
+
+    private void AttackAtPlayer()
+    {
+        if (_player == null || _isPaused) return;
+        if (_timer < _enemyData.AttackSpeed)
         {
-            if (_timer < _enemyData.AttackSpeed)
-            {
-                _timer += Time.deltaTime;
-            }
-            else
-            {
-                _player.RemoveHealth(_enemyData.Damage);
-                _timer = 0;
-            }
+            _timer += Time.deltaTime;
+        }
+        else
+        {
+            _player.RemoveHealth(_enemyData.Damage);
+            _timer = 0;
         }
     }
+
     private void FixedUpdate()
     {
-        if (_target != null)
+        Move();
+    }
+
+    private void Move()
+    {
+        if (_target == null || (PauseManager.Instance != null && PauseManager.Instance.IsPaused))
         {
-            _sr.flipX = (transform.position - _target.transform.position).x < 0;
-            _rb.velocity = _enemyData.MoveSpeed * Time.fixedDeltaTime * (_target.position - transform.position).normalized;
-            if (transform.position.y < _target.position.y)
-            {
-                _sr.sortingOrder = 1;
-            }
-            else
-            {
-                _sr.sortingOrder = -1;
-            }
+            _rb.velocity = Vector3.zero;
+            return;
+        }
+        _sr.flipX = (transform.position - _target.transform.position).x < 0;
+        _rb.velocity = _enemyData.MoveSpeed * Time.fixedDeltaTime * (_target.position - transform.position).normalized;
+        if (transform.position.y < _target.position.y)
+        {
+            _sr.sortingOrder = 1;
+        }
+        else
+        {
+            _sr.sortingOrder = -1;
         }
     }
 
@@ -151,5 +166,14 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("Player Exit");
             _player = null;
         }
+    }
+    public void Pause()
+    {
+        _isPaused = true;
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class EnemyGenerator : MonoBehaviour
+public class EnemyGenerator : MonoBehaviour, IPausable
 {
     [Header("ObjectPool Settings")]
     [SerializeField] private GameObject[] _enemyPrefabs;
@@ -19,12 +19,14 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField, Header("継続生成の情報")]
     private EnemyKeepGenerate[] _enemyKeepGenerates;
     [SerializeField, Header("波状攻撃の情報")]
-    private EnemyWave[] _enemyWaves; 
+    private EnemyWave[] _enemyWaves;
 
     private Dictionary<int, ObjectPool<EnemyBehaviour>> _enemyPools;
-
     private BoxCollider2D _boxCollider2d;
-    void Start()
+    /// <summary>ポーズの状態</summary>
+    private bool _isPaused = false;
+
+    private void Start()
     {
         _poolPlace = _poolPlace != null ? _poolPlace : transform;
 
@@ -36,7 +38,7 @@ public class EnemyGenerator : MonoBehaviour
             var prefab = _enemyPrefabs[i];
 
             //オブジェクトのインスタンスIDをキーとすることで固有のキーを作成。
-            var key = prefab.GetInstanceID(); 
+            var key = prefab.GetInstanceID();
 
             _enemyPools.Add(key, new ObjectPool<EnemyBehaviour>(() =>
             {
@@ -107,13 +109,24 @@ public class EnemyGenerator : MonoBehaviour
     /// <param name="rate">生成するレート</param>
     private IEnumerator GenerateDuration(EnemyProbability[] enemies, int startSec, int endSec, int rate)
     {
-        float timer = startSec;
-        yield return new WaitForSeconds(startSec);
-        while (timer < endSec)
+        var elapsed = 0f;
+        while (elapsed < startSec)
+        {
+            yield return new WaitWhile(() => _isPaused);
+            elapsed += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        while (elapsed < endSec)
         {
             Generate(enemies);
-            yield return new WaitForSeconds(1f / rate);
-            timer += 1f / rate;
+            var elapsed2 = 0f;
+            while (elapsed2 < 1f / rate)
+            {
+                yield return new WaitWhile(() => _isPaused);
+                elapsed2 += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            elapsed += 1f / rate;
         }
     }
     /// <summary>
@@ -125,7 +138,13 @@ public class EnemyGenerator : MonoBehaviour
     /// <returns></returns>
     private IEnumerator GenerateOneShot(EnemyProbability[] enemies, int count, int waitSecond)
     {
-        yield return new WaitForSeconds(waitSecond);
+        var waitTime = 0f;
+        while (waitTime < waitSecond)
+        {
+            yield return new WaitWhile(() => _isPaused);
+            waitTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
         for (int i = 0; i < count; i++)
         {
             Generate(enemies);
@@ -177,6 +196,17 @@ public class EnemyGenerator : MonoBehaviour
             }
         }
     }
+
+    public void Pause()
+    {
+        _isPaused = true;
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
+    }
+
     [Serializable]
     private class EnemyProbability
     {
