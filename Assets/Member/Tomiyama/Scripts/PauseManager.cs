@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PauseManager : MonoBehaviour
+public class PauseManager : SingletonMonoBehaviour<PauseManager>
 {
     /// <summary>Trueの時、ポーズ処理が可能になる</summary>
     private bool _enablePause = true;
@@ -13,10 +13,9 @@ public class PauseManager : MonoBehaviour
     private UnityEvent OnPause;
     [SerializeField]
     private UnityEvent OnResume;
-
     /// <summary>何かしらの演出中で、中断させたくない場合に、これをFalseにする</summary>
     public bool EnablePause { get => _enablePause; set => _enablePause = value; }
-
+    public bool IsPaused => _isPaused;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.V) && _enablePause)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DebugTools : MonoBehaviour
@@ -8,7 +6,8 @@ public class DebugTools : MonoBehaviour
     private GameObject obj;
     [SerializeField]
     private KeyCode keyCode;
-    void Update()
+
+    private void Update()
     {
         if (Input.GetKeyDown(keyCode))
         {

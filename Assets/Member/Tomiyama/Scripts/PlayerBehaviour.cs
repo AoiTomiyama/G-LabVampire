@@ -6,7 +6,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 自機の情報を管轄するクラス。
 /// </summary>
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour, IPausable
 {
     [Header("----------- ステータス関連 ------------")]
     [SerializeField, Header("移動速度")]
@@ -83,7 +83,9 @@ public class PlayerBehaviour : MonoBehaviour
     /// <summary>プレイヤーの向いている方向。読み取り専用。</summary>
     public static bool FlipX => _flipX;
     /// <summary>プレイヤーのパラメーターをUIに反映させる。</summary>
-    public event Action<float, UpdateParameterType> DisplayOnUI;
+    public Action<float, UpdateParameterType> DisplayOnUI;
+    /// <summary>ポーズの状態</summary>
+    private bool _isPaused = false;
 
 
     private void Start()
@@ -110,14 +112,30 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     private IEnumerator Regeneration()
     {
-        yield return new WaitForSeconds(1);
-        Heal(_playerRegenerationHP);
+        while (true)
+        {
+            var waitTime = 0f;
+            while (waitTime < 1)
+            {
+                yield return new WaitWhile(() => _isPaused);
+                waitTime += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            Heal(_playerRegenerationHP);
+        }
     }
     /// <summary>
     /// プレイヤーの移動処理。
     /// </summary>
     private void Move()
     {
+        //ポーズ時は入力を受け付けない。
+        if (_isPaused)
+        {
+            _rb.velocity = Vector3.zero;
+            return;
+        }
+
         bool pressedUp = Input.GetButton("Up");
         bool pressedDown = Input.GetButton("Down");
         bool pressedLeft = Input.GetButton("Left");
@@ -140,6 +158,9 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     private void CollectExp()
     {
+        //ポーズ時は経験値収集を行わない。
+        if (_isPaused) return;
+
         var hits = Physics2D.CircleCastAll(transform.position, _itemGetRange, transform.up, 0, _layer);
         foreach (var hit in hits)
         {
@@ -254,6 +275,17 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Instantiate(weapon, transform.position, Quaternion.identity, transform);
     }
+
+    public void Pause()
+    {
+        _isPaused = true;
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
+    }
+
     [Serializable]
     private struct LevelUpStatusUp
     {

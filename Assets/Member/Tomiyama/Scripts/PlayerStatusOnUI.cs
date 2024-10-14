@@ -11,7 +11,7 @@ public class PlayerStatusOnUI : MonoBehaviour
     private Text _killCountText;
     private void Start()
     {
-        FindObjectOfType<PlayerBehaviour>().DisplayOnUI += (float value, UpdateParameterType type) =>
+        FindObjectOfType<PlayerBehaviour>().DisplayOnUI = (float value, UpdateParameterType type) =>
         {
             switch (type)
             {

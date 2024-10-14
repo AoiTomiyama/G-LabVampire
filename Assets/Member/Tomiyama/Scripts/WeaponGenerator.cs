@@ -7,7 +7,7 @@ using UnityEngine;
 /// 武器の生成を行うスクリプト。
 /// 武器自体の判定は別に用意する。
 /// </summary>
-public class WeaponGenerator : MonoBehaviour
+public class WeaponGenerator : MonoBehaviour, IPausable
 {
     [SerializeField, Header("攻撃頻度")]
     private float _attackInterval;
@@ -31,14 +31,16 @@ public class WeaponGenerator : MonoBehaviour
     //武器の現在レベル
     private int _level = 1;
     private float _timer;
+    /// <summary>ポーズの状態</summary>
+    private bool _isPaused = false;
 
-    public WeaponType WeaponType { get => _weaponType; }
-    public int DamageRange { get => _damageRange; }
-    public float BulletSpeed { get => _bulletSpeed; }
-    public int AttackPower { get => _attackPower; }
-    public int Level { get => _level; }
-    public float AttackInterval { get => _attackInterval; }
-    public float BulletSize { get => _bulletSize; }
+    public WeaponType WeaponType => _weaponType;
+    public int DamageRange => _damageRange;
+    public float BulletSpeed => _bulletSpeed;
+    public int AttackPower => _attackPower;
+    public int Level => _level;
+    public float AttackInterval => _attackInterval;
+    public float BulletSize => _bulletSize;
 
     private void Start()
     {
@@ -46,7 +48,7 @@ public class WeaponGenerator : MonoBehaviour
     }
     private void Update()
     {
-        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda) return;
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda || _isPaused) return;
         if (_timer < _attackInterval)
         {
             _timer += Time.deltaTime;
@@ -59,7 +61,7 @@ public class WeaponGenerator : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_weaponType == WeaponType.Fuda)
+        if (_weaponType == WeaponType.Fuda && !_isPaused)
         {
             transform.Rotate(0, 0, _bulletSpeed);
         }
@@ -101,9 +103,16 @@ public class WeaponGenerator : MonoBehaviour
     {
         bool playerFlipX = PlayerBehaviour.FlipX;
         const float DELAY = 0.2f;
-        yield return new WaitForSeconds(DELAY * index);
+        var waitTime = 0f;
+        while (waitTime < DELAY * index)
+        {
+            yield return new WaitWhile(() => _isPaused);
+            waitTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
         var weapon = Instantiate(_weapon, transform.position, Quaternion.identity).GetComponent<WeaponBase>();
-        weapon.Degree =  90 + (playerFlipX ? -10 : 10) * index;
+        weapon.Degree = 90 + (playerFlipX ? -10 : 10) * index;
         weapon.WeaponGenerator = this;
     }
     /// <summary>
@@ -113,7 +122,13 @@ public class WeaponGenerator : MonoBehaviour
     {
         bool playerFlipX = PlayerBehaviour.FlipX;
         const float DELAY = 0.1f;
-        yield return new WaitForSeconds(DELAY * index);
+        var waitTime = 0f;
+        while (waitTime < DELAY * index)
+        {
+            yield return new WaitWhile(() => _isPaused);
+            waitTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
         var go = Instantiate(_weapon, transform.position, Quaternion.identity);
 
         // 二個まで左右、三・四個で上下、それ以上で斜めのように、インデックスに応じて方向が変化させる。
@@ -125,13 +140,13 @@ public class WeaponGenerator : MonoBehaviour
         // { 0, 180, 90, 270, 90, 270, 0, 180 }
         if (index >= 2 && index < 6) go.transform.Rotate(Vector3.forward * 90);
 
-
         // インデックスが4以上の場合、Z軸を45度回転させる。
         // { 0, 180, 90, 270, 135, 315, 45, 225 }
         if (index >= 4) go.transform.Rotate(Vector3.forward * 45);
 
         // プレイヤーの向きに応じてY軸で回転させることで反転させる。
         if (!playerFlipX) go.transform.Rotate(Vector3.up * 180);
+
         go.GetComponentInChildren<WeaponBase>().WeaponGenerator = this;
     }
     /// <summary>
@@ -140,7 +155,7 @@ public class WeaponGenerator : MonoBehaviour
     private void GenerateFuda(int index)
     {
         const float RANGE = 3f;
-        var angle = (360f/ _count) * index * Mathf.Deg2Rad;
+        var angle = (360f / _count) * index * Mathf.Deg2Rad;
         var pos = RANGE * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) + transform.position;
         var go = Instantiate(_weapon, pos, Quaternion.identity, transform);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
@@ -224,6 +239,16 @@ public class WeaponGenerator : MonoBehaviour
             }
         }
     }
+    public void Pause()
+    {
+        _isPaused = true;
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
+    }
+
     [System.Serializable]
     private struct WeaponLevelUpStatus
     {
