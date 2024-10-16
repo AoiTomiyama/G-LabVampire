@@ -6,14 +6,24 @@ public class TestGameManager : MonoBehaviour
 
     public TimeManager timeManager;
 
+    [Header("ゲームスタート時の処理")]
+    public UnityEvent onGameStart;
+
     [Header("ゲームオーバー時の処理")]
     public UnityEvent onGameOver;
 
+
+
       void Start()
     {
-        if (timeManager != null)
+        TriggerStart();
+    }
+
+    public void TriggerStart()
+    {
+        if (onGameStart != null)
         {
-            timeManager.StartTime();
+            onGameStart.Invoke();
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 武器のダメージ判定、移動を行う。
 /// </summary>
-public class WeaponBase : MonoBehaviour
+public class WeaponBase : MonoBehaviour, IPausable
 {
     [SerializeField, Header("敵を貫通するかどうか")]
     private bool _isPierceEnemy = false;
@@ -18,6 +18,8 @@ public class WeaponBase : MonoBehaviour
     public WeaponGenerator WeaponGenerator { set => _weaponGenerator = value; }
     /// <summary>敵にコライダーを二つ用いているので、多重ヒットさせないための対策</summary>
     private readonly List<EnemyBehaviour> _damagedList = new();
+    /// <summary>ポーズの状態</summary>
+    private bool _isPaused = false;
 
     // 斜方投射の実装に必要なパラメータ群
     /// <summary>開始位置</summary>
@@ -37,6 +39,8 @@ public class WeaponBase : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isPaused) return;
+
         switch (_weaponGenerator.WeaponType)
         {
             case WeaponType.Shikigami:
@@ -65,7 +69,7 @@ public class WeaponBase : MonoBehaviour
     private void KatanaBehaviour()
     {
         // 地球の重力加速度の2倍
-        const float GRAVITY = 9.81f * 2f; 
+        const float GRAVITY = 9.81f * 2f;
         //　発射速度をvとして取得。
         var v = _weaponGenerator.BulletSpeed;
         _t += Time.fixedDeltaTime;
@@ -134,6 +138,23 @@ public class WeaponBase : MonoBehaviour
             {
                 _damagedList.Remove(enemyBehaviour);
             }
+        }
+    }
+    public void Pause()
+    {
+        _isPaused = true;
+        if (TryGetComponent<Animator>(out var anim))
+        {
+            anim.speed = 0;
+        }
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
+        if (TryGetComponent<Animator>(out var anim))
+        {
+            anim.speed = 1;
         }
     }
 }
