@@ -2636,7 +2636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 396323527}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: LevelUPPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5778,6 +5778,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 396323527}
     m_Modifications:
+    - target: {fileID: -2326574900430330134, guid: 58f33729c2a759942936ff418b0eadfa, type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 9209346454725950698, guid: 0c6a5105773b0ad4f813d4e201ea4425, type: 3}
     - target: {fileID: 78820483390406618, guid: 58f33729c2a759942936ff418b0eadfa, type: 3}
       propertyPath: m_Name
       value: GetKekkaiButton

@@ -56,12 +56,12 @@ MonoBehaviour:
   - Damage: 50
     Count: 0
     AttackSpeed: 0
-    Scale: 2
+    Scale: 1
   - Damage: 50
     Count: 0
     AttackSpeed: 0
-    Scale: 2
+    Scale: 1
   - Damage: 50
     Count: 0
     AttackSpeed: 0
-    Scale: 2
+    Scale: 1
