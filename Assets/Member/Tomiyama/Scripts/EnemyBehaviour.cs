@@ -1,15 +1,21 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 /// <summary>
 /// 敵の処理を管轄するクラス。
 /// </summary>
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour, IPausable
 {
     [SerializeField, Header("敵の種類")]
     private EnemyData _enemyData;
     [SerializeField, Header("ダメージ表示させるオブジェクト")]
     private GameObject _damageText;
+    [SerializeField, Header("ボスエネミーかどうか（有効時、カメラ範囲外に行っても消滅しない")]
+    private bool _hasBossFlag;
+
+    [Header("敵が死亡時に実行")]
+    public UnityEvent OnEnemyDeath;
 
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
@@ -22,8 +28,16 @@ public class EnemyBehaviour : MonoBehaviour
     private float _timer;
     /// <summary>対象が接触中かを判定させる。</summary>
     private PlayerBehaviour _player;
+    /// <summary>ポーズの状態</summary>
+    private bool _isPaused = false;
+
+
     /// <summary>ダメージ生成先のTransform</summary>
     public Transform DamageShowPos { set; private get; }
+    /// <summary>結界ヒット時の無敵時間</summary>
+    public float InvincibleTime { get; set; }
+    /// <summary>ボスエネミーかどうか</summary>
+    public bool HasBossFlag => _hasBossFlag;
 
     /// <summary>オブジェクトプール</summary>
     private ObjectPool<EnemyBehaviour> _enemyPool;
@@ -33,6 +47,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void OnEnable()
     {
         _health = _enemyData.MaxHealth;
+        InvincibleTime = 0;
         _timer = _enemyData.AttackSpeed;
         _sr = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
@@ -40,25 +55,44 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        if (_player != null)
+        AttackAtPlayer();
+    }
+
+    private void AttackAtPlayer()
+    {
+        if (_player == null || _isPaused) return;
+        if (_timer < _enemyData.AttackSpeed)
         {
-            if (_timer < _enemyData.AttackSpeed)
-            {
-                _timer += Time.deltaTime;
-            }
-            else
-            {
-                _player.RemoveHealth(_enemyData.Damage);
-                _timer = 0;
-            }
+            _timer += Time.deltaTime;
+        }
+        else
+        {
+            _player.RemoveHealth(_enemyData.Damage);
+            _timer = 0;
         }
     }
+
     private void FixedUpdate()
     {
-        if (_target != null)
+        Move();
+    }
+
+    private void Move()
+    {
+        if (_target == null || (PauseManager.Instance != null && PauseManager.Instance.IsPaused))
         {
-            _sr.flipX = (transform.position - _target.transform.position).x < 0;
-            _rb.velocity = (_target.position - transform.position).normalized * _enemyData.MoveSpeed * Time.fixedDeltaTime;
+            _rb.velocity = Vector3.zero;
+            return;
+        }
+        _sr.flipX = (transform.position - _target.transform.position).x < 0;
+        _rb.velocity = _enemyData.MoveSpeed * Time.fixedDeltaTime * (_target.position - transform.position).normalized;
+        if (transform.position.y < _target.position.y)
+        {
+            _sr.sortingOrder = 1;
+        }
+        else
+        {
+            _sr.sortingOrder = -1;
         }
     }
 
@@ -78,13 +112,13 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.LogWarning($"プレファブがアサインされていません！ エラー箇所: {nameof(EnemyBehaviour)}.{nameof(_damageText)}");
         }
 
-        if (_health + _enemyData.Armor - damage <= 0)
+        if (_health - damage <= 0)
         {
             Death();
         }
         else
         {
-            _health -= damage - _enemyData.Armor;
+            _health -= damage;
         }
     }
     /// <summary>
@@ -95,17 +129,27 @@ public class EnemyBehaviour : MonoBehaviour
         //乱数で経験値をドロップするか判定する。
         if (Random.Range(0, 101) < _enemyData.ExpProbability && _enemyData.ExpSize != 0)
         {
-            Instantiate(ExpGenerator.Instance.ExpPrefabs[(int)_enemyData.ExpSize], transform.position, Quaternion.identity);
+            Instantiate(ExpGenerator.Instance.ExpPrefabs[(int)_enemyData.ExpSize], transform.position, Quaternion.identity, ExpGenerator.Instance.transform);
         }
         //キル数を加算。
         PlayerBehaviour.PlayerKillCount++;
+        OnEnemyDeath?.Invoke();
 
-        //オブジェクトをプールに返却
         ReturnToPool();
     }
+    /// <summary>
+    /// オブジェクトをプールに返却
+    /// </summary>
     public void ReturnToPool()
     {
-        _enemyPool.Release(this);
+        if (_enemyPool != null)
+        {
+            _enemyPool.Release(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -122,5 +166,14 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("Player Exit");
             _player = null;
         }
+    }
+    public void Pause()
+    {
+        _isPaused = true;
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
     }
 }

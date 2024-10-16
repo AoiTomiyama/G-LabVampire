@@ -122,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6574606521265687735}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8901233225307817947, guid: fa5a1e6ce4292a143938d301ce71a1ef, type: 3}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: PauseOrResume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-1700742734657452401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4898dff55d1e4954c8c6d7b52609c4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 1685626539179752466, guid: 29cd23c738edd674b92e8b66c3cc4886, type: 3}
+  Weapon: {fileID: 9209346454725950698, guid: e6bbf70debb156a43bed5944d756961b, type: 3}
   _buttonType: 0
 --- !u!1 &3229135932610966684
 GameObject:

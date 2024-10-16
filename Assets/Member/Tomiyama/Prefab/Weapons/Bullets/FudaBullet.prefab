@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2621304996904775773}
   - component: {fileID: 6286172859300870010}
-  - component: {fileID: 6076776996945749660}
   - component: {fileID: -4161605790133952266}
+  - component: {fileID: 4794204809180309901}
   m_Layer: 0
   m_Name: FudaBullet
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce71aaf6e3ed1e848a1b379d48944afa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9ec0100ecf62b7c45af154c1e398d053, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,8 +86,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &6076776996945749660
-CircleCollider2D:
+--- !u!114 &-4161605790133952266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278691971743201708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d8f738f07ebd7d478cba2ab2c6729d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPierceEnemy: 1
+  _knockback: 0.3
+--- !u!61 &4794204809180309901
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -101,7 +115,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -118,23 +132,16 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.21133333}
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &-4161605790133952266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278691971743201708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d8f738f07ebd7d478cba2ab2c6729d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackPower: 5
-  _damageRange: 1
-  _piercing: 10
-  _weaponType: 0
-  _bulletSpeed: 0.5
+  m_Size: {x: 0.5, y: 0.89}
+  m_EdgeRadius: 0

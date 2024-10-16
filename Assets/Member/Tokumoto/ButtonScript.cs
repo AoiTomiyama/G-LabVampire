@@ -11,7 +11,7 @@ public class ButtonScript : MonoBehaviour
     GameObject _system;
     [SerializeField] ButtonType _buttonType;
     Button button;
-
+    WeaponGenerator _weaponGenerator;
 
 
     private void Start()
@@ -48,6 +48,12 @@ public class ButtonScript : MonoBehaviour
 
     public void HudaButtonPressed()
     {
+        if(_lvSelection._hudaLv != 0)
+        {
+            GameObject wpn = _player.transform.Find("FudaCore(Clone)").gameObject;
+            _weaponGenerator = wpn.gameObject.GetComponent<WeaponGenerator>();
+        }
+
         if (_lvSelection._hudaLv == 0)
         {
             //札取得処理
@@ -60,15 +66,24 @@ public class ButtonScript : MonoBehaviour
             _lvSelection._hudaLv++;
             Debug.Log("札レベル" + _lvSelection._hudaLv);
             _lvSelection._weaponButtons.RemoveAll(obj => obj.name == "GetHudaButton");
+            _weaponGenerator.LevelUp();
         }
         else
         {
             _lvSelection._hudaLv++;
+            _weaponGenerator.LevelUp();
         }
+
     }
 
     public void KaminariButtonPressed()
     {
+        if (_lvSelection._kaminariLv != 0)
+        {
+            GameObject wpn = _player.transform.Find("ThunderCore(Clone)").gameObject;
+            _weaponGenerator = wpn.gameObject.GetComponent<WeaponGenerator>();
+        }
+
         if (_lvSelection._kaminariLv == 0)
 
         {
@@ -80,15 +95,23 @@ public class ButtonScript : MonoBehaviour
             _lvSelection._kaminariLv++;
             Debug.Log("雷レベル" + _lvSelection._kaminariLv);
             _lvSelection._weaponButtons.RemoveAll(obj => obj.name == "GetKaminariButton");
+            _weaponGenerator.LevelUp();
         }
         else
         {
             _lvSelection._kaminariLv++;
+            _weaponGenerator.LevelUp();
         }
     }
 
     public void KekkaiButtonPressed()
     {
+        if (_lvSelection._kekkaiLv != 0)
+        {
+            GameObject wpn = _player.transform.Find("ShieldCore(Clone)").gameObject;
+            _weaponGenerator = wpn.gameObject.GetComponent<WeaponGenerator>();
+        }
+
         if (_lvSelection._kekkaiLv == 0)
         {
             Instantiate(Weapon, _player.transform);
@@ -99,14 +122,22 @@ public class ButtonScript : MonoBehaviour
             _lvSelection._kekkaiLv++;
             Debug.Log("結界レベル" + _lvSelection._kekkaiLv);
             _lvSelection._weaponButtons.RemoveAll(obj => obj.name == "GetHudaButton");
+            _weaponGenerator.LevelUp();
         }
         else
         {
             _lvSelection._kekkaiLv++;
+            _weaponGenerator.LevelUp();
         }
     }
     public void NaginataButtonPressed()
     {
+        if (_lvSelection._naginataLv != 0)
+        {
+            GameObject wpn = _player.transform.Find("NaginataCore(Clone)").gameObject;
+            _weaponGenerator = wpn.gameObject.GetComponent<WeaponGenerator>();
+        }
+
         if (_lvSelection._naginataLv == 0)
         {
             Instantiate(Weapon, _player.transform);
@@ -117,14 +148,22 @@ public class ButtonScript : MonoBehaviour
             _lvSelection._naginataLv++;
             Debug.Log("薙刀レベル" + _lvSelection._naginataLv);
             _lvSelection._weaponButtons.RemoveAll(obj => obj.name == "GetHudaButton");
+            _weaponGenerator.LevelUp();
         }
         else
         {
             _lvSelection._naginataLv++;
+            _weaponGenerator.LevelUp();
         }
     }
     public void NihontouButtonPressed()
     {
+        if (_lvSelection._nihontouLv != 0)
+        {
+            GameObject wpn = _player.transform.Find("KatanaCore(Clone)").gameObject;
+            _weaponGenerator = wpn.gameObject.GetComponent<WeaponGenerator>();
+        }
+
         if (_lvSelection._nihontouLv == 0)
         {
             Instantiate(Weapon, _player.transform);
@@ -135,14 +174,22 @@ public class ButtonScript : MonoBehaviour
             _lvSelection._nihontouLv++;
             Debug.Log("日本刀レベル" + _lvSelection._nihontouLv);
             _lvSelection._weaponButtons.RemoveAll(obj => obj.name == "GetHudaButton");
+            _weaponGenerator.LevelUp();
         }
         else
         {
             _lvSelection._nihontouLv++;
+            _weaponGenerator.LevelUp();
         }
     }
     public void SikigamiButtonPressed()
     {
+        if (_lvSelection._sikigamiLv != 0)
+        {
+            GameObject wpn = _player.transform.Find("ShikigamiCore(Clone)").gameObject;
+            _weaponGenerator = wpn.gameObject.GetComponent<WeaponGenerator>();
+        }
+
         if (_lvSelection._sikigamiLv == 0)
         {
             Instantiate(Weapon, _player.transform);
@@ -153,10 +200,12 @@ public class ButtonScript : MonoBehaviour
             _lvSelection._sikigamiLv++;
             Debug.Log("式神レベル" + _lvSelection._sikigamiLv);
             _lvSelection._weaponButtons.RemoveAll(obj => obj.name == "GetHudaButton");
+            _weaponGenerator.LevelUp();
         }
         else
         {
             _lvSelection._sikigamiLv++;
+            _weaponGenerator.LevelUp();
         }
     }
 

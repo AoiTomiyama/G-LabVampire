@@ -6,30 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance;// シングルトンで管理。シングルトンは一つだけしか存在しないオブジェクトのこと
 
     public AudioClip[] bgmClips; // シーンごとに再生するBGMを格納する配列
 
     [SerializeField, Header("SEの素材")]
-    private SeStruct[] seClips;//seを格納する配列
-    private Dictionary<SE, AudioClip> _seClipDictionary;//seの辞書
+    SeStruct[] seClips;//seを格納する配列
+    Dictionary<SE, AudioClip> _seClipDictionary;//seの辞書
 
     public AudioSource seSource;//seを流すAudioSouse
     public AudioSource audioSource;//BGMを流すAudioSouse
 
-    public static AudioManager Instance;//シングルトンで管理。シングルトンは一つだけしか存在しないオブジェクトのこと
-
     void Awake()
-    {
-        // インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
-        if (Instance == null)
+    {        
+        if (Instance == null)// インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // このオブジェクトを壊さない
+            DontDestroyOnLoad(gameObject);//このオブジェクトを壊さない
         }
         else
         {
-            // すでに存在しているインスタンスがあれば、現在のオブジェクトを破棄
-            Destroy(gameObject);
+            Destroy(gameObject);// インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
         }
 
         audioSource = GetComponent<AudioSource>();
@@ -37,13 +34,16 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        
         _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列tを指定しやすいように辞書型に変換
-        SceneManager.sceneLoaded += OnSceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
+        SceneManager.sceneLoaded += SceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
+        PlayBGMForScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayBGMForScene(scene.buildIndex); // シーンに応じたBGMを再生
+        Debug.Log("Scen");
     }
 
     public void PlayBGMForScene(int sceneIndex)
@@ -57,6 +57,7 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// SEを再生する
     /// </summary>

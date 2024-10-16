@@ -123,9 +123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7503518209111241962, guid: ddfc83a2f448add4cb72a22758744f3f, type: 3}
-        m_TargetAssemblyTypeName: LevelUPUISelection, Assembly-CSharp
-        m_MethodName: CloseUI
+      - m_Target: {fileID: 8901233225307817947, guid: fa5a1e6ce4292a143938d301ce71a1ef, type: 3}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: PauseOrResume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4898dff55d1e4954c8c6d7b52609c4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 3139107291793228835, guid: 1afc0099e4fe3e841ba83bb3d6d4efaf, type: 3}
+  Weapon: {fileID: 9209346454725950698, guid: 179cab60a163fb34a9eb349dcfc32263, type: 3}
   _buttonType: 3
 --- !u!1 &3229135932610966684
 GameObject:

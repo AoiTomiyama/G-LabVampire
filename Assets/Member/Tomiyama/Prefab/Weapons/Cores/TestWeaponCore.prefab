@@ -45,7 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackInterval: 0.7
-  _reach: 30
   _count: 1
   _weapon: {fileID: 278691971743201708, guid: 6c8ee8ed565ca064d8888aece1f64894, type: 3}
+  _attackPower: 5
+  _damageRange: 1
+  _bulletSpeed: 0.5
+  _bulletSize: 1
   _attackType: 0
+  _weaponType: 1
+  _weaponLevelUpStatusArray:
+  - Damage: 0
+    Count: 0
+    AttackSpeed: 0
+    Scale: 0
