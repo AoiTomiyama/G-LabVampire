@@ -254,8 +254,8 @@ public class WeaponGenerator : MonoBehaviour, IPausable
     {
         public int Damage;
         public int Count;
-        public int AttackSpeed;
-        public int Scale;
+        public float AttackSpeed;
+        public float Scale;
     }
 }
 public enum WeaponType

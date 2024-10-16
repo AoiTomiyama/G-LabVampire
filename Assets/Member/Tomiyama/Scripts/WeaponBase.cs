@@ -90,7 +90,7 @@ public class WeaponBase : MonoBehaviour, IPausable
     /// </summary>
     private void ShieldBehaviour()
     {
-        int damage = Mathf.RoundToInt(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
+        int damage = _playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1);
         var hits = Physics2D.CircleCastAll(transform.position, _weaponGenerator.BulletSize, transform.forward)
                            .Select(hit => hit.collider.GetComponent<EnemyBehaviour>())
                            .Where(eb => eb != null);
@@ -122,7 +122,7 @@ public class WeaponBase : MonoBehaviour, IPausable
         {
             if (!_damagedList.Contains(enemyBehaviour))
             {
-                int damage = Mathf.RoundToInt(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
+                int damage = _playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1);
                 enemyBehaviour.RemoveHealth(damage);
                 enemyBehaviour.transform.position -= (_playerBehaviour.transform.position - enemyBehaviour.transform.position).normalized * _knockback;
                 _damagedList.Add(enemyBehaviour);
