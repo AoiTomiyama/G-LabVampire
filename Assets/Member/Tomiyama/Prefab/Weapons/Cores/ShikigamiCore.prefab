@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9209346454725950698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1662329454908394185}
+  - component: {fileID: 9035662532799867481}
+  m_Layer: 0
+  m_Name: ShikigamiCore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1662329454908394185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209346454725950698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9035662532799867481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209346454725950698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7261e7e2f8d1f04a9b92080a71b11b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackInterval: 1
+  _count: 1
+  _weapon: {fileID: 278691971743201708, guid: 6c8ee8ed565ca064d8888aece1f64894, type: 3}
+  _attackPower: 100
+  _damageRange: 10
+  _bulletSpeed: 0.5
+  _bulletSize: 1
+  _weaponType: 1
+  _weaponLevelUpStatusArray:
+  - Damage: 100
+    Count: 4
+    AttackSpeed: 0
+    Scale: 0
+  - Damage: 100
+    Count: 5
+    AttackSpeed: 0
+    Scale: 0
+  - Damage: 100
+    Count: 5
+    AttackSpeed: 0
+    Scale: 0

@@ -9,25 +9,26 @@ public class EnemyData : ScriptableObject
     private int _maxHealth;
     [SerializeField, Header("敵の攻撃力")]
     private int _damage;
-    [SerializeField, Header("敵の防御力（基本的には0）")]
-    private int _armor;
     [SerializeField, Header("移動速度")]
     private float _moveSpeed;
     [SerializeField, Header("攻撃頻度")]
     private float _attackSpeed;
-    [SerializeField, Header("攻撃範囲")]
-    private float _range;
     [SerializeField, Header("経験値ドロップ確率"), Range(0, 100)]
     private int _expProbability;
-    [SerializeField, Header("経験値の種類"), Range(0, 3)]
-    private int _expSize;
+    [SerializeField, Header("経験値の種類")]
+    private ExperienceType _expSize;
 
     public int MaxHealth => _maxHealth;
     public int Damage => _damage;
-    public int Armor => _armor;
     public float MoveSpeed => _moveSpeed;
     public float AttackSpeed => _attackSpeed;
-    public float Range => _range;
     public int ExpProbability => _expProbability;
-    public int ExpSize => _expSize;
+    public ExperienceType ExpSize => _expSize;
+    public enum ExperienceType
+    {
+        None,
+        Small,
+        Medium,
+        Large,
+    }
 }
