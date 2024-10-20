@@ -36,8 +36,13 @@ public class LevelUPUISelection : MonoBehaviour
     {
         if (_isLevelUp)
         {
-            LevelUpUI();
             _isLevelUp = false;
+            LevelUpUI();
+            ButtonScript[] buttons = FindObjectsOfType<ButtonScript>();
+            foreach (var button in buttons)
+            {
+                button.ModifyDescription();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {

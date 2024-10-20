@@ -25,7 +25,7 @@ public class ButtonScript : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(ButtonPressed);
         button.onClick.AddListener(_lvSelection.CloseUI);
-
+        ModifyDescription();
     }
     void ButtonPressed()
     {
@@ -39,8 +39,10 @@ public class ButtonScript : MonoBehaviour
         }
         ButtonLv++;
     }
-    void ModifyDescription()
+    public void ModifyDescription()
     {
-
+        Transform txt = transform.Find("InfoText");
+        var text = txt.GetComponent<Text>();
+        text.text = _infoTexts[buttonLv];
     }
 }
