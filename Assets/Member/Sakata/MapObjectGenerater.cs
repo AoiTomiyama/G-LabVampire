@@ -1,75 +1,102 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class MapObjectGenerater : MonoBehaviour
 {
-    public GameObject[] Prefabs; // ¶¬‚·‚éƒvƒŒƒnƒu‚Ì”z—ñ
-    public Transform Player; // ƒvƒŒƒCƒ„[‚ÌTransform
-    public float SpawnDistance = 10.0f; // ƒvƒŒƒCƒ„[‚ª‚±‚Ì‹——£‚ğˆÚ“®‚µ‚½‚ç¶¬
-    public float MaxDistance = 20.0f; // ƒIƒuƒWƒFƒNƒg‚ªƒvƒŒƒCƒ„[‚©‚ç‚±‚Ì‹——£‚ğ’´‚¦‚½‚ç”jŠü
-    private Vector3 lastSpawnPosition; // ÅŒã‚É¶¬‚µ‚½ˆÊ’u
-    private List<GameObject> spawnedObjects = new List<GameObject>(); // ¶¬‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğŠÇ—
-    private Vector3[] initialPositions; // ŠeƒvƒŒƒnƒu‚Ì‰ŠúˆÊ’u
+    public GameObject[] Prefabs; // ç”Ÿæˆã™ã‚‹ãƒ—ãƒ¬ãƒãƒ–ã®é…åˆ—
+    public Transform Player; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Transform
+    public float SpawnDistance = 5.0f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã“ã®è·é›¢ã‚’ç§»å‹•ã—ãŸã‚‰ç”Ÿæˆ
+    public float MaxDistance = 20.0f; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã“ã®è·é›¢ã‚’è¶…ãˆãŸã‚‰ç ´æ£„
+    private Rigidbody2D rigidbody2D;
+    private Vector3 lastSpawnPosition; // æœ€å¾Œã«ç”Ÿæˆã—ãŸä½ç½®
+    private List<GameObject> spawnedObjects = new List<GameObject>(); // ç”Ÿæˆã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†
+    private Vector3 previousMovementDirection; // ç›´å‰ã®ç§»å‹•æ–¹å‘
 
     void Start()
     {
-        // ƒvƒŒƒnƒu‚²‚Æ‚Ì‰ŠúˆÊ’u‚ğ•Û
-        initialPositions = new Vector3[Prefabs.Length];
-        for (int i = 0; i < Prefabs.Length; i++)
-        {
-            initialPositions[i] = Prefabs[i].transform.position;
-        }
-
-        // ‰ŠúˆÊ’u‚ÉƒvƒŒƒnƒu‚ğ¶¬
-        SpawnInitialObjects();
-
-        // ÅŒã‚É¶¬‚µ‚½ˆÊ’u‚ğƒvƒŒƒCƒ„[‚ÌŒ»İˆÊ’u‚Å‰Šú‰»
-        lastSpawnPosition = Player.position;
+        rigidbody2D = Player.GetComponent<Rigidbody2D>(); // Rigidbody2Dã‚’å–å¾—
+        lastSpawnPosition = Player.position; // æœ€å¾Œã®ç”Ÿæˆä½ç½®ã‚’åˆæœŸåŒ–
+        previousMovementDirection = Vector3.up; // åˆæœŸç§»å‹•æ–¹å‘ã‚’ä¸Šï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆï¼‰ã«è¨­å®š
+        SpawnInitialObjects(); // åˆæœŸä½ç½®ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
     }
 
     void Update()
     {
-        // ƒvƒŒƒCƒ„[‚ªˆê’è‹——£ˆÚ“®‚µ‚½‚çV‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ğ¶¬
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¸€å®šè·é›¢ç§»å‹•ã—ãŸã‚‰æ–°ã—ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         if (Vector3.Distance(Player.position, lastSpawnPosition) >= SpawnDistance)
         {
-            SpawnObjects(Player.position - lastSpawnPosition); // ˆÚ“®—Ê‚ğ“n‚·
-            lastSpawnPosition = Player.position;
+            Debug.Log("Spawning new objects...");
+            SpawnObjects();
         }
 
-        // ŒÃ‚¢ƒIƒuƒWƒFƒNƒg‚ğ”jŠü
+        // å¤ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„
         RemoveOldObjects();
     }
 
     void SpawnInitialObjects()
     {
-        // ‰ŠúˆÊ’u‚ÉƒvƒŒƒnƒu‚ğ¶¬
+        // å„ãƒ—ãƒ¬ãƒãƒ–ã®åˆæœŸä½ç½®ã«ç”Ÿæˆ
         for (int i = 0; i < Prefabs.Length; i++)
         {
-            // ‰ŠúˆÊ’u‚É¶¬
-            GameObject newObject = Instantiate(Prefabs[i], initialPositions[i], Quaternion.identity);
+            Vector3 prefabInitialPosition = Prefabs[i].transform.position; // ãƒ—ãƒ¬ãƒãƒ–ã®åˆæœŸä½ç½®
+            Vector3 spawnPosition = Player.position + prefabInitialPosition; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’åŸºæº–ã«ã™ã‚‹
+            GameObject newObject = Instantiate(Prefabs[i], spawnPosition, Quaternion.identity);
             spawnedObjects.Add(newObject);
+            Debug.Log($"Spawned initial object: {newObject.name} at {spawnPosition}");
         }
+        lastSpawnPosition = Player.position; // åˆæœŸç”Ÿæˆå¾Œã®æ›´æ–°
     }
 
-    void SpawnObjects(Vector3 offset)
+    void SpawnObjects()
     {
-        // ƒvƒŒƒnƒu‚ğ‚·‚×‚Ä“¯‚É¶¬
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’å–å¾—
+        Vector3 playerPosition = Player.position;
+
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€²è¡Œæ–¹å‘ã‚’è¨ˆç®—
+        Vector3 movementDirection = rigidbody2D.velocity.normalized; // Rigidbody2Dã‹ã‚‰é€Ÿåº¦ã‚’å–å¾—
+
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå‹•ã„ã¦ã„ãªã„å ´åˆã¯ç›´å‰ã®ç§»å‹•æ–¹å‘ã‚’ä½¿ç”¨
+        if (movementDirection == Vector3.zero)
+        {
+            movementDirection = previousMovementDirection; // ç›´å‰ã®ç§»å‹•æ–¹å‘ã‚’ä½¿ç”¨
+        }
+        else
+        {
+            previousMovementDirection = movementDirection; // ç§»å‹•æ–¹å‘ã‚’æ›´æ–°
+        }
+
+        // ãƒ—ãƒ¬ãƒãƒ–ã‚’é€²è¡Œæ–¹å‘ã®å°‘ã—å…ˆã«ç”Ÿæˆ
         for (int i = 0; i < Prefabs.Length; i++)
         {
-            // ƒvƒŒƒCƒ„[‚ÌˆÚ“®‚ğ‰Á–¡‚µ‚½ˆÊ’u‚É¶¬
-            Vector3 spawnPosition = initialPositions[i] + offset;
+            // ãƒ—ãƒ¬ãƒãƒ–ã®åˆæœŸä½ç½®ã‚’åŸºã«ç”Ÿæˆä½ç½®ã‚’æ±ºå®š
+            Vector3 prefabInitialPosition = Prefabs[i].transform.localPosition; // ãƒ—ãƒ¬ãƒãƒ–ã®ç›¸å¯¾ä½ç½®ã‚’å–å¾—
+
+            // é€²è¡Œæ–¹å‘ã«åŸºã¥ã„ã¦ç”Ÿæˆä½ç½®ã‚’æ±ºå®š
+            Vector3 spawnPosition = playerPosition + movementDirection * SpawnDistance * 0.7f;
+
+            // ãƒ—ãƒ¬ãƒãƒ–ã®åˆæœŸä½ç½®ã‚’ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+            spawnPosition += prefabInitialPosition;
+
+            // ç”Ÿæˆã™ã‚‹ä½ç½®ãŒæ­£ã—ã„ã‹ãƒ‡ãƒãƒƒã‚°ç”¨ã«ãƒ­ã‚°å‡ºåŠ›
+            Debug.Log($"Spawning {Prefabs[i].name} at {spawnPosition}");
+
             GameObject newObject = Instantiate(Prefabs[i], spawnPosition, Quaternion.identity);
             spawnedObjects.Add(newObject);
         }
+
+        // æœ€å¾Œã®ç”Ÿæˆä½ç½®ã‚’æ›´æ–°
+        lastSpawnPosition = playerPosition; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã§æ›´æ–°
     }
 
     void RemoveOldObjects()
     {
-        // ƒvƒŒƒCƒ„[‚©‚çˆê’è‹——£‚ğ’´‚¦‚½ƒIƒuƒWƒFƒNƒg‚ğ”jŠü
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ä¸€å®šè·é›¢ã‚’è¶…ãˆãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„
         for (int i = spawnedObjects.Count - 1; i >= 0; i--)
         {
-            if (Vector3.Distance(Player.position, spawnedObjects[i].transform.position) > MaxDistance)
+            float distance = Vector3.Distance(Player.position, spawnedObjects[i].transform.position);
+            if (distance > MaxDistance)
             {
+                Debug.Log($"Destroying object: {spawnedObjects[i].name} at distance: {distance}");
                 Destroy(spawnedObjects[i]);
                 spawnedObjects.RemoveAt(i);
             }
