@@ -86,12 +86,15 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     public Action<float, UpdateParameterType> DisplayOnUI;
     /// <summary>ポーズの状態</summary>
     private bool _isPaused = false;
+    /// <summary>アイテムによる強化状態を取得</summary>
+    private ItemPowerUpManager _powerUpManager;
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _powerUpManager = FindAnyObjectByType<ItemPowerUpManager>();
         _currentHP = _maxHealth;
         _playerKillCount = 0;
         StartCoroutine(Regeneration());
@@ -151,7 +154,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
          */
 
         _sr.flipX = _flipX = (_h != 0) ? _h == 1 : _sr.flipX;
-        _rb.velocity = _moveSpeed * new Vector2(_h, _v);
+        _rb.velocity = _powerUpManager.CurrentSpeedAdd * _moveSpeed * new Vector2(_h, _v);
     }
     /// <summary>
     /// 経験値の回収処理。
@@ -239,7 +242,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     public void RemoveHealth(int damage)
     {
         Debug.Log($"Player Take Damage: {damage}");
-        if (_currentHP + _playerDefense - damage <= 0)
+        if (_currentHP + _playerDefense * _powerUpManager.CurrentDecreaseAdd - damage <= 0)
         {
             if (_playerResurrectionCount > 0)
             {
