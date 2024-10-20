@@ -44,10 +44,10 @@ public class LevelUPUISelection : MonoBehaviour
                 button.ModifyDescription();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            _isLevelUp = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    _isLevelUp = true;
+        //}
 
     }
     public void LevelUpUI()
@@ -66,6 +66,7 @@ public class LevelUPUISelection : MonoBehaviour
             }
         }
         _levelUpPanel.SetActive(false);
+        PauseManager.Instance.PauseOrResume();
     }
 
     public void SelectButton()
