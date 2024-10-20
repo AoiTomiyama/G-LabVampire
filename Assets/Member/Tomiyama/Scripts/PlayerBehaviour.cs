@@ -275,7 +275,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
             }
             foreach (var item in FindObjectsOfType<PowerUpItem>())
             {
-                DataManagerBetweenScenes.Instance.ItemsData.Add(item.ToString(), item.ItemLevel);
+                DataManagerBetweenScenes.Instance.ItemsData.Add(item.ItemName, item.ItemLevel);
             }
         }
         Debug.Log("Game Over");
