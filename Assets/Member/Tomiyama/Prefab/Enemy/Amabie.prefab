@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.36, y: 1.45, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,6 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: f7718136732553e4e9c4fd0b28a549ef, type: 2}
   _damageText: {fileID: 2179675562680713850, guid: ddb2927bd6947f9489b7477fa3e04b58, type: 3}
+  _hasBossFlag: 0
+  OnEnemyDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &4261453543075292429
 SpriteRenderer:
   m_ObjectHideFlags: 0

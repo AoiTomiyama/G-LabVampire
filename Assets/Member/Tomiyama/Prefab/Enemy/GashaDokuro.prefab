@@ -51,6 +51,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: 8e5288fdf7c79d2458cfefa6c26d0e3d, type: 2}
   _damageText: {fileID: 2179675562680713850, guid: ddb2927bd6947f9489b7477fa3e04b58, type: 3}
+  _hasBossFlag: 1
+  OnEnemyDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!212 &4261453543075292429
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c2811e87229619140a45ec3133448bc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f1d33ff42bae8a428aaa7f3121530ca, type: 3}
   m_Color: {r: 0.6528301, g: 0.6528301, b: 0.6528301, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -208,7 +224,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2411116887355431825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9dd8ba0e22b110444813060bd2323980, type: 2}
   m_CullingMode: 0
