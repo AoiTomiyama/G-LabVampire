@@ -48,7 +48,7 @@ public class ButtonScript : MonoBehaviour
         text = txt.GetComponent<Text>();
         if(buttonLv == 0)
         {
-            text.text = "NEW";
+            text.text = "V‹K“üè";
         }
         else
         {
