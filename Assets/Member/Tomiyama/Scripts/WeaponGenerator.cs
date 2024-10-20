@@ -33,6 +33,8 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
     private float _timer;
     /// <summary>ポーズの状態</summary>
     private bool _isPaused = false;
+    /// <summary>アイテムによる強化状態を取得</summary>
+    private ItemPowerUpManager _powerUpManager;
 
     public WeaponType WeaponType => _weaponType;
     public int DamageRange => _damageRange;
@@ -44,6 +46,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
 
     private void Start()
     {
+        _powerUpManager = FindAnyObjectByType<ItemPowerUpManager>();
         if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda)
         {
             GenerateWeapon();
@@ -56,7 +59,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
             return;
         }
 
-        if (_timer < _attackInterval)
+        if (_timer < _attackInterval * _powerUpManager.CurrentAttackSpeedAdd)
         {
             _timer += Time.deltaTime;
         }
@@ -78,7 +81,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
     /// </summary>
     private void GenerateWeapon()
     {
-        for (int i = 0; i < _count; i++)
+        for (int i = 0; i < _count + _powerUpManager.CurrentCountAdd; i++)
         {
             switch (_weaponType)
             {
