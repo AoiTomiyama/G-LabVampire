@@ -263,7 +263,16 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     /// </summary>
     private void Death()
     {
+        if (DataManagerBetweenScenes.Instance != null)
+        {
+            DataManagerBetweenScenes.Instance.PlayerLevelOnEnd = _currentLevel;
+            foreach (var core in FindObjectsOfType<WeaponGenerator>())
+            {
+                DataManagerBetweenScenes.Instance.WeaponsData.Add(core.WeaponType.ToString(), core.Level);
+            }
+        }
         Debug.Log("Game Over");
+
         OnGameOver.Invoke();
         Destroy(gameObject);
     }
