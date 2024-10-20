@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
 {
+    [SerializeField, Header("武器の名前（リザルト表示用）")]
+    private string _weaponName;
     [SerializeField, Header("攻撃頻度")]
     private float _attackInterval;
     [SerializeField, Header("発射個数")]
@@ -43,6 +45,8 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
     public int Level => _level;
     public float AttackInterval => _attackInterval;
     public float BulletSize => _bulletSize;
+
+    public string WeaponName => _weaponName;
 
     private void Start()
     {
