@@ -11,7 +11,8 @@ public class ButtonScript : MonoBehaviour
     WeaponGenerator _weaponGenerator;
     bool _hasAdded;
     private int buttonLv;
-    WeaponGenerator _generatedWeapon;
+    ILevelUppable _generatedObject;
+    [SerializeField] string[] _infoTexts;
 
     public int ButtonLv { get => buttonLv; set => buttonLv = value; }
 
@@ -30,12 +31,16 @@ public class ButtonScript : MonoBehaviour
     {
         if (ButtonLv == 0)
         {
-            _generatedWeapon = Instantiate(_object, _player.transform).GetComponent<WeaponGenerator>();
+            _generatedObject = Instantiate(_object, _player.transform).GetComponent<ILevelUppable>();
         }
         else
         {
-            _generatedWeapon.LevelUp();
+            _generatedObject.LevelUp();
         }
         ButtonLv++;
+    }
+    void ModifyDescription()
+    {
+
     }
 }

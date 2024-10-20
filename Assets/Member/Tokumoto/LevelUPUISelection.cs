@@ -69,7 +69,7 @@ public class LevelUPUISelection : MonoBehaviour
         var useItemList = new List<ButtonScript>(_itemList);
         var useWeaponList = new List<ButtonScript>(_weaponList);
 
-        if (_itemList.Count(component => component.ButtonLv == 1) >= 4)
+        if (_itemList.Count(component => component.ButtonLv == 1) >= 2)
         {
             useItemList.RemoveAll(component => component.ButtonLv == 0);
         }
