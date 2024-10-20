@@ -22,7 +22,7 @@ public class PlayerStatusOnUI : MonoBehaviour
                     _expBar.fillAmount = value;
                     break;
                 case UpdateParameterType.KillCount:
-                    _killCountText.text = value.ToString("00000") + " Kill";
+                    _killCountText.text = value.ToString("00000") + " “¢";
                     break;
             }
         };
