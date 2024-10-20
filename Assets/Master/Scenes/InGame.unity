@@ -6149,18 +6149,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1749806979}
     - target: {fileID: 5700443584005411042, guid: 36394c14599477049bf2d6623caede7c, type: 3}
-      propertyPath: _itemButtons.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700443584005411042, guid: 36394c14599477049bf2d6623caede7c, type: 3}
-      propertyPath: _useWeaponList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700443584005411042, guid: 36394c14599477049bf2d6623caede7c, type: 3}
-      propertyPath: _weaponButtons.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700443584005411042, guid: 36394c14599477049bf2d6623caede7c, type: 3}
       propertyPath: _itemButtons.Array.data[0]
       value: 
       objectReference: {fileID: 6244158557584444080, guid: 59b12f305cc1269498204bc0dd707c85, type: 3}
@@ -6180,10 +6168,6 @@ PrefabInstance:
       propertyPath: _itemButtons.Array.data[4]
       value: 
       objectReference: {fileID: 6244158557584444080, guid: f1f949578e6f8174492e6526ac671cf2, type: 3}
-    - target: {fileID: 5700443584005411042, guid: 36394c14599477049bf2d6623caede7c, type: 3}
-      propertyPath: _buttonPositions.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5700443584005411042, guid: 36394c14599477049bf2d6623caede7c, type: 3}
       propertyPath: _weaponButtons.Array.data[0]
       value: 
