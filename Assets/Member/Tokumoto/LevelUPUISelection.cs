@@ -9,6 +9,7 @@ public class LevelUPUISelection : MonoBehaviour
 {
     bool _isLevelUp;
     [SerializeField] GameObject _levelUpPanel;
+    [SerializeField] GameObject _firstPanel;
     [SerializeField] private List<GameObject> _weaponButtons;
     [SerializeField] private List<GameObject> _itemButtons;
     private List<ButtonScript> _weaponList = new();
@@ -17,8 +18,8 @@ public class LevelUPUISelection : MonoBehaviour
 
     private void Start()
     {
+        _firstPanel.SetActive(true);
         _levelUpPanel.SetActive(false);
-        _isLevelUp = true;
         foreach (var button in _itemButtons)
         {
             var component = Instantiate(button, _levelUpPanel.transform).GetComponent<ButtonScript>();
@@ -52,6 +53,7 @@ public class LevelUPUISelection : MonoBehaviour
     }
     public void LevelUpUI()
     {
+        PauseManager.Instance.PauseOrResume();
         _levelUpPanel.SetActive(true);
         SelectButton();
     }
@@ -66,7 +68,11 @@ public class LevelUPUISelection : MonoBehaviour
             }
         }
         _levelUpPanel.SetActive(false);
-        PauseManager.Instance.PauseOrResume();
+    }
+
+    public void CloseFirstPanel()
+    {
+        _firstPanel.SetActive(false);
     }
 
     public void SelectButton()
