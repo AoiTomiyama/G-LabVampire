@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 561954061618513805, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: m_Name
-      value: GetHudaButton 5
+      value: GetHudaButton
       objectReference: {fileID: 0}
     - target: {fileID: 1365912460055937321, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: _object
       value: 
-      objectReference: {fileID: 9209346454725950698, guid: 1356ee59870f79b4eb80fb5de6c2a62c, type: 3}
+      objectReference: {fileID: 9209346454725950698, guid: e6bbf70debb156a43bed5944d756961b, type: 3}
     - target: {fileID: 1365912460055937321, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: _infoTexts.Array.data[0]
-      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306B\u6700\u3082\u8FD1\u3044\u30A8\u30CD\u30DF\u30FC\u306B\u5F0F\u7D19\u3092\uFF11\u3064\u98DB\u3070\u3059\u3002"
+      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u5468\u56F2\u3092\uFF12\u3064\u306E\u672D\u304C\u5E38\u6642\u56DE\u8EE2\u3059\u308B\u3002"
       objectReference: {fileID: 0}
     - target: {fileID: 1365912460055937321, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: _infoTexts.Array.data[1]
-      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306B\u6700\u3082\u8FD1\u3044\u30A8\u30CD\u30DF\u30FC\u306B\u5F0F\u7D19\u3092\uFF15\u3064\u98DB\u3070\u3059\u3002\u653B\u6483\u529B\u3092\u4E0A\u6607\u3055\u305B\u3001\u767A\u751F\u9593\u9694\u3092\u77ED\u304F\u3059\u308B\u3002"
+      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u5468\u56F2\u3092\uFF14\u3064\u306E\u672D\u304C\u5E38\u6642\u56DE\u8EE2\u3059\u308B\u3002\u653B\u6483\u529B\u3092\u4E0A\u6607\u3055\u305B\u308B\u3002"
       objectReference: {fileID: 0}
     - target: {fileID: 1365912460055937321, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: _infoTexts.Array.data[2]
-      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306B\u6700\u3082\u8FD1\u3044\u30A8\u30CD\u30DF\u30FC\u306B\u5F0F\u7D19\u309210\u3064\u98DB\u3070\u3059\u3002\u653B\u6483\u529B\u3092\u4E0A\u6607\u3055\u305B\u3001\u767A\u751F\u9593\u9694\u3092\u77ED\u304F\u3059\u308B\u3002"
+      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u5468\u56F2\u3092\uFF16\u3064\u306E\u672D\u304C\u5E38\u6642\u56DE\u8EE2\u3059\u308B\u3002\u653B\u6483\u529B\u3092\u4E0A\u6607\u3055\u305B\u308B\u3002"
       objectReference: {fileID: 0}
     - target: {fileID: 1365912460055937321, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: _infoTexts.Array.data[3]
-      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306B\u6700\u3082\u8FD1\u3044\u30A8\u30CD\u30DF\u30FC\u306B\u5F0F\u7D19\u309220\u3064\u98DB\u3070\u3059\u3002\u653B\u6483\u529B\u3092\u4E0A\u6607\u3055\u305B\u3001\u767A\u751F\u9593\u9694\u3092\u77ED\u304F\u3059\u308B\u3002"
+      value: "\u30D7\u30EC\u30A4\u30E4\u30FC\u306E\u5468\u56F2\u3092\uFF18\u3064\u306E\u672D\u304C\u5E38\u6642\u56DE\u8EE2\u3059\u308B\u3002\u653B\u6483\u529B\u3092\u4E0A\u6607\u3055\u305B\u308B\u3002"
       objectReference: {fileID: 0}
     - target: {fileID: 2884155801492808346, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: m_Pivot.x
