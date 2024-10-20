@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5113569174231828409}
   - component: {fileID: 6574606521265687735}
   - component: {fileID: 6983681117250732882}
-  - component: {fileID: -1700742734657452401}
+  - component: {fileID: 7522629302197323407}
   m_Layer: 5
   m_Name: GetHudaButton
   m_TagString: Untagged
@@ -135,7 +135,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-1700742734657452401
+--- !u!114 &7522629302197323407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,8 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4898dff55d1e4954c8c6d7b52609c4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 9209346454725950698, guid: e6bbf70debb156a43bed5944d756961b, type: 3}
-  _buttonType: 0
+  _object: {fileID: 9209346454725950698, guid: e6bbf70debb156a43bed5944d756961b, type: 3}
 --- !u!1 &3229135932610966684
 GameObject:
   m_ObjectHideFlags: 0
