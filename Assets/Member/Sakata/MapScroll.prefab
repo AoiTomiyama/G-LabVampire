@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f490a4a555b0c34bb647381f270ff1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPrefab: {fileID: 490294135365110623, guid: feb7b45d841f2ed4ea7fff05b1a7f310, type: 3}
+  mapPrefab: {fileID: 5826985995071090518, guid: d29d6856714680c4fa320fc4385fc15b, type: 3}
   player: {fileID: 0}
   mainCamera: {fileID: 0}
   TileSize: 10
   Distance: 1
-  SpawnSpacing: 3
+  SpawnSpacing: 20
