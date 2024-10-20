@@ -18,6 +18,8 @@ public class PowerUpItem : MonoBehaviour, ILevelUppable
     private float _currentDecreaseAdd;
     [SerializeField, Header("現在の移動速度上昇割合")]
     private float _currentSpeedAdd;
+    [SerializeField]
+    private string _itemName;
 
     //TODO: プレイヤーと武器が参照できるようにプロパティをつける。
     public int ItemLevel { get => _itemLevel; set => _itemLevel = value; }
@@ -27,6 +29,7 @@ public class PowerUpItem : MonoBehaviour, ILevelUppable
     public int CurrentCountAdd { get => _currentCountAdd; set => _currentCountAdd = value; }
     public float CurrentDecreaseAdd { get => _currentDecreaseAdd; set => _currentDecreaseAdd = value; }
     public float CurrentSpeedAdd { get => _currentSpeedAdd; set => _currentSpeedAdd = value; }
+    public string ItemName { get => _itemName; set => _itemName = value; }
 
     [Serializable]
     private struct ItemGainParameter
