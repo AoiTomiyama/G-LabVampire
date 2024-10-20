@@ -9,7 +9,6 @@ public class MapGenerater : MonoBehaviour
     [SerializeField] public int TileSize = 10;
     [SerializeField] public float Distance = 10.0f;
     [SerializeField] public float SpawnSpacing = 1.0f;
-
     private Dictionary<Vector2Int, GameObject> spawnedTiles = new Dictionary<Vector2Int, GameObject>();
     private Vector2Int PlayerTilePos;
 
@@ -34,26 +33,14 @@ public class MapGenerater : MonoBehaviour
 
     void UpdateMap()
     {
-        float screenAspect = (float)Screen.width / (float)Screen.height;
-        float cameraHeight = mainCamera.orthographicSize * 2;
-        float cameraWidth = cameraHeight * screenAspect;
-        float buffer = TileSize * 2.0f;
-
-        // カメラの位置を考慮した生成範囲を設定
-        Vector3 playerPos = player.position;
-        Vector3 generationBottomLeft = playerPos - new Vector3(cameraWidth / 2 + buffer, cameraHeight / 2 + buffer, 0);
-        Vector3 generationTopRight = playerPos + new Vector3(cameraWidth / 2 + buffer, cameraHeight / 2 + buffer, 0);
-
-        // タイル座標を整数に変換
-        int minTileX = Mathf.FloorToInt(generationBottomLeft.x / TileSize) - 1;
-        int maxTileX = Mathf.FloorToInt(generationTopRight.x / TileSize) + 1;
-        int minTileY = Mathf.FloorToInt(generationBottomLeft.y / TileSize) - 1;
-        int maxTileY = Mathf.FloorToInt(generationTopRight.y / TileSize) + 1;
+        // プレイヤーの位置を基に生成範囲を設定
+        Vector2Int playerTilePos = GetPlayerTilePos();
+        int range = 2; // プレイヤーの周囲に生成するタイルの範囲（調整可能）
 
         // タイル生成
-        for (int x = minTileX; x <= maxTileX; x++)
+        for (int x = playerTilePos.x - range; x <= playerTilePos.x + range; x++)
         {
-            for (int y = minTileY; y <= maxTileY; y++)
+            for (int y = playerTilePos.y - range; y <= playerTilePos.y + range; y++)
             {
                 Vector2Int tilePosInt = new Vector2Int(x, y);
                 if (!spawnedTiles.ContainsKey(tilePosInt))
@@ -65,10 +52,10 @@ public class MapGenerater : MonoBehaviour
 
         // 不要なタイルを削除
         List<Vector2Int> tilesToRemove = new List<Vector2Int>();
-        Vector2Int playerTilePos = GetPlayerTilePos();
 
         foreach (var tile in spawnedTiles)
         {
+            // プレイヤーからの距離が Distance を超えたタイルを削除
             if (Mathf.Abs(tile.Key.x - playerTilePos.x) > Distance ||
                 Mathf.Abs(tile.Key.y - playerTilePos.y) > Distance)
             {
