@@ -46,6 +46,13 @@ public class ButtonScript : MonoBehaviour
         text.text = _infoTexts[buttonLv];
         txt = transform.Find("LevelText");
         text = txt.GetComponent<Text>();
-        text.text = "Lv :" + buttonLv;
+        if(buttonLv == 0)
+        {
+            text.text = "NEW";
+        }
+        else
+        {
+            text.text = "Lv :" + buttonLv;
+        }
     }
 }
