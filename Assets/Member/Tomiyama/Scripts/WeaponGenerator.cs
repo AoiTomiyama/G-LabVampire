@@ -7,7 +7,7 @@ using UnityEngine;
 /// 武器の生成を行うスクリプト。
 /// 武器自体の判定は別に用意する。
 /// </summary>
-public class WeaponGenerator : MonoBehaviour, IPausable
+public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
 {
     [SerializeField, Header("攻撃頻度")]
     private float _attackInterval;
@@ -44,11 +44,18 @@ public class WeaponGenerator : MonoBehaviour, IPausable
 
     private void Start()
     {
-        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda) GenerateWeapon();
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda)
+        {
+            GenerateWeapon();
+        }
     }
     private void Update()
     {
-        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda || _isPaused) return;
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda || _isPaused)
+        {
+            return;
+        }
+
         if (_timer < _attackInterval)
         {
             _timer += Time.deltaTime;
