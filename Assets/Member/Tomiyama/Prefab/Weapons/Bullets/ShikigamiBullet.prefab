@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8f738f07ebd7d478cba2ab2c6729d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPierceEnemy: 0
+  _isPierceEnemy: 1
   _knockback: 0
 --- !u!198 &4201573765187265910
 ParticleSystem:
