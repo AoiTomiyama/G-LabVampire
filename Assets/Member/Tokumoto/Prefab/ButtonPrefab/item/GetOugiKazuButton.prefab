@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 561954061618513805, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: m_Name
-      value: GetHudaButton 3
+      value: GetOugiKazuButton
       objectReference: {fileID: 0}
+    - target: {fileID: 791613056078900641, guid: 83987a64a4554974d9741865899e7289, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7727f711cc1d1c04fb56761897f3f958, type: 3}
     - target: {fileID: 1365912460055937321, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: _object
       value: 
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2884155801492808346, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1200
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 2884155801492808346, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: m_SizeDelta.y
@@ -110,6 +114,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2884155801492808346, guid: 83987a64a4554974d9741865899e7289, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132141045191396788, guid: 83987a64a4554974d9741865899e7289, type: 3}
+      propertyPath: m_Text
+      value: "\u6570\u306E\u6247"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018529795290834412, guid: 83987a64a4554974d9741865899e7289, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464241656595810584, guid: 83987a64a4554974d9741865899e7289, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414556725333058099, guid: 83987a64a4554974d9741865899e7289, type: 3}
+      propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -48,7 +48,7 @@ MonoBehaviour:
   - AttackAdd: 0
     AttackSpeedAdd: 0
     RangeAdd: 1.1
-    CountAdd: 0
+    CountAdd: 1
     DecreaseAdd: 0
     SpeedAdd: 0
   - AttackAdd: 0
@@ -75,3 +75,4 @@ MonoBehaviour:
   _currentCountAdd: 0
   _currentDecreaseAdd: 0
   _currentSpeedAdd: 0
+  _itemName: 
