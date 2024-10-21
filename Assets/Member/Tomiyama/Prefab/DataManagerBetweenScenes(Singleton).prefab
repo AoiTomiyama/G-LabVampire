@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6280662864821705299}
   - component: {fileID: 1582193873545949462}
   m_Layer: 0
-  m_Name: DataManagerBetweenScenes
+  m_Name: DataManagerBetweenScenes(Singleton)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
