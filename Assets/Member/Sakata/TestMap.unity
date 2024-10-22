@@ -1067,7 +1067,7 @@ PrefabInstance:
       objectReference: {fileID: 2067914748}
     - target: {fileID: 6738822900090522514, guid: 8cd988a1c5c5125468be1a8bd6dc4c9f, type: 3}
       propertyPath: SpawnSpacing
-      value: 20
+      value: 26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
