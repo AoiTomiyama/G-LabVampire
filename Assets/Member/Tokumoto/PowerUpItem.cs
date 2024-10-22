@@ -60,25 +60,26 @@ public class PowerUpItem : MonoBehaviour, ILevelUppable
         //レベル１はデフォルト値、レベル２以降は_itemGainParametersから取得し、加算する。
 
         ItemLevel++;
-        if (ItemLevel < 4)
-        {
-            _currentAttackAdd += _itemGainParameters[ItemLevel - 2].AttackAdd;
-            _currentAttackSpeedAdd += _itemGainParameters[ItemLevel - 2].AttackSpeedAdd;
-            _currentCountAdd += _itemGainParameters[ItemLevel - 2].CountAdd;
-            _currentDecreaseAdd += _itemGainParameters[ItemLevel - 2].DecreaseAdd;
-            _currentSpeedAdd += _itemGainParameters[ItemLevel - 2].SpeedAdd;
-        }
+        //if (ItemLevel < 4)
+        //{
+        //    _currentAttackAdd += _itemGainParameters[ItemLevel - 2].AttackAdd;
+        //    _currentAttackSpeedAdd += _itemGainParameters[ItemLevel - 2].AttackSpeedAdd;
+        //    _currentCountAdd += _itemGainParameters[ItemLevel - 2].CountAdd;
+        //    _currentDecreaseAdd += _itemGainParameters[ItemLevel - 2].DecreaseAdd;
+        //    _currentSpeedAdd += _itemGainParameters[ItemLevel - 2].SpeedAdd;
+        //}
         SendParametor();
     }
 
     void SendParametor()
     {
         var ItemPowerManager = GameObject.FindAnyObjectByType<ItemPowerUpManager>();
-        ItemPowerManager.CurrentAttackAdd += _itemGainParameters[ItemLevel - 1].AttackAdd;
-        ItemPowerManager.CurrentAttackSpeedAdd += _itemGainParameters[ItemLevel - 1].AttackSpeedAdd;
-        ItemPowerManager.CurrentCountAdd += _itemGainParameters[ItemLevel - 1].CountAdd;
-        ItemPowerManager.CurrentDecreaseAdd += _itemGainParameters[ItemLevel - 1].DecreaseAdd;
-        ItemPowerManager.CurrentSpeedAdd += _itemGainParameters[ItemLevel - 1].SpeedAdd;
+        int index = ItemLevel - 1;
+        ItemPowerManager.CurrentAttackAdd += _itemGainParameters[index].AttackAdd;
+        ItemPowerManager.CurrentAttackSpeedAdd += _itemGainParameters[index].AttackSpeedAdd;
+        ItemPowerManager.CurrentCountAdd += _itemGainParameters[index].CountAdd;
+        ItemPowerManager.CurrentDecreaseAdd += _itemGainParameters[index].DecreaseAdd;
+        ItemPowerManager.CurrentSpeedAdd += _itemGainParameters[index].SpeedAdd;
     }
 
 }

@@ -30,14 +30,15 @@ public class AudioManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+        SceneManager.sceneLoaded += SceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
+        PlayBGMForScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void Start()
     {
         
         _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列tを指定しやすいように辞書型に変換
-        SceneManager.sceneLoaded += SceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
-        PlayBGMForScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     void SceneLoaded(Scene scene, LoadSceneMode mode)

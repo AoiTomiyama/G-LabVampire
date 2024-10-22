@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7261e7e2f8d1f04a9b92080a71b11b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponName: "\u65E5\u672C\u5200"
   _attackInterval: 2
   _count: 4
   _weapon: {fileID: 278691971743201708, guid: 3938e02a531e02843acd35e7285059f5, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GashaDoqro
   m_EditorClassIdentifier: 
   _name: "\u30AC\u30B7\u30E3\u30C9\u30AF\u30ED"
-  _maxHealth: 1
+  _maxHealth: 20000
   _damage: 65
   _moveSpeed: 500
   _attackSpeed: 0.5

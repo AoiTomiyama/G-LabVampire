@@ -20,7 +20,6 @@ public class LevelUPUISelection : MonoBehaviour
 
     private void Start()
     {
-        _firstPanel.SetActive(true);
         _levelUpPanel.SetActive(false);
         if (_gameManager != null)
         {
@@ -38,6 +37,8 @@ public class LevelUPUISelection : MonoBehaviour
             component.gameObject.SetActive(false);
             _weaponList.Add(component);
         }
+        _levelUpPanel.SetActive(true);
+        ShowFirstSelectionPanel();
     }
     private void Update()
     {
@@ -59,7 +60,6 @@ public class LevelUPUISelection : MonoBehaviour
     }
     public void LevelUpUI()
     {
-        pauseManager.PauseOrResume();
         _levelUpPanel.SetActive(true);
         SelectButton();
     }
@@ -73,13 +73,10 @@ public class LevelUPUISelection : MonoBehaviour
                 button.gameObject.SetActive(false);
             }
         }
-        pauseManager.PauseOrResume();
+        pauseManager.PauseOrResume(); 
+        Debug.Log("ポーズ再開");
+        _levelUpPanel.transform.localScale = Vector3.one;
         _levelUpPanel.SetActive(false);
-    }
-
-    public void CloseFirstPanel()
-    {
-        _firstPanel.SetActive(false);
     }
 
     public void SelectButton()
@@ -113,6 +110,14 @@ public class LevelUPUISelection : MonoBehaviour
             }
         }
         
+    }
+    private void ShowFirstSelectionPanel()
+    {
+        _levelUpPanel.transform.localScale *= 0.73f;
+        foreach (var button in _weaponList)
+        {
+            button.gameObject.SetActive(true);
+        }
     }
 
 }

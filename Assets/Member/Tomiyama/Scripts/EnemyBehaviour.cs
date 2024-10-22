@@ -102,6 +102,7 @@ public class EnemyBehaviour : MonoBehaviour, IPausable
     /// <param name="damage">É_ÉÅÅ[ÉWó </param>
     public void RemoveHealth(int damage)
     {
+        AudioManager.Instance.PlaySE(AudioManager.SE.EnemyDamage);
         if (_damageText != null)
         {
             var go = Instantiate(_damageText, Camera.main.WorldToScreenPoint(transform.position), Quaternion.identity, DamageShowPos);

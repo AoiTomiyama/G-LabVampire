@@ -9,7 +9,8 @@ public class TimeManager : MonoBehaviour
     private float currentTime = 0f;
     private bool isTimeRunning = false;
 
-    public Text timeText;
+    public Text TimeText;
+    public Text GameoverText;
     public UnityEvent TimeUP;
 
     void Update()
@@ -62,7 +63,8 @@ public class TimeManager : MonoBehaviour
         {
             int minutes = Mathf.FloorToInt(currentTime / 60f); // Œo‰ßŠÔ‚Ì•ª”
             int seconds = Mathf.FloorToInt(currentTime % 60f); // Œo‰ßŠÔ‚Ì•b”
-            timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            TimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            GameoverText.text = TimeText.text;
         }
     }
 }

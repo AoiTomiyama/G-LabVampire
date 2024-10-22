@@ -38,12 +38,13 @@ public class ButtonScript : MonoBehaviour
             _generatedObject.LevelUp();
         }
         ButtonLv++;
+        ModifyDescription();
     }
     public void ModifyDescription()
     {
         Transform txt = transform.Find("InfoText");
         var text = txt.GetComponent<Text>();
-        text.text = _infoTexts[buttonLv];
+        text.text = _infoTexts[Mathf.Min(buttonLv, _infoTexts.Length - 1)];
         txt = transform.Find("LevelText");
         text = txt.GetComponent<Text>();
         if(buttonLv == 0)
@@ -52,7 +53,7 @@ public class ButtonScript : MonoBehaviour
         }
         else
         {
-            text.text = "Lv :" + buttonLv;
+            text.text = $"Lv :{buttonLv+1}";
         }
     }
 }

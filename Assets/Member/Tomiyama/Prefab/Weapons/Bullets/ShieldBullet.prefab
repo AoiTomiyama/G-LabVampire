@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPierceEnemy: 1
-  _knockback: 0.8
+  _knockback: 0.5
