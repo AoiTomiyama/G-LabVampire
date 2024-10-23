@@ -9,6 +9,8 @@ public class PlayerStatusOnUI : MonoBehaviour
     private Image _expBar;
     [SerializeField, Header("キルカウントを表示させるテキスト")]
     private Text _killCountText;
+    [SerializeField, Header("ゲームオーバー時にキルカウントを表示させるテキスト")]
+    private Text _GameOverkillCountText;
     private void Start()
     {
         FindObjectOfType<PlayerBehaviour>().DisplayOnUI = (float value, UpdateParameterType type) =>
@@ -22,7 +24,8 @@ public class PlayerStatusOnUI : MonoBehaviour
                     _expBar.fillAmount = value;
                     break;
                 case UpdateParameterType.KillCount:
-                    _killCountText.text = value.ToString("00000") + " Kill";
+                    _killCountText.text = ((int)value).ToString() + " 討";
+                    _GameOverkillCountText.text = _killCountText.text;
                     break;
             }
         };

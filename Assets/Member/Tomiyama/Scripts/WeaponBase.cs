@@ -20,6 +20,8 @@ public class WeaponBase : MonoBehaviour, IPausable
     private readonly List<EnemyBehaviour> _damagedList = new();
     /// <summary>ポーズの状態</summary>
     private bool _isPaused = false;
+    /// <summary>アイテムによる強化状態を取得</summary>
+    private ItemPowerUpManager _powerUpManager;
 
     // 斜方投射の実装に必要なパラメータ群
     /// <summary>開始位置</summary>
@@ -33,8 +35,9 @@ public class WeaponBase : MonoBehaviour, IPausable
     private void Start()
     {
         _start = transform.position;
-        _playerBehaviour = FindObjectOfType<PlayerBehaviour>();
-        transform.localScale *= _weaponGenerator.BulletSize;
+        _playerBehaviour = FindAnyObjectByType<PlayerBehaviour>();
+        _powerUpManager = FindAnyObjectByType<ItemPowerUpManager>();
+        transform.localScale *= _weaponGenerator.BulletSize * _powerUpManager.CurrentRangeAdd;
     }
 
     private void FixedUpdate()
@@ -90,13 +93,13 @@ public class WeaponBase : MonoBehaviour, IPausable
     /// </summary>
     private void ShieldBehaviour()
     {
-        int damage = Mathf.RoundToInt(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
+        int damage = (int)(_playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower * _powerUpManager.CurrentAttackAdd + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
         var hits = Physics2D.CircleCastAll(transform.position, _weaponGenerator.BulletSize, transform.forward)
                            .Select(hit => hit.collider.GetComponent<EnemyBehaviour>())
                            .Where(eb => eb != null);
         foreach (var enemy in hits)
         {
-            if (enemy.InvincibleTime >= _weaponGenerator.AttackInterval)
+            if (enemy.InvincibleTime >= _weaponGenerator.AttackInterval * _powerUpManager.CurrentAttackSpeedAdd)
             {
                 enemy.InvincibleTime = 0;
                 enemy.RemoveHealth(damage);
@@ -122,7 +125,7 @@ public class WeaponBase : MonoBehaviour, IPausable
         {
             if (!_damagedList.Contains(enemyBehaviour))
             {
-                int damage = Mathf.RoundToInt(_playerBehaviour.PlayerAttack * _weaponGenerator.AttackPower + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
+                int damage = (int)(_playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower * _powerUpManager.CurrentAttackAdd + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
                 enemyBehaviour.RemoveHealth(damage);
                 enemyBehaviour.transform.position -= (_playerBehaviour.transform.position - enemyBehaviour.transform.position).normalized * _knockback;
                 _damagedList.Add(enemyBehaviour);

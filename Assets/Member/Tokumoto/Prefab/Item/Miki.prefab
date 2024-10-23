@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3823859973643192799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2534827723713956880}
+  - component: {fileID: 5460602108317975737}
+  m_Layer: 0
+  m_Name: Miki
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2534827723713956880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823859973643192799}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.7163424, y: 0.175116, z: 0.004500015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5460602108317975737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823859973643192799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8836f1357ee63e489265cfd196e6869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemGainParameters:
+  - AttackAdd: 0
+    AttackSpeedAdd: 0
+    RangeAdd: 0
+    CountAdd: 0
+    DecreaseAdd: 0
+    SpeedAdd: 1.1
+  - AttackAdd: 0
+    AttackSpeedAdd: 0
+    RangeAdd: 0
+    CountAdd: 0
+    DecreaseAdd: 0
+    SpeedAdd: 1.1
+  - AttackAdd: 0
+    AttackSpeedAdd: 0
+    RangeAdd: 0
+    CountAdd: 0
+    DecreaseAdd: 0
+    SpeedAdd: 1.1
+  - AttackAdd: 0
+    AttackSpeedAdd: 0
+    RangeAdd: 0
+    CountAdd: 0
+    DecreaseAdd: 0
+    SpeedAdd: 1.1
+  _currentAttackAdd: 0
+  _currentAttackSpeedAdd: 0
+  _currentRangeAdd: 0
+  _currentCountAdd: 0
+  _currentDecreaseAdd: 0
+  _currentSpeedAdd: 0
+  _itemName: "\u795E\u9152"

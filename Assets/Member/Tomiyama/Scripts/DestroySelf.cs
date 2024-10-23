@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageTextDestroy : MonoBehaviour
+public class DestroySelf : MonoBehaviour
 {
     void OnAnimationComplete()
     {

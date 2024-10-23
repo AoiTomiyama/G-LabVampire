@@ -12,9 +12,12 @@ public class TestGameManager : MonoBehaviour
     [Header("ゲームオーバー時の処理")]
     public UnityEvent onGameOver;
 
+    [Header("ゲームクリアの処理")]
+    public UnityEvent onGameClear;
 
 
-      void Start()
+
+    void Start()
     {
         TriggerStart();
     }
@@ -33,6 +36,14 @@ public class TestGameManager : MonoBehaviour
         if (onGameOver != null)
         {
             onGameOver.Invoke();
+        }
+    }
+
+    public void TriggerGameClear()
+    {
+        if (onGameClear != null)
+        {
+            onGameClear.Invoke();
         }
     }
 }

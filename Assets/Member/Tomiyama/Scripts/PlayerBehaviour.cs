@@ -15,8 +15,8 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     private int _maxHealth = 100;
     [SerializeField, Header("プレイヤーの防御力（基本的には0）")]
     private int _playerDefense = default;
-    [SerializeField, Header("プレイヤーの攻撃力（基本的には1）")]
-    private float _playerAttack = default;
+    [SerializeField, Header("プレイヤーの攻撃力（基本的には0）")]
+    private int _playerAttack = default;
     [SerializeField, Header("プレイヤーの攻撃速度（基本的には0）")]
     private float _playerAttackSpeed = default;
     [SerializeField, Header("プレイヤーの攻撃範囲（基本的には0）")]
@@ -67,7 +67,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     private static bool _flipX;
 
     /// <summary>プレイヤー自身の持つ攻撃力</summary>
-    public float PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
+    public int PlayerAttack { get => _playerAttack; set => _playerAttack = value; }
     /// <summary>プレイヤー自身の持つ攻撃頻度</summary>
     public float PlayerAttackSpeed { get => _playerAttackSpeed; set => _playerAttackSpeed = value; }
     /// <summary>プレイヤー自身の持つ攻撃範囲</summary>
@@ -86,12 +86,15 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     public Action<float, UpdateParameterType> DisplayOnUI;
     /// <summary>ポーズの状態</summary>
     private bool _isPaused = false;
+    /// <summary>アイテムによる強化状態を取得</summary>
+    private ItemPowerUpManager _powerUpManager;
 
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _powerUpManager = FindAnyObjectByType<ItemPowerUpManager>();
         _currentHP = _maxHealth;
         _playerKillCount = 0;
         StartCoroutine(Regeneration());
@@ -151,7 +154,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
          */
 
         _sr.flipX = _flipX = (_h != 0) ? _h == 1 : _sr.flipX;
-        _rb.velocity = _moveSpeed * new Vector2(_h, _v);
+        _rb.velocity = _powerUpManager.CurrentSpeedAdd * _moveSpeed * new Vector2(_h, _v);
     }
     /// <summary>
     /// 経験値の回収処理。
@@ -239,7 +242,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     public void RemoveHealth(int damage)
     {
         Debug.Log($"Player Take Damage: {damage}");
-        if (_currentHP + _playerDefense - damage <= 0)
+        if (_currentHP + _playerDefense * _powerUpManager.CurrentDecreaseAdd - damage <= 0)
         {
             if (_playerResurrectionCount > 0)
             {
@@ -263,7 +266,20 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     /// </summary>
     private void Death()
     {
+        if (DataManagerBetweenScenes.Instance != null)
+        {
+            DataManagerBetweenScenes.Instance.PlayerLevelOnEnd = _currentLevel;
+            foreach (var core in FindObjectsOfType<WeaponGenerator>())
+            {
+                DataManagerBetweenScenes.Instance.WeaponsData.Add(core.WeaponName, core.Level);
+            }
+            foreach (var item in FindObjectsOfType<PowerUpItem>())
+            {
+                DataManagerBetweenScenes.Instance.ItemsData.Add(item.ItemName, item.ItemLevel);
+            }
+        }
         Debug.Log("Game Over");
+
         OnGameOver.Invoke();
         Destroy(gameObject);
     }

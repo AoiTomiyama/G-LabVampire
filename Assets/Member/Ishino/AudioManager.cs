@@ -4,51 +4,36 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
-    public static AudioManager Instance;// シングルトンで管理。シングルトンは一つだけしか存在しないオブジェクトのこと
-
     public AudioClip[] bgmClips; // シーンごとに再生するBGMを格納する配列
 
     [SerializeField, Header("SEの素材")]
-    SeStruct[] seClips;//seを格納する配列
-    Dictionary<SE, AudioClip> _seClipDictionary;//seの辞書
+    private SeStruct[] seClips;//seを格納する配列
+    private Dictionary<SE, AudioClip> _seClipDictionary;//seの辞書
 
     public AudioSource seSource;//seを流すAudioSouse
     public AudioSource audioSource;//BGMを流すAudioSouse
 
-    void Awake()
-    {        
-        if (Instance == null)// インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);//このオブジェクトを壊さない
-        }
-        else
-        {
-            Destroy(gameObject);// インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
-        }
-
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    void Start()
+    private void Start()
     {
-        
-        _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列tを指定しやすいように辞書型に変換
         SceneManager.sceneLoaded += SceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
+
+        _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列tを指定しやすいように辞書型に変換
+
         PlayBGMForScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
-    void SceneLoaded(Scene scene, LoadSceneMode mode)
+    private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayBGMForScene(scene.buildIndex); // シーンに応じたBGMを再生
-        Debug.Log("Scen");
+        Debug.Log("Scene");
     }
 
     public void PlayBGMForScene(int sceneIndex)
     {
-        if (sceneIndex < bgmClips.Length && bgmClips[sceneIndex] != null)
+        if (sceneIndex < bgmClips.Length && bgmClips[sceneIndex] != null && audioSource != null)
         {
             if (audioSource.clip != bgmClips[sceneIndex])
             {
@@ -66,7 +51,7 @@ public class AudioManager : MonoBehaviour
     {
         if (_seClipDictionary.ContainsKey(seType))
         {
-            audioSource.PlayOneShot(_seClipDictionary[seType]);
+            seSource.PlayOneShot(_seClipDictionary[seType]);
         }
         else
         {

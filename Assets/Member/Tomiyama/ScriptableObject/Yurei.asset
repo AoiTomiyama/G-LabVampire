@@ -15,7 +15,7 @@ MonoBehaviour:
   _name: "\u5E7D\u970A"
   _maxHealth: 100
   _damage: 1
-  _moveSpeed: 180
+  _moveSpeed: 140.6
   _attackSpeed: 0.5
-  _expProbability: 70
+  _expProbability: 66
   _expSize: 1

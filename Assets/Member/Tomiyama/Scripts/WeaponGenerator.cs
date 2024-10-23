@@ -7,8 +7,10 @@ using UnityEngine;
 /// 武器の生成を行うスクリプト。
 /// 武器自体の判定は別に用意する。
 /// </summary>
-public class WeaponGenerator : MonoBehaviour, IPausable
+public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
 {
+    [SerializeField, Header("武器の名前（リザルト表示用）")]
+    private string _weaponName;
     [SerializeField, Header("攻撃頻度")]
     private float _attackInterval;
     [SerializeField, Header("発射個数")]
@@ -33,6 +35,8 @@ public class WeaponGenerator : MonoBehaviour, IPausable
     private float _timer;
     /// <summary>ポーズの状態</summary>
     private bool _isPaused = false;
+    /// <summary>アイテムによる強化状態を取得</summary>
+    private ItemPowerUpManager _powerUpManager;
 
     public WeaponType WeaponType => _weaponType;
     public int DamageRange => _damageRange;
@@ -42,14 +46,24 @@ public class WeaponGenerator : MonoBehaviour, IPausable
     public float AttackInterval => _attackInterval;
     public float BulletSize => _bulletSize;
 
+    public string WeaponName => _weaponName;
+
     private void Start()
     {
-        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda) GenerateWeapon();
+        _powerUpManager = FindAnyObjectByType<ItemPowerUpManager>();
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda)
+        {
+            GenerateWeapon();
+        }
     }
     private void Update()
     {
-        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda || _isPaused) return;
-        if (_timer < _attackInterval)
+        if (_weaponType == WeaponType.Shield || _weaponType == WeaponType.Fuda || _isPaused)
+        {
+            return;
+        }
+
+        if (_timer < _attackInterval * _powerUpManager.CurrentAttackSpeedAdd)
         {
             _timer += Time.deltaTime;
         }
@@ -71,7 +85,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable
     /// </summary>
     private void GenerateWeapon()
     {
-        for (int i = 0; i < _count; i++)
+        for (int i = 0; i < _count + _powerUpManager.CurrentCountAdd; i++)
         {
             switch (_weaponType)
             {
@@ -254,8 +268,8 @@ public class WeaponGenerator : MonoBehaviour, IPausable
     {
         public int Damage;
         public int Count;
-        public int AttackSpeed;
-        public int Scale;
+        public float AttackSpeed;
+        public float Scale;
     }
 }
 public enum WeaponType
