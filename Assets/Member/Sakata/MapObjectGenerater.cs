@@ -97,9 +97,22 @@ public class MapObjectGenerater : MonoBehaviour
             if (distance > MaxDistance)
             {
                 Debug.Log($"Destroying object: {spawnedObjects[i].name} at distance: {distance}");
-                Destroy(spawnedObjects[i]);
-                spawnedObjects.RemoveAt(i);
+
+                // 一つのオブジェクトを破棄したら、全てのオブジェクトを破棄する処理
+                DestroyAllSpawnedObjects();
+                break; // 全オブジェクトが削除されるため、ループを抜ける
             }
         }
+    }
+
+    // 全ての生成されたオブジェクトを破棄するメソッド
+    void DestroyAllSpawnedObjects()
+    {
+        for (int i = 0; i < spawnedObjects.Count; i++)
+        {
+            Destroy(spawnedObjects[i]);
+        }
+        spawnedObjects.Clear(); // リストもクリア
+        Debug.Log("All objects destroyed.");
     }
 }
