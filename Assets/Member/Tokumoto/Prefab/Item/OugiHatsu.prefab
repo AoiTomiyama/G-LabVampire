@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemGainParameters:
   - AttackAdd: 0
-    AttackSpeedAdd: 1.99
+    AttackSpeedAdd: 1.1
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0

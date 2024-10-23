@@ -29,27 +29,31 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);// インスタンスがまだ存在していなければ、現在のオブジェクトをインスタンスにする
         }
 
-        audioSource = GetComponent<AudioSource>();
-        SceneManager.sceneLoaded += SceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
-        PlayBGMForScene(SceneManager.GetActiveScene().buildIndex);
+       
+        
     }
 
     void Start()
     {
-        
+
+        SceneManager.sceneLoaded += SceneLoaded; // シーンがロードされた時に呼ばれるメソッドを設定
+
         _seClipDictionary = seClips.Distinct().ToDictionary(item => item.seType, item => item.clip); //配列tを指定しやすいように辞書型に変換
+        
+        PlayBGMForScene(SceneManager.GetActiveScene().buildIndex);
 
     }
 
     void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayBGMForScene(scene.buildIndex); // シーンに応じたBGMを再生
-        Debug.Log("Scen");
+        Debug.Log("Scene");
     }
 
     public void PlayBGMForScene(int sceneIndex)
     {
-        if (sceneIndex < bgmClips.Length && bgmClips[sceneIndex] != null)
+        audioSource = GetComponent<AudioSource>();
+        if (sceneIndex < bgmClips.Length && bgmClips[sceneIndex] != null && audioSource != null)
         {
             if (audioSource.clip != bgmClips[sceneIndex])
             {
@@ -67,7 +71,7 @@ public class AudioManager : MonoBehaviour
     {
         if (_seClipDictionary.ContainsKey(seType))
         {
-            audioSource.PlayOneShot(_seClipDictionary[seType]);
+            seSource.PlayOneShot(_seClipDictionary[seType]);
         }
         else
         {
