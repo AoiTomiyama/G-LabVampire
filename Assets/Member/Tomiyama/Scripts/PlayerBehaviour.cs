@@ -269,13 +269,13 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
         if (DataManagerBetweenScenes.Instance != null)
         {
             DataManagerBetweenScenes.Instance.PlayerLevelOnEnd = _currentLevel;
-            foreach (var core in FindObjectsOfType<WeaponGenerator>())
+            foreach (var core in transform.GetComponentsInChildren<WeaponGenerator>())
             {
-                DataManagerBetweenScenes.Instance.WeaponsData.Add(core.WeaponName, core.Level);
+                DataManagerBetweenScenes.Instance.WeaponsData[core.WeaponName] = core.Level;
             }
-            foreach (var item in FindObjectsOfType<PowerUpItem>())
+            foreach (var item in transform.GetComponentsInChildren<PowerUpItem>())
             {
-                DataManagerBetweenScenes.Instance.ItemsData.Add(item.ItemName, item.ItemLevel);
+                DataManagerBetweenScenes.Instance.ItemsData[item.ItemName] = item.ItemLevel;
             }
         }
         Debug.Log("Game Over");
