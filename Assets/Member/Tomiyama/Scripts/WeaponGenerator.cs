@@ -126,6 +126,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
         }
 
         var weapon = Instantiate(_weapon, transform.position, Quaternion.identity).GetComponent<WeaponBase>();
+        AudioManager.Instance.PlaySE(AudioManager.SE.Katana);
         weapon.Degree = 90 + (playerFlipX ? -10 : 10) * index;
         weapon.WeaponGenerator = this;
     }
@@ -144,6 +145,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
             yield return new WaitForEndOfFrame();
         }
         var go = Instantiate(_weapon, transform.position, Quaternion.identity);
+        AudioManager.Instance.PlaySE(AudioManager.SE.Naginata);
 
         // 二個まで左右、三・四個で上下、それ以上で斜めのように、インデックスに応じて方向が変化させる。
         // インデックスが奇数の場合（1, 3, 5, 7）Z軸を180度回転させる。
@@ -193,7 +195,9 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
 
         //ランダムな敵の位置に雷を召喚
         var targetPos = detectedList[Random.Range(0, detectedCount)].transform.position;
+
         var go = Instantiate(_weapon, targetPos, Quaternion.identity);
+        AudioManager.Instance.PlaySE(AudioManager.SE.Thunder);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
     /// <summary>
@@ -209,6 +213,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
         var targetPos = detectedList.OrderBy(enemy => Vector2.Distance(transform.position, enemy.transform.position))
                                     .ElementAt(detectedCount > index ? index : 0).transform.position;
         var go = Instantiate(_weapon, transform.position, Quaternion.identity);
+        AudioManager.Instance.PlaySE(AudioManager.SE.Shikigami);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
         go.transform.up = (targetPos - transform.position).normalized;
     }

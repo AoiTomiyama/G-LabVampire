@@ -281,7 +281,6 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
         Debug.Log("Game Over");
 
         OnGameOver.Invoke();
-        Destroy(gameObject);
     }
     /// <summary>
     /// 武器をプレイヤーのインベントリに追加して生成。
