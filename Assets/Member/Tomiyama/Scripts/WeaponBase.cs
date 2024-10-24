@@ -116,7 +116,7 @@ public class WeaponBase : MonoBehaviour, IPausable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_isPaused) return;
+        if (_playerBehaviour == null) return;
         if (_weaponGenerator.WeaponType != WeaponType.Shield && collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
         {
             if (_damagedList.Contains(enemyBehaviour)) return;
@@ -131,7 +131,7 @@ public class WeaponBase : MonoBehaviour, IPausable
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (_isPaused) return;
+        if (_playerBehaviour == null) return;
         if (_weaponGenerator.WeaponType != WeaponType.Shield && collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
         {
             if (_damagedList.Contains(enemyBehaviour))

@@ -13,21 +13,27 @@ public class PlayerStatusOnUI : MonoBehaviour
     private Text _GameOverkillCountText;
     private void Start()
     {
-        FindObjectOfType<PlayerBehaviour>().DisplayOnUI = (float value, UpdateParameterType type) =>
+        //UIの初期化
+        RefreshUI(1, UpdateParameterType.Health);
+        RefreshUI(0, UpdateParameterType.Experience);
+        RefreshUI(0, UpdateParameterType.KillCount);
+        //デリゲートへ記録
+        FindObjectOfType<PlayerBehaviour>().DisplayOnUI = RefreshUI;
+    }
+    private void RefreshUI(float value, UpdateParameterType type)
+    {
+        switch (type)
         {
-            switch (type)
-            {
-                case UpdateParameterType.Health:
-                    _healthBar.fillAmount = value;
-                    break;
-                case UpdateParameterType.Experience:
-                    _expBar.fillAmount = value;
-                    break;
-                case UpdateParameterType.KillCount:
-                    _killCountText.text = ((int)value).ToString() + " 討";
-                    _GameOverkillCountText.text = _killCountText.text;
-                    break;
-            }
+            case UpdateParameterType.Health:
+                _healthBar.fillAmount = value;
+                break;
+            case UpdateParameterType.Experience:
+                _expBar.fillAmount = value;
+                break;
+            case UpdateParameterType.KillCount:
+                _killCountText.text = ((int)value).ToString() + " 討";
+                _GameOverkillCountText.text = _killCountText.text;
+                break;
         };
     }
 }
