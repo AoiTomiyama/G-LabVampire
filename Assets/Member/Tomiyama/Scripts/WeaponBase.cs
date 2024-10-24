@@ -59,12 +59,6 @@ public class WeaponBase : MonoBehaviour, IPausable
                 KatanaBehaviour();
                 break;
         }
-        //　画面外のオブジェクトを削除
-        //var vp = Camera.main.WorldToViewportPoint(transform.position);
-        //if (vp.x < 0 || vp.x > 1 || vp.y < 0 || vp.y > 1)
-        //{
-        //    Destroy(gameObject);
-        //}
     }
     /// <summary>
     /// 刀を斜方投射させる。
@@ -96,9 +90,10 @@ public class WeaponBase : MonoBehaviour, IPausable
         int damage = (int)(_playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower * _powerUpManager.CurrentAttackAdd + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
         var hits = Physics2D.CircleCastAll(transform.position, _weaponGenerator.BulletSize, transform.forward)
                            .Select(hit => hit.collider.GetComponent<EnemyBehaviour>())
-                           .Where(eb => eb != null);
+                           .Where(component => component != null);
         foreach (var enemy in hits)
         {
+            if (_playerBehaviour == null) continue;
             if (enemy.InvincibleTime >= _weaponGenerator.AttackInterval * _powerUpManager.CurrentAttackSpeedAdd)
             {
                 enemy.InvincibleTime = 0;
@@ -121,20 +116,22 @@ public class WeaponBase : MonoBehaviour, IPausable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_isPaused) return;
         if (_weaponGenerator.WeaponType != WeaponType.Shield && collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
         {
-            if (!_damagedList.Contains(enemyBehaviour))
-            {
-                int damage = (int)(_playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower * _powerUpManager.CurrentAttackAdd + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
-                enemyBehaviour.RemoveHealth(damage);
-                enemyBehaviour.transform.position -= (_playerBehaviour.transform.position - enemyBehaviour.transform.position).normalized * _knockback;
-                _damagedList.Add(enemyBehaviour);
-                if (!_isPierceEnemy) Destroy(gameObject);
-            }
+            if (_damagedList.Contains(enemyBehaviour)) return;
+
+            int damage = (int)(_playerBehaviour.PlayerAttack + _weaponGenerator.AttackPower * _powerUpManager.CurrentAttackAdd + Random.Range(-_weaponGenerator.DamageRange, _weaponGenerator.DamageRange + 1));
+            enemyBehaviour.RemoveHealth(damage);
+            enemyBehaviour.transform.position -= (_playerBehaviour.transform.position - enemyBehaviour.transform.position).normalized * _knockback;
+            _damagedList.Add(enemyBehaviour);
+
+            if (!_isPierceEnemy) Destroy(gameObject);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (_isPaused) return;
         if (_weaponGenerator.WeaponType != WeaponType.Shield && collision.gameObject.TryGetComponent<EnemyBehaviour>(out var enemyBehaviour))
         {
             if (_damagedList.Contains(enemyBehaviour))
