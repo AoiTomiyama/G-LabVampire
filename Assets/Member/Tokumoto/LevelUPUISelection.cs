@@ -56,6 +56,7 @@ public class LevelUPUISelection : MonoBehaviour
     public void LevelUpUI()
     {
         _levelUpPanel.SetActive(true);
+        PauseManager.Instance.PauseOrResume();
         SelectButton();
     }
 
