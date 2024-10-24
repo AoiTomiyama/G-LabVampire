@@ -8,11 +8,6 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
     private bool _enablePause = true;
     private bool _isPaused;
 
-    [Header("停止時と再開時の処理（スクリプトを伴わないものに使う")]
-    [SerializeField]
-    private UnityEvent OnPause;
-    [SerializeField]
-    private UnityEvent OnResume;
     /// <summary>何かしらの演出中で、中断させたくない場合に、これをFalseにする</summary>
     public bool EnablePause { get => _enablePause; set => _enablePause = value; }
     public bool IsPaused => _isPaused;
@@ -47,8 +42,6 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
         //背景などのパーティクルもまとめて止めるためParticleSystemは別途処理する。
         FindObjectsOfType<ParticleSystem>().ToList().ForEach(p => p.Pause());
 
-        OnPause?.Invoke();
-
         _isPaused = !_isPaused;
     }
 
@@ -61,8 +54,6 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
 
         //背景などのパーティクルもまとめて止めるためParticleSystemは別途処理する。
         FindObjectsOfType<ParticleSystem>().ToList().ForEach(p => p.Play());
-
-        OnResume?.Invoke();
 
         _isPaused = !_isPaused;
     }
