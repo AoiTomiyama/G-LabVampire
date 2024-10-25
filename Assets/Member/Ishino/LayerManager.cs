@@ -14,15 +14,20 @@ public class LayerManager : MonoBehaviour
 
     void Update()
     {
-        float playerY = playerTransform.position.y;
-        float objectY = transform.position.y;
-        // プレイヤーのY座標がオブジェクトのY座標より高いか低いかで描画順を変更
-        if (playerY > objectY)
+        if(playerTransform != null)
         {
-            spriteRenderer.sortingOrder = 1;
+            float playerY = playerTransform.position.y;
+            float objectY = transform.position.y;
+            // プレイヤーのY座標がオブジェクトのY座標より高いか低いかで描画順を変更
+            if (playerY > objectY)
+            {
+                spriteRenderer.sortingOrder = 1;
+            }
+            else
+            {
+                spriteRenderer.sortingOrder = -1;
+            }
         }
-        else
-        {
-            spriteRenderer.sortingOrder = -1;        }
     }
+        
 }
