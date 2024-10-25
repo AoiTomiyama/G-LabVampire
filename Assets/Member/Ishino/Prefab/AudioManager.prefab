@@ -51,11 +51,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 278f0326874ac8147a0f2e8c90babb3b, type: 3}
   seClips:
   - seType: 1
-    clip: {fileID: 8300000, guid: bcd499d618b4cfb43a08e8ccfbb68008, type: 3}
-  - seType: 0
-    clip: {fileID: 0}
-  seSource: {fileID: 4849130469795111530}
-  audioSource: {fileID: 7824886016431142811}
+    clip: {fileID: 8300000, guid: ce57154a9cd33db43ab608ad0efe2907, type: 3}
+  - seType: 2
+    clip: {fileID: 8300000, guid: e18419cb3add400458b9ae3645547b26, type: 3}
+  - seType: 3
+    clip: {fileID: 8300000, guid: 9e5ff1a6a6d630c458aff8fe9e0d0bc5, type: 3}
+  - seType: 4
+    clip: {fileID: 8300000, guid: e03e7ba019601ba4d93330163f2f2764, type: 3}
+  - seType: 5
+    clip: {fileID: 8300000, guid: 95be1150be7694d4f8527edecd4e68be, type: 3}
+  - seType: 6
+    clip: {fileID: 8300000, guid: 5d40d3cc8cc9c774da21b96321582166, type: 3}
+  - seType: 7
+    clip: {fileID: 8300000, guid: c35ce7dee66e00a44b6b7bee958aea08, type: 3}
+  seSource: {fileID: 7824886016431142811}
+  audioSource: {fileID: 4849130469795111530}
 --- !u!82 &4849130469795111530
 AudioSource:
   m_ObjectHideFlags: 0
@@ -163,7 +173,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

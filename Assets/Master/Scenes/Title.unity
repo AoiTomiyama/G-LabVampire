@@ -278,11 +278,6 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 7824886016431142811, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
   m_PrefabInstance: {fileID: 8160485896964054390}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &210333666 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 4849130469795111530, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-  m_PrefabInstance: {fileID: 8160485896964054390}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &254564673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,86 +2157,6 @@ PrefabInstance:
     - target: {fileID: 1863760766838336297, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4849130469795111530, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seSource
-      value: 
-      objectReference: {fileID: 210333665}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 210333666}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ce57154a9cd33db43ab608ad0efe2907, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e18419cb3add400458b9ae3645547b26, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e5ff1a6a6d630c458aff8fe9e0d0bc5, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e03e7ba019601ba4d93330163f2f2764, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 95be1150be7694d4f8527edecd4e68be, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e18419cb3add400458b9ae3645547b26, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: c35ce7dee66e00a44b6b7bee958aea08, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[7].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: c35ce7dee66e00a44b6b7bee958aea08, type: 3}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[1].seType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[2].seType
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[3].seType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[4].seType
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[5].seType
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[6].seType
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7439739445551403126, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: seClips.Array.data[7].seType
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824886016431142811, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8822579802412474499, guid: b28d29aef54ea7d45b9a642548337e75, type: 3}
       propertyPath: m_LocalPosition.x

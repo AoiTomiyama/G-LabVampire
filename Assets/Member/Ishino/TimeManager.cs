@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : MonoBehaviour, IPausable
 {
-    public float timeLimit = 600f; 
+    public float timeLimit = 600f;
     private float currentTime = 0f;
     private bool isTimeRunning = false;
 
@@ -13,7 +12,7 @@ public class TimeManager : MonoBehaviour
     public Text GameoverText;
     public UnityEvent TimeUP;
 
-    void Update()
+    private void Update()
     {
         if (isTimeRunning)
         {
@@ -24,19 +23,18 @@ public class TimeManager : MonoBehaviour
             if (currentTime >= timeLimit)
             {
                 TimeUP.Invoke();
-                StopTime();
             }
         }
     }
 
     // 時間を開始する
-    public void StartTime()
+    public void Resume()
     {
         isTimeRunning = true;
     }
 
     // 時間を停止する
-    public void StopTime()
+    public void Pause()
     {
         isTimeRunning = false;
     }
@@ -57,9 +55,9 @@ public class TimeManager : MonoBehaviour
     }
 
     // テキストを時間のフォーマットで更新する
-    void UpdateTimeText()
+    private void UpdateTimeText()
     {
-        if(isTimeRunning)
+        if (isTimeRunning)
         {
             int minutes = Mathf.FloorToInt(currentTime / 60f); // 経過時間の分数
             int seconds = Mathf.FloorToInt(currentTime % 60f); // 経過時間の秒数
