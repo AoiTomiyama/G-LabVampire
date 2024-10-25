@@ -48,21 +48,21 @@ MonoBehaviour:
   _attackInterval: 1
   _count: 1
   _weapon: {fileID: 278691971743201708, guid: 3c7a9767efe70374985074ea038996e7, type: 3}
-  _attackPower: 100
-  _damageRange: 10
+  _attackPower: 30
+  _damageRange: 3
   _bulletSpeed: 0.5
   _bulletSize: 1
   _weaponType: 1
   _weaponLevelUpStatusArray:
-  - Damage: 100
+  - Damage: 2
     Count: 4
-    AttackSpeed: 0
+    AttackSpeed: 0.1
     Scale: 0
-  - Damage: 100
-    Count: 5
-    AttackSpeed: 0
+  - Damage: 4
+    Count: 6
+    AttackSpeed: 0.1
     Scale: 0
-  - Damage: 100
-    Count: 5
-    AttackSpeed: 0
+  - Damage: 6
+    Count: 10
+    AttackSpeed: 0.1
     Scale: 0

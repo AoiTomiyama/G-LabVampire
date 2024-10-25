@@ -45,24 +45,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponName: "\u7D50\u754C"
-  _attackInterval: 0.75
+  _attackInterval: 1.5
   _count: 1
   _weapon: {fileID: 278691971743201708, guid: 86f9aefa17088194cabd8fbc4ed380be, type: 3}
-  _attackPower: 50
+  _attackPower: 10
   _damageRange: 1
   _bulletSpeed: 0
   _bulletSize: 4
   _weaponType: 3
   _weaponLevelUpStatusArray:
-  - Damage: 50
+  - Damage: 20
     Count: 0
     AttackSpeed: 0
     Scale: 1
-  - Damage: 50
+  - Damage: 40
     Count: 0
     AttackSpeed: 0
     Scale: 1
-  - Damage: 50
+  - Damage: 80
     Count: 0
     AttackSpeed: 0
     Scale: 1

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Kamaitachi
   m_EditorClassIdentifier: 
   _name: "\u304B\u307E\u3044\u305F\u3061"
-  _maxHealth: 900
+  _maxHealth: 3000
   _damage: 7
   _moveSpeed: 100
   _attackSpeed: 0.5
-  _expProbability: 88
-  _expSize: 3
+  _expProbability: 60
+  _expSize: 2

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Chochin
   m_EditorClassIdentifier: 
   _name: "\u63D0\u706F\u304A\u3070\u3051"
-  _maxHealth: 200
+  _maxHealth: 40
   _damage: 1
   _moveSpeed: 80
   _attackSpeed: 0.5
-  _expProbability: 80
+  _expProbability: 70
   _expSize: 1

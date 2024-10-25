@@ -45,24 +45,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponName: "\u96F7"
-  _attackInterval: 2
+  _attackInterval: 3
   _count: 5
   _weapon: {fileID: 278691971743201708, guid: d998d32b42dd14341b9f402bddef305d, type: 3}
-  _attackPower: 150
+  _attackPower: 50
   _damageRange: 3
   _bulletSpeed: 2
   _bulletSize: 1
   _weaponType: 0
   _weaponLevelUpStatusArray:
-  - Damage: 150
-    Count: 5
-    AttackSpeed: 1
+  - Damage: 60
+    Count: 3
+    AttackSpeed: 0.1
     Scale: 0
-  - Damage: 150
-    Count: 5
-    AttackSpeed: 1
+  - Damage: 70
+    Count: 3
+    AttackSpeed: 0.3
     Scale: 0
-  - Damage: 150
-    Count: 5
-    AttackSpeed: 1
+  - Damage: 200
+    Count: 3
+    AttackSpeed: 0.5
     Scale: 0

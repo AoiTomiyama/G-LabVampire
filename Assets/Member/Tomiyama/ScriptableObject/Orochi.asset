@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Orochi
   m_EditorClassIdentifier: 
   _name: "\u30AA\u30ED\u30C1"
-  _maxHealth: 10000
-  _damage: 15
-  _moveSpeed: 165
+  _maxHealth: 30000
+  _damage: 6
+  _moveSpeed: 140
   _attackSpeed: 0.5
   _expProbability: 100
   _expSize: 3

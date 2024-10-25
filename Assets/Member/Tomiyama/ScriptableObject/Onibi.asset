@@ -17,5 +17,5 @@ MonoBehaviour:
   _damage: 5
   _moveSpeed: 60
   _attackSpeed: 0.5
-  _expProbability: 100
-  _expSize: 3
+  _expProbability: 46
+  _expSize: 2
