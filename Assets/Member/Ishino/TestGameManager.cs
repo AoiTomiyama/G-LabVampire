@@ -26,6 +26,7 @@ public class TestGameManager : MonoBehaviour
     {
         if (onGameStart != null)
         {
+            PauseManager.Instance.PauseAll();
             onGameStart.Invoke();
         }
     }
@@ -35,6 +36,7 @@ public class TestGameManager : MonoBehaviour
     {
         if (onGameOver != null)
         {
+            PauseManager.Instance.PauseOrResume();
             onGameOver.Invoke();
         }
     }

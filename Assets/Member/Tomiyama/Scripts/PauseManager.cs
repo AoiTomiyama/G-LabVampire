@@ -25,16 +25,18 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
     {
         if (_isPaused)
         {
+            Debug.Log("<color=red>[PauseManager]</color> 全体の演算を再開。");
             ResumeAll();
         }
         else
         {
+            Debug.Log("<color=red>[PauseManager]</color> 全体の演算を停止。");
             PauseAll();
         }
     }
 
     /// <summary>ポーズ状態にする。</summary>
-    private void PauseAll()
+    public void PauseAll()
     {
         //IPausableインターフェイスを継承しているオブジェクトを対象に処理。
         FindObjectsOfType<MonoBehaviour>().OfType<IPausable>().ToList().ForEach(p => p.Pause());
@@ -42,7 +44,7 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
         //背景などのパーティクルもまとめて止めるためParticleSystemは別途処理する。
         FindObjectsOfType<ParticleSystem>().ToList().ForEach(p => p.Pause());
 
-        _isPaused = !_isPaused;
+        _isPaused = true;
     }
 
 
@@ -55,6 +57,6 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
         //背景などのパーティクルもまとめて止めるためParticleSystemは別途処理する。
         FindObjectsOfType<ParticleSystem>().ToList().ForEach(p => p.Play());
 
-        _isPaused = !_isPaused;
+        _isPaused = false;
     }
 }
