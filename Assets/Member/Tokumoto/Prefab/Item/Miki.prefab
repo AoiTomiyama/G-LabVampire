@@ -50,25 +50,25 @@ MonoBehaviour:
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
-    SpeedAdd: 1.1
+    SpeedAdd: 0.5
   - AttackAdd: 0
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
-    SpeedAdd: 1.1
+    SpeedAdd: 0.5
   - AttackAdd: 0
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
-    SpeedAdd: 1.1
+    SpeedAdd: 0.5
   - AttackAdd: 0
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
-    SpeedAdd: 1.1
+    SpeedAdd: 0.5
   _currentAttackAdd: 0
   _currentAttackSpeedAdd: 0
   _currentRangeAdd: 0

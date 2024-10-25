@@ -54,15 +54,15 @@ MonoBehaviour:
   _bulletSize: 1
   _weaponType: 5
   _weaponLevelUpStatusArray:
-  - Damage: 70
+  - Damage: 30
     Count: 1
     AttackSpeed: 0.1
     Scale: 0
-  - Damage: 150
+  - Damage: 50
     Count: 1
     AttackSpeed: 0.3
     Scale: 0
-  - Damage: 300
+  - Damage: 70
     Count: 1
     AttackSpeed: 0.5
     Scale: 0
