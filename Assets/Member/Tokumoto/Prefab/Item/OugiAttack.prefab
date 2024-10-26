@@ -45,25 +45,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemGainParameters:
-  - AttackAdd: 1.25
+  - AttackAdd: 1.1
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
     SpeedAdd: 0
-  - AttackAdd: 1.25
+  - AttackAdd: 1.1
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
     SpeedAdd: 0
-  - AttackAdd: 1.25
+  - AttackAdd: 1.1
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
     DecreaseAdd: 0
     SpeedAdd: 0
-  - AttackAdd: 1.25
+  - AttackAdd: 1.1
     AttackSpeedAdd: 0
     RangeAdd: 0
     CountAdd: 0
