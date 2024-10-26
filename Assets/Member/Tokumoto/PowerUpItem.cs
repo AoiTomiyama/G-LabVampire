@@ -60,26 +60,24 @@ public class PowerUpItem : MonoBehaviour, ILevelUppable
         //レベル１はデフォルト値、レベル２以降は_itemGainParametersから取得し、加算する。
 
         ItemLevel++;
-        //if (ItemLevel < 4)
-        //{
-        //    _currentAttackAdd += _itemGainParameters[ItemLevel - 2].AttackAdd;
-        //    _currentAttackSpeedAdd += _itemGainParameters[ItemLevel - 2].AttackSpeedAdd;
-        //    _currentCountAdd += _itemGainParameters[ItemLevel - 2].CountAdd;
-        //    _currentDecreaseAdd += _itemGainParameters[ItemLevel - 2].DecreaseAdd;
-        //    _currentSpeedAdd += _itemGainParameters[ItemLevel - 2].SpeedAdd;
-        //}
         SendParametor();
     }
 
     void SendParametor()
     {
-        var ItemPowerManager = GameObject.FindAnyObjectByType<ItemPowerUpManager>();
+        var ItemPowerManager = FindAnyObjectByType<ItemPowerUpManager>();
         int index = ItemLevel - 1;
         ItemPowerManager.CurrentAttackAdd += _itemGainParameters[index].AttackAdd;
         ItemPowerManager.CurrentAttackSpeedAdd += _itemGainParameters[index].AttackSpeedAdd;
         ItemPowerManager.CurrentCountAdd += _itemGainParameters[index].CountAdd;
         ItemPowerManager.CurrentDecreaseAdd += _itemGainParameters[index].DecreaseAdd;
         ItemPowerManager.CurrentSpeedAdd += _itemGainParameters[index].SpeedAdd;
+
+        foreach (var component in FindObjectsOfType<WeaponGenerator>())
+        {
+            component.RefreshWeaponsWhenItemCountIncrease();
+        }
+        Debug.Log("個数が変動したので再生成");
     }
 
 }

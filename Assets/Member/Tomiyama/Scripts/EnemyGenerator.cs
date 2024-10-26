@@ -52,12 +52,16 @@ public class EnemyGenerator : MonoBehaviour, IPausable
                 return newEnemy;
             },
             //プール内のオブジェクトをアクティブ化。
-            enemy => enemy.gameObject.SetActive(true),
+            enemy => { if (enemy != null) enemy.gameObject.SetActive(true); },
             //プール内のオブジェクトを非アクティブ化。
-            enemy => enemy.gameObject.SetActive(false),
+            enemy => { if (enemy != null) enemy.gameObject.SetActive(false); },
             //プール内のオブジェクトを破棄。
-            enemy => Destroy(enemy.gameObject),
-            false, _startCapacity, _maxCapacity));
+            enemy =>
+            {
+                Destroy(enemy.gameObject);
+                Debug.LogWarning("不正なアクセスが検知されたため、オブジェクトを破棄しました。");
+            },
+            true, _startCapacity, _maxCapacity));
 
             //シーンの初めに大量に生成してプール内を満たす。
             for (int j = 0; j < _enemyPools.Count; j++)

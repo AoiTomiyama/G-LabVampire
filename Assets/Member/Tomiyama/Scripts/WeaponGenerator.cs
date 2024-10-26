@@ -87,6 +87,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
     {
         for (int i = 0; i < _count + _powerUpManager.CurrentCountAdd; i++)
         {
+            bool isPassiveWeapon = false;
             switch (_weaponType)
             {
                 case WeaponType.Shikigami:
@@ -97,6 +98,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
                     break;
                 case WeaponType.Shield:
                     GenerateShield();
+                    isPassiveWeapon = true;
                     break;
                 case WeaponType.Fuda:
                     GenerateFuda(i);
@@ -108,6 +110,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
                     StartCoroutine(GenerateKatana(i));
                     break;
             }
+            if (isPassiveWeapon) break;
         }
     }
     /// <summary>
@@ -171,7 +174,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
     private void GenerateFuda(int index)
     {
         const float RANGE = 3f;
-        var angle = (360f / _count) * index * Mathf.Deg2Rad;
+        var angle = (360f / (_count + _powerUpManager.CurrentCountAdd)) * index * Mathf.Deg2Rad;
         var pos = RANGE * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) + transform.position;
         var go = Instantiate(_weapon, pos, Quaternion.identity, transform);
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
@@ -201,7 +204,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
         go.GetComponent<WeaponBase>().WeaponGenerator = this;
     }
     /// <summary>
-    /// 式が身を生成。
+    /// 式神を生成。
     /// </summary>
     private void GenerateShikigami(int index)
     {
@@ -219,7 +222,7 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
     }
     private static List<EnemyBehaviour> SearchEnemies()
     {
-        return FindObjectsOfType<EnemyBehaviour>().Where(go =>
+        return FindObjectsByType<EnemyBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(go =>
         {
             //カメラの範囲内のオブジェクトのみを対象。
             var vp = Camera.main.WorldToViewportPoint(go.transform.position);
@@ -244,18 +247,19 @@ public class WeaponGenerator : MonoBehaviour, IPausable, ILevelUppable
                 {
                     Destroy(weapon.gameObject);
                 }
+                GenerateWeapon();
             }
-            for (int i = 0; i < _count; i++)
+        }
+    }
+    public void RefreshWeaponsWhenItemCountIncrease()
+    {
+        if (_weaponType == WeaponType.Fuda)
+        {
+            foreach (var weapon in transform.GetComponentsInChildren<WeaponBase>())
             {
-                if (_weaponType == WeaponType.Fuda)
-                {
-                    GenerateFuda(i);
-                }
-                else if (_weaponType == WeaponType.Shield)
-                {
-                    GenerateShield();
-                }
+                Destroy(weapon.gameObject);
             }
+            GenerateWeapon();
         }
     }
     public void Pause()

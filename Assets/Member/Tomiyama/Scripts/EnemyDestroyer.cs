@@ -11,5 +11,9 @@ public class EnemyDestroyer : MonoBehaviour
 
             enemyBehaviour.ReturnToPool();
         }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Exp"))
+        {
+            collision.gameObject.SetActive(false);
+        }
     }
 }

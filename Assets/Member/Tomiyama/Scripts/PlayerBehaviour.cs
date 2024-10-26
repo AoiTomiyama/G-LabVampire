@@ -221,10 +221,6 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
                 DisplayOnUI?.Invoke(1f * _currentExp / _levelUpStatusUps[_currentLevel - 1].RequireExp, UpdateParameterType.Experience);
             }
         }
-        else
-        {
-            Debug.LogWarning("最大レベルに到達しました。");
-        }
     }
     /// <summary>
     /// プレイヤーの体力を回復させる。
@@ -232,6 +228,7 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     /// <param name="value">回復量</param>
     public void Heal(int value)
     {
+        Debug.Log($"体力を{value}回復");
         _currentHP = Mathf.Min(value + _currentHP, _maxHealth);
         DisplayOnUI?.Invoke(1.0f * _currentHP / _maxHealth, UpdateParameterType.Health);
     }
