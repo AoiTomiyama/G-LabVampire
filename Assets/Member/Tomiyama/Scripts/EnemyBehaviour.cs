@@ -30,6 +30,7 @@ public class EnemyBehaviour : MonoBehaviour, IPausable
     private PlayerBehaviour _player;
     /// <summary>ポーズの状態</summary>
     private bool _isPaused = false;
+    private bool _isReturnedToPool = false; 
 
 
     /// <summary>ダメージ生成先のTransform</summary>
@@ -46,6 +47,7 @@ public class EnemyBehaviour : MonoBehaviour, IPausable
 
     private void OnEnable()
     {
+        _isReturnedToPool = true;
         _health = _enemyData.MaxHealth;
         InvincibleTime = 0;
         _timer = _enemyData.AttackSpeed;
@@ -143,7 +145,7 @@ public class EnemyBehaviour : MonoBehaviour, IPausable
     /// </summary>
     public void ReturnToPool()
     {
-        if (_enemyPool != null)
+        if (_enemyPool != null && !_isReturnedToPool)
         {
             _enemyPool.Release(this);
         }
@@ -167,6 +169,10 @@ public class EnemyBehaviour : MonoBehaviour, IPausable
             Debug.Log("Player Exit");
             _player = null;
         }
+    }
+    private void OnDisable()
+    {
+        _isReturnedToPool = true;
     }
     public void Pause()
     {
