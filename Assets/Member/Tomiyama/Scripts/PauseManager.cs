@@ -11,13 +11,6 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>
     /// <summary>何かしらの演出中で、中断させたくない場合に、これをFalseにする</summary>
     public bool EnablePause { get => _enablePause; set => _enablePause = value; }
     public bool IsPaused => _isPaused;
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V) && _enablePause)
-        {
-            PauseOrResume();
-        }
-    }
     /// <summary>
     /// 現在の状態に応じて、ポーズまたはポーズを終了する。
     /// </summary>
