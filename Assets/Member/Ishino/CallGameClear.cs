@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CallGameOver : MonoBehaviour
+public class CallGameClear : MonoBehaviour
 {
     private TestGameManager gameManager;
 
@@ -16,7 +16,7 @@ public class CallGameOver : MonoBehaviour
     {
         if (gameManager != null)
         {
-            gameManager.TriggerGameOver();
+            gameManager.TriggerGameClear();
         }
     }
 }

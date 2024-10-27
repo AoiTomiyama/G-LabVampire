@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: "\u30AA\u30ED\u30C1"
   _maxHealth: 50000
-  _damage: 6
-  _moveSpeed: 140
+  _damage: 7
+  _moveSpeed: 200.2
   _attackSpeed: 0.5
   _expProbability: 100
   _expSize: 3

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: "\u304B\u3089\u304B\u3055\u304A\u5316\u3051"
   _maxHealth: 200
-  _damage: 2
+  _damage: 3
   _moveSpeed: 90
   _attackSpeed: 0.5
   _expProbability: 90
