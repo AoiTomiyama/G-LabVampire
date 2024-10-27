@@ -4,6 +4,6 @@ public class DestroySelf : MonoBehaviour
 {
     void OnAnimationComplete()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

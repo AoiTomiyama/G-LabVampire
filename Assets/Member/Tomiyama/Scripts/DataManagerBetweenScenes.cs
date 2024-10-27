@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataManagerBetweenScenes : SingletonMonoBehaviour<DataManagerBetweenScenes>
 {
@@ -8,4 +10,13 @@ public class DataManagerBetweenScenes : SingletonMonoBehaviour<DataManagerBetwee
     public Dictionary<string, int> WeaponsData { get => _weaponsData; set => _weaponsData = value; }
     public Dictionary<string, int> ItemsData { get => _itemsData; set => _itemsData = value; }
     public int PlayerLevelOnEnd { get => _playerLevelOnEnd; set => _playerLevelOnEnd = value; }
+    private void Start()
+    {
+        SceneManager.sceneLoaded += (scene, loadSceneMode) =>
+        {
+            Debug.Log("•Û‘¶—Ìˆæ‚ğ‰Šú‰»");
+            _weaponsData.Clear();
+            _itemsData.Clear();
+        };
+    }
 }
