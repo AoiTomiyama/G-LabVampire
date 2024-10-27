@@ -228,7 +228,6 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     /// <param name="value">‰ñ•œ—Ê</param>
     public void Heal(int value)
     {
-        Debug.Log($"‘Ì—Í‚ğ{value}‰ñ•œ");
         _currentHP = Mathf.Min(value + _currentHP, _maxHealth);
         DisplayOnUI?.Invoke(1.0f * _currentHP / _maxHealth, UpdateParameterType.Health);
     }
@@ -238,7 +237,6 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     /// <param name="damage">ƒ_ƒ[ƒW—Ê</param>
     public void RemoveHealth(int damage)
     {
-        Debug.Log($"Player Take Damage: {damage}");
         if (_currentHP + _playerDefense * _powerUpManager.CurrentDecreaseAdd - damage <= 0)
         {
             if (_playerResurrectionCount > 0)
@@ -265,6 +263,8 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     {
         if (DataManagerBetweenScenes.Instance != null)
         {
+            DataManagerBetweenScenes.Instance.WeaponsData.Clear();
+            DataManagerBetweenScenes.Instance.ItemsData.Clear();
             DataManagerBetweenScenes.Instance.PlayerLevelOnEnd = _currentLevel;
             foreach (var core in transform.GetComponentsInChildren<WeaponGenerator>())
             {
