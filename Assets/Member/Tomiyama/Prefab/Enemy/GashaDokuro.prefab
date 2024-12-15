@@ -58,7 +58,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1704893064275792816, guid: fa5a1e6ce4292a143938d301ce71a1ef, type: 3}
         m_TargetAssemblyTypeName: TestGameManager, Assembly-CSharp
-        m_MethodName: TriggerGameOver
+        m_MethodName: TriggerGameClear
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

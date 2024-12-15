@@ -261,23 +261,31 @@ public class PlayerBehaviour : MonoBehaviour, IPausable
     /// </summary>
     private void Death()
     {
-        if (DataManagerBetweenScenes.Instance != null)
-        {
-            DataManagerBetweenScenes.Instance.WeaponsData.Clear();
-            DataManagerBetweenScenes.Instance.ItemsData.Clear();
-            DataManagerBetweenScenes.Instance.PlayerLevelOnEnd = _currentLevel;
-            foreach (var core in transform.GetComponentsInChildren<WeaponGenerator>())
-            {
-                DataManagerBetweenScenes.Instance.WeaponsData[core.WeaponName] = core.Level;
-            }
-            foreach (var item in transform.GetComponentsInChildren<PowerUpItem>())
-            {
-                DataManagerBetweenScenes.Instance.ItemsData[item.ItemName] = item.ItemLevel;
-            }
-        }
+        SaveInventoryData();
         Debug.Log("Game Over");
 
         OnGameOver.Invoke();
+    }
+    /// <summary>
+    /// インベントリの情報を保存する。
+    /// </summary>
+    public void SaveInventoryData()
+    {
+        if (DataManagerBetweenScenes.Instance is var dataMgr)
+        {
+            dataMgr.WeaponsData.Clear();
+            dataMgr.ItemsData.Clear();
+            dataMgr.PlayerLevelOnEnd = _currentLevel;
+            foreach (var core in FindObjectsByType<WeaponGenerator>(FindObjectsSortMode.None))
+            {
+                dataMgr.WeaponsData[core.WeaponName] = core.Level;
+            }
+            foreach (var item in FindObjectsByType<PowerUpItem>(FindObjectsSortMode.None))
+            {
+                dataMgr.ItemsData[item.ItemName] = item.ItemLevel;
+            }
+            Debug.Log("インベントリの情報を保存しました。");
+        }
     }
     /// <summary>
     /// 武器をプレイヤーのインベントリに追加して生成。
