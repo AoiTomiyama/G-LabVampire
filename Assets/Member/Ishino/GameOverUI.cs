@@ -14,7 +14,7 @@ public class GameOverUI : MonoBehaviour
     public void DisplayGameOverInfo()
     {
         // インスタンスからデータを取得
-        var dataManager = DataManagerBetweenScenes.Instance;
+        var dataManager = FindAnyObjectByType<DataManagerBetweenScenes>();
 
         // プレイヤーレベルの表示
         playerLevelText.text = $"{dataManager.PlayerLevelOnEnd}";
@@ -35,5 +35,6 @@ public class GameOverUI : MonoBehaviour
             itemsBuilder.AppendLine($"{item.Key} Lv:{item.Value}");
         }
         itemsDataText.text = itemsBuilder.ToString();
+        Debug.Log("アイテムデータをリザルト画面に反映");
     }
 }
