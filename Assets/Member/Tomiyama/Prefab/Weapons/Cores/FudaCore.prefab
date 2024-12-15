@@ -55,11 +55,11 @@ MonoBehaviour:
   _weaponType: 2
   _weaponLevelUpStatusArray:
   - Damage: 200
-    Count: 2
+    Count: 1
     AttackSpeed: 0
     Scale: 0
   - Damage: 300
-    Count: 2
+    Count: 1
     AttackSpeed: 0
     Scale: 0
   - Damage: 400

@@ -55,14 +55,14 @@ MonoBehaviour:
   _weaponType: 1
   _weaponLevelUpStatusArray:
   - Damage: 150
-    Count: 3
+    Count: 2
     AttackSpeed: 0.1
     Scale: 0
   - Damage: 200
-    Count: 4
-    AttackSpeed: 0.2
+    Count: 2
+    AttackSpeed: 0.1
     Scale: 0
   - Damage: 300
-    Count: 5
-    AttackSpeed: 0.3
+    Count: 2
+    AttackSpeed: 0.1
     Scale: 0
