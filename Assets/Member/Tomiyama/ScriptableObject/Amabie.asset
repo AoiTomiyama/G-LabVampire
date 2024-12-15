@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Amabie
   m_EditorClassIdentifier: 
   _name: "\u3042\u307E\u3073\u3048"
-  _maxHealth: 3000
-  _damage: 2
-  _moveSpeed: 50
+  _maxHealth: 18290
+  _damage: 48
+  _moveSpeed: 75
   _attackSpeed: 0.5
-  _expProbability: 51
+  _expProbability: 85
   _expSize: 2

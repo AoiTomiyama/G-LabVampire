@@ -153,15 +153,15 @@ PrefabInstance:
       objectReference: {fileID: 1588324373}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _expLarge
-      value: 500
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _expSmall
-      value: 20
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _expMedium
-      value: 250
+      value: 173
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _healthBar
@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 1276018112}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _maxHealth
-      value: 120
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _moveSpeed
@@ -225,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[0].Speed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[1].MaxHP
@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[2].MaxHP
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[2].Speed
@@ -261,7 +261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[5].MaxHP
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[5].Speed
@@ -284,12 +284,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[8].MaxHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[8].Speed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[9].MaxHP
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[9].Speed
@@ -304,6 +308,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[11].MaxHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[11].Speed
       value: 0
       objectReference: {fileID: 0}
@@ -314,6 +322,10 @@ PrefabInstance:
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[13].Speed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[14].MaxHP
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[14].Speed
@@ -328,12 +340,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[17].MaxHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[17].Speed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[18].MaxHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[18].Speed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[19].MaxHP
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[19].Speed
@@ -341,7 +365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[1].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[20].Speed
@@ -353,7 +377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[3].Attack
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[4].Attack
@@ -361,15 +385,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[5].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[6].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[7].Attack
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[8].Attack
@@ -377,7 +401,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[9].Attack
-      value: 0
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[0].Defense
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[10].Attack
@@ -385,23 +413,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[11].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[12].Attack
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[13].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[14].Attack
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[15].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[16].Attack
@@ -409,95 +437,135 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[17].Attack
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[18].Attack
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[19].Attack
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[1].Defense
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[4].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[5].Defense
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[6].Defense
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[8].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[10].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[12].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[14].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[16].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[18].Defense
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[0].RequireExp
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[1].RequireExp
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[2].RequireExp
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[3].RequireExp
-      value: 900
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[4].RequireExp
-      value: 1100
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[5].RequireExp
-      value: 1300
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[6].RequireExp
       value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[7].RequireExp
-      value: 1700
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[8].RequireExp
-      value: 2100
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[9].RequireExp
-      value: 2300
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[10].RequireExp
+      propertyPath: _levelUpStatusUps.Array.data[2].RequireExp
       value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[11].RequireExp
-      value: 2500
+      propertyPath: _levelUpStatusUps.Array.data[3].RequireExp
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[12].RequireExp
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[13].RequireExp
-      value: 3500
-      objectReference: {fileID: 0}
-    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[14].RequireExp
+      propertyPath: _levelUpStatusUps.Array.data[4].RequireExp
       value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[15].RequireExp
-      value: 8000
+      propertyPath: _levelUpStatusUps.Array.data[5].RequireExp
+      value: 5750
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[16].RequireExp
+      propertyPath: _levelUpStatusUps.Array.data[6].RequireExp
+      value: 7250
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[7].RequireExp
+      value: 8500
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[8].RequireExp
+      value: 9000
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[9].RequireExp
       value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[17].RequireExp
-      value: 12000
+      propertyPath: _levelUpStatusUps.Array.data[10].RequireExp
+      value: 11250
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _levelUpStatusUps.Array.data[18].RequireExp
+      propertyPath: _levelUpStatusUps.Array.data[11].RequireExp
+      value: 12500
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[12].RequireExp
+      value: 13000
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[13].RequireExp
       value: 14000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[14].RequireExp
+      value: 15500
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[15].RequireExp
+      value: 17000
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[16].RequireExp
+      value: 18000
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[17].RequireExp
+      value: 19500
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _levelUpStatusUps.Array.data[18].RequireExp
+      value: 22250
+      objectReference: {fileID: 0}
+    - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[19].RequireExp
-      value: 16000
+      value: 25000
       objectReference: {fileID: 0}
     - target: {fileID: 829129259966220348, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _levelUpStatusUps.Array.data[20].RequireExp
@@ -873,19 +941,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[0]._rate
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _enemyKeepGenerates.Array.data[1]._rate
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
-      propertyPath: _enemyKeepGenerates.Array.data[2]._rate
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _enemyKeepGenerates.Array.data[1]._rate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
+      propertyPath: _enemyKeepGenerates.Array.data[2]._rate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[3]._rate
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[4]._rate
@@ -893,11 +961,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[5]._rate
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[6]._rate
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[7]._rate
@@ -905,11 +973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[8]._rate
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[9]._rate
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4523329513339179020, guid: d842f26cac1c49246a32448603ed80eb, type: 3}
       propertyPath: _enemyKeepGenerates.Array.data[10]._rate

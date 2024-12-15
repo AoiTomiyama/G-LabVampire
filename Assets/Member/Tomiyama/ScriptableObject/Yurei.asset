@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Yurei
   m_EditorClassIdentifier: 
   _name: "\u5E7D\u970A"
-  _maxHealth: 30
-  _damage: 2
-  _moveSpeed: 179
+  _maxHealth: 2550
+  _damage: 15
+  _moveSpeed: 100
   _attackSpeed: 0.5
   _expProbability: 70
   _expSize: 1

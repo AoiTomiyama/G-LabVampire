@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPierceEnemy: 1
-  _knockback: 0.3
+  _knockback: 0
 --- !u!61 &4794204809180309901
 BoxCollider2D:
   m_ObjectHideFlags: 0
